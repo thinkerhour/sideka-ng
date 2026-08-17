@@ -1,0 +1,30 @@
+#!/usr/bin/env php
+<?php
+/**
+ * SIDeKa-NG CLI Runner / Artisan Stub
+ */
+
+$command = isset($argv[1]) ? $argv[1] : 'help';
+
+if ($command === 'serve') {
+    $host = '127.0.0.1';
+    $port = '8000';
+
+    foreach ($argv as $arg) {
+        if (strpos($arg, '--host=') === 0) {
+            $host = substr($arg, 7);
+        }
+        if (strpos($arg, '--port=') === 0) {
+            $port = substr($arg, 7);
+        }
+    }
+
+    echo "INFO Server running on [http://{$host}:{$port}].\n";
+    echo "Press Ctrl+C to stop the server.\n\n";
+
+    passthru("php -S {$host}:{$port} -t public public/index.php");
+} else {
+    echo "SIDeKa-NG Artisan CLI Wireframe Runner\n";
+    echo "Available commands:\n";
+    echo "  serve    Start the development server at http://127.0.0.1:8000\n";
+}

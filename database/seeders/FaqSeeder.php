@@ -1,0 +1,2 @@
+<?php
+// Seeder Initial FAQ
