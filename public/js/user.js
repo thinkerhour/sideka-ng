@@ -3,9 +3,10 @@
  * Pure Frontend Interaction (No Backend / API calls)
  */
 document.addEventListener('DOMContentLoaded', () => {
-    // Elements
+    // Elements - Modals & Buttons
     const btnAjukan = document.getElementById('btn-ajukan-sideka');
     const navPengajuan = document.getElementById('nav-pengajuan');
+    const btnFaqAjukan = document.getElementById('btn-faq-ajukan');
     const btnNextToForm = document.getElementById('btn-next-to-form');
     const btnSubmitForm = document.getElementById('btn-submit-form');
     const btnOkKonfirmasi = document.getElementById('btn-ok-konfirmasi');
@@ -47,6 +48,13 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    if (btnFaqAjukan) {
+        btnFaqAjukan.addEventListener('click', (e) => {
+            e.preventDefault();
+            openModal(modalPersyaratan);
+        });
+    }
+
     // 2. Click "SELANJUTNYA" in Modal Persyaratan -> Open Modal Form Pengajuan
     if (btnNextToForm) {
         btnNextToForm.addEventListener('click', (e) => {
@@ -80,17 +88,19 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     allModals.forEach(modal => {
-        modal.addEventListener('click', (e) => {
-            if (e.target === modal) {
-                closeAllModals();
-            }
-        });
+        if (modal) {
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    closeAllModals();
+                }
+            });
+        }
     });
 
     // File Upload Display Handler
     const fileInputs = document.querySelectorAll('.file-input');
     fileInputs.forEach(input => {
-        input.addEventListener('change', (e) => {
+        input.addEventListener('change', () => {
             const wrapper = input.closest('.file-input-wrapper');
             const display = wrapper ? wrapper.querySelector('.file-name-display') : null;
             if (display) {
@@ -114,4 +124,32 @@ document.addEventListener('DOMContentLoaded', () => {
             alert('Placeholder: Template Surat Kuasa akan diunduh.');
         });
     }
+
+    // FAQ Custom Dropdown Menu Toggle (Landing Page)
+    const faqCustomSelect = document.getElementById('faq-custom-select');
+    const faqDropdownMenu = document.getElementById('faq-dropdown-menu');
+
+    if (faqCustomSelect && faqDropdownMenu) {
+        faqCustomSelect.addEventListener('click', (e) => {
+            e.stopPropagation();
+            faqCustomSelect.classList.toggle('active');
+            faqDropdownMenu.classList.toggle('show');
+        });
+
+        document.addEventListener('click', () => {
+            faqCustomSelect.classList.remove('active');
+            faqDropdownMenu.classList.remove('show');
+        });
+    }
+
+    // Accordion Toggle (FAQ Detail Page)
+    const accordionTriggers = document.querySelectorAll('.accordion-trigger');
+    accordionTriggers.forEach(trigger => {
+        trigger.addEventListener('click', () => {
+            const item = trigger.closest('.accordion-item');
+            if (item) {
+                item.classList.toggle('active');
+            }
+        });
+    });
 });

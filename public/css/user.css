@@ -16,6 +16,7 @@ html {
     --primary-blue-hover: #1d4ed8;
     --navy-dark: #0a1428;
     --navy-header: #0f1c34;
+    --navy-card: #0a1236;
     --text-dark: #1e293b;
     --text-muted: #64748b;
     --text-light: #f8fafc;
@@ -264,8 +265,6 @@ body {
     border-collapse: collapse;
     font-size: 14px;
     background: #ffffff;
-
-    /* Cell layout borders */
     border: 1px solid #cbd5e1;
 }
 
@@ -351,6 +350,322 @@ body {
 
 .btn-next-page:hover {
     background-color: #1e293b;
+}
+
+/* ================================================== */
+/* SECTION FAQ LANDING PAGE (1920x523 RATIO SECTION)  */
+/* ================================================== */
+.faq-landing-section {
+    position: relative;
+    z-index: 5;
+    padding: 80px 0 100px 0;
+    background-color: #040a16;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.faq-landing-card {
+    background: linear-gradient(135deg, rgba(10, 18, 54, 0.95) 0%, rgba(13, 27, 78, 0.9) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: var(--radius-lg);
+    padding: 50px 40px;
+    text-align: center;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.35);
+    position: relative;
+    overflow: hidden;
+}
+
+.faq-header-group {
+    max-width: 700px;
+    margin: 0 auto 36px auto;
+}
+
+.faq-title {
+    font-size: 44px;
+    font-weight: 700;
+    color: #ffffff;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+    font-family: 'Times New Roman', serif, var(--font-family);
+}
+
+.faq-icon-group {
+    color: #60a5fa;
+    display: inline-flex;
+}
+
+.faq-subtitle-text {
+    font-size: 14px;
+    color: #cbd5e1;
+    line-height: 1.6;
+}
+
+/* Custom Dropdown Selection */
+.faq-dropdown-wrapper {
+    position: relative;
+    max-width: 680px;
+    margin: 0 auto 28px auto;
+    text-align: left;
+}
+
+.faq-custom-select {
+    background-color: #050b28;
+    border: 1px solid #1e3a8a;
+    border-radius: 50px;
+    padding: 14px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+}
+
+.faq-custom-select:hover {
+    border-color: #3b82f6;
+    background-color: #071038;
+}
+
+.faq-select-label {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.faq-select-arrow {
+    color: #60a5fa;
+    transition: transform 0.2s ease;
+}
+
+.faq-custom-select.active .faq-select-arrow {
+    transform: rotate(180deg);
+}
+
+.faq-dropdown-menu {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    width: 100%;
+    background-color: #050c2a;
+    border: 1px solid #1e3a8a;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+    z-index: 20;
+    display: none;
+}
+
+.faq-dropdown-menu.show {
+    display: block;
+}
+
+.faq-dropdown-item {
+    display: block;
+    padding: 14px 24px;
+    color: #cbd5e1;
+    text-decoration: none;
+    font-size: 13.5px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    transition: background 0.15s ease, color 0.15s ease;
+}
+
+.faq-dropdown-item:last-child {
+    border-bottom: none;
+}
+
+.faq-dropdown-item:hover {
+    background-color: #1e3a8a;
+    color: #ffffff;
+}
+
+.faq-cta-wrapper {
+    margin-top: 12px;
+}
+
+.btn-faq-cta {
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    color: #ffffff;
+    border-radius: 50px;
+    padding: 10px 28px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-faq-cta:hover {
+    background: rgba(255, 255, 255, 0.22);
+    border-color: #ffffff;
+}
+
+/* ================================================== */
+/* HALAMAN DETAIL FAQ                                 */
+/* ================================================== */
+.faq-detail-section {
+    position: relative;
+    z-index: 5;
+    padding: 60px 0 100px 0;
+    min-height: 80vh;
+}
+
+.faq-detail-card {
+    background: linear-gradient(135deg, #091338 0%, #0d1b4e 100%);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: var(--radius-lg);
+    padding: 48px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+.faq-detail-grid {
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    gap: 40px;
+    align-items: start;
+}
+
+.faq-detail-title {
+    font-size: 38px;
+    font-weight: 700;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 24px;
+    font-family: 'Times New Roman', serif, var(--font-family);
+}
+
+.faq-question-badge {
+    background: rgba(255, 255, 255, 0.15);
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+}
+
+.selected-question-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 16px;
+    line-height: 1.4;
+}
+
+.selected-answer-body {
+    color: #cbd5e1;
+    font-size: 14px;
+    line-height: 1.7;
+    margin-bottom: 36px;
+    padding-bottom: 28px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.other-questions-container {
+    margin-bottom: 36px;
+}
+
+.other-questions-heading {
+    font-size: 14px;
+    font-weight: 600;
+    color: #94a3b8;
+    margin-bottom: 14px;
+}
+
+.accordion-item {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    margin-bottom: 8px;
+}
+
+.accordion-trigger {
+    width: 100%;
+    background: none;
+    border: none;
+    padding: 12px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: #e2e8f0;
+    font-size: 14px;
+    font-weight: 500;
+    text-align: left;
+    cursor: pointer;
+    font-family: inherit;
+    transition: color 0.2s ease;
+}
+
+.accordion-trigger:hover {
+    color: #60a5fa;
+}
+
+.accordion-content {
+    display: none;
+    padding: 0 0 14px 0;
+    color: #94a3b8;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.accordion-item.active .accordion-content {
+    display: block;
+}
+
+.accordion-item.active .accordion-arrow {
+    transform: rotate(180deg);
+}
+
+.faq-back-wrapper {
+    margin-top: 20px;
+}
+
+.btn-back {
+    background: #101c48;
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50px;
+    padding: 10px 24px;
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.btn-back:hover {
+    background: #1e293b;
+    border-color: #ffffff;
+}
+
+.faq-detail-illustration {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+.illustration-placeholder {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1.5px dashed rgba(255, 255, 255, 0.15);
+    border-radius: var(--radius-lg);
+    padding: 40px 20px;
+    text-align: center;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
+
+.illustration-caption {
+    font-size: 12px;
+    color: #64748b;
 }
 
 /* ================================================== */
@@ -720,6 +1035,15 @@ body {
 /* ================================================== */
 /* RESPONSIVE DESIGN (TABLET & MOBILE)                */
 /* ================================================== */
+@media (max-width: 868px) {
+    .faq-detail-grid {
+        grid-template-columns: 1fr;
+    }
+    .faq-detail-illustration {
+        display: none;
+    }
+}
+
 @media (max-width: 768px) {
     .navbar-container {
         flex-direction: column;
@@ -735,15 +1059,19 @@ body {
         grid-template-columns: 1fr;
     }
 
-    .domain-section {
+    .domain-section,
+    .faq-landing-section {
         padding: 60px 0;
     }
 
-    .section-title {
+    .section-title,
+    .faq-title {
         font-size: 26px;
     }
 
-    .modal-card {
+    .modal-card,
+    .faq-detail-card {
         margin: 10px;
+        padding: 24px;
     }
 }

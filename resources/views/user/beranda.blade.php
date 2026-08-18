@@ -164,6 +164,56 @@
         </div>
     </section>
 
+    <!-- ================================================== -->
+    <!-- SECTION FAQ LANDING PAGE                           -->
+    <!-- ================================================== -->
+    <section class="faq-landing-section" id="faq">
+        <div class="container">
+            <div class="faq-landing-card">
+                <!-- FAQ Header Title & Icon -->
+                <div class="faq-header-group">
+                    <h2 class="faq-title">
+                        FAQ
+                        <span class="faq-icon-group">
+                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="9" cy="7" r="4"></circle>
+                                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                            </svg>
+                        </span>
+                    </h2>
+                    <p class="faq-subtitle-text">
+                        Masih memiliki pertanyaan? Pilih salah satu pertanyaan berikut untuk mengetahui informasi seputar layanan pengajuan domain desa.id
+                    </p>
+                </div>
+
+                <!-- Dropdown Daftar Pertanyaan (NOT answers) -->
+                <div class="faq-dropdown-wrapper">
+                    <div class="faq-custom-select" id="faq-custom-select">
+                        <span class="faq-select-label" id="faq-select-label">Pilih Topik Pertanyaan...</span>
+                        <svg class="faq-select-arrow" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M7 10l5 5 5-5z"/>
+                        </svg>
+                    </div>
+                    <div class="faq-dropdown-menu" id="faq-dropdown-menu">
+                        <a href="/faq/1" class="faq-dropdown-item">Di mana saya bisa mengunduh template Surat Kuasa?</a>
+                        <a href="/faq/2" class="faq-dropdown-item">Berapa lama estimasi proses kerja pengajuan domain?</a>
+                        <a href="/faq/3" class="faq-dropdown-item">Berapa biaya pengajuan domain?</a>
+                        <a href="/faq/4" class="faq-dropdown-item">Dokumen apa saja yang wajib diunggah?</a>
+                    </div>
+                </div>
+
+                <!-- CTA Button Ajukan Sekarang -->
+                <div class="faq-cta-wrapper">
+                    <button class="btn btn-faq-cta" id="btn-faq-ajukan">
+                        Ajukan Sekarang &rsaquo;
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- FOOTER SIMPLE WIREFRAME -->
     <footer class="footer">
         <div class="container">

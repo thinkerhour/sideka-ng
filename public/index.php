@@ -1,7 +1,7 @@
 <?php
 /**
  * SIDeKa-NG Web Entry Point
- * Renders Frontend Wireframe Blade View
+ * Renders Frontend Wireframe Blade Views (Beranda & FAQ Detail)
  */
 
 $uri = urldecode(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
@@ -16,9 +16,15 @@ function asset($path) {
     return '/' . ltrim($path, '/');
 }
 
-// Read Blade View Template
+// Determine view template based on URI route
+if (strpos($uri, '/faq') === 0) {
+    $viewPath = __DIR__ . '/../resources/views/user/faq/show.blade.php';
+} else {
+    $viewPath = __DIR__ . '/../resources/views/user/beranda.blade.php';
+}
+
 $layoutContent = file_get_contents(__DIR__ . '/../resources/views/layouts/app.blade.php');
-$viewContent = file_get_contents(__DIR__ . '/../resources/views/user/beranda.blade.php');
+$viewContent = file_get_contents($viewPath);
 
 // Extract @section('content') ... @endsection
 preg_match('/@section\(\'content\'\)(.*?)@endsection/s', $viewContent, $matches);
