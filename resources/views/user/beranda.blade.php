@@ -49,7 +49,6 @@
                     Ajukan permohonan layanan dan pantau proses pengajuan website desa melalui layanan SIDeKa-NG.
                 </p>
                 <div class="hero-cta">
-                    <!-- CTA BUTTON RESTORED TO ROUND PILL SHAPE -->
                     <button class="btn-ajukan-round" id="btn-ajukan-sideka">
                         Ajukan SIDeKa-NG &rarr;
                     </button>
@@ -63,7 +62,6 @@
     <!-- ================================================== -->
     <section class="domain-section" id="domain-terdaftar">
         <div class="container">
-            <!-- Section Header -->
             <div class="section-header">
                 <h2 class="section-title">Domain Terdaftar</h2>
                 <p class="section-subtitle-text">
@@ -71,7 +69,6 @@
                 </p>
             </div>
 
-            <!-- Wireframe Search Bar -->
             <div class="search-bar-wireframe">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <circle cx="11" cy="11" r="8"></circle>
@@ -80,7 +77,6 @@
                 <input type="text" placeholder="Cari domain atau nama desa..." readonly class="search-input-wireframe">
             </div>
 
-            <!-- Table Responsive Wrapper -->
             <div class="table-responsive">
                 <table class="domain-table">
                     <thead>
@@ -156,7 +152,6 @@
                 </table>
             </div>
 
-            <!-- Table Footer / Action (Selanjutnya Button) -->
             <div class="table-footer-action">
                 <button class="btn btn-secondary-action btn-next-page" type="button">
                     Selanjutnya &rarr;
@@ -166,12 +161,11 @@
     </section>
 
     <!-- ================================================== -->
-    <!-- SECTION FAQ LANDING PAGE                           -->
+    <!-- SECTION FAQ LANDING PAGE (UPDATED WITH SEARCH INPUT) -->
     <!-- ================================================== -->
     <section class="faq-landing-section" id="faq">
         <div class="container">
             <div class="faq-landing-card">
-                <!-- FAQ Header Title & Icon -->
                 <div class="faq-header-group">
                     <h2 class="faq-title">
                         FAQ
@@ -185,27 +179,35 @@
                         </span>
                     </h2>
                     <p class="faq-subtitle-text">
-                        Masih memiliki pertanyaan? Pilih salah satu pertanyaan berikut untuk mengetahui informasi seputar layanan pengajuan domain desa.id
+                        Masih memiliki pertanyaan? Ketik pertanyaan Anda di bawah ini untuk mencari jawaban seputar layanan SIDeKa-NG.
                     </p>
                 </div>
 
-                <!-- Dropdown Daftar Pertanyaan (NOT answers) -->
-                <div class="faq-dropdown-wrapper">
-                    <div class="faq-custom-select" id="faq-custom-select">
-                        <span class="faq-select-label" id="faq-select-label">Pilih Topik Pertanyaan...</span>
-                        <svg class="faq-select-arrow" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M7 10l5 5 5-5z"/>
+                <!-- FAQ Search Input and Auto-preview Dropdown -->
+                <div class="faq-search-wrapper">
+                    <div class="faq-search-bar">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="faq-search-icon">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
                         </svg>
+                        <input type="text" id="faq-search-input" placeholder="Ketik kata kunci pertanyaan... (Contoh: gratis, biaya, apa itu)" class="faq-search-input-field" autocomplete="off">
+                        <button type="button" class="btn-faq-search-submit" id="btn-faq-search-submit">Cari</button>
                     </div>
-                    <div class="faq-dropdown-menu" id="faq-dropdown-menu">
-                        <a href="/faq/1" class="faq-dropdown-item">Di mana saya bisa mengunduh template Surat Kuasa?</a>
-                        <a href="/faq/2" class="faq-dropdown-item">Berapa lama estimasi proses kerja pengajuan domain?</a>
-                        <a href="/faq/3" class="faq-dropdown-item">Berapa biaya pengajuan domain?</a>
-                        <a href="/faq/4" class="faq-dropdown-item">Dokumen apa saja yang wajib diunggah?</a>
+
+                    <!-- Autocomplete dropdown suggestions -->
+                    <div class="faq-preview-dropdown" id="faq-preview-dropdown">
+                        <!-- Populated dynamically via JS -->
                     </div>
                 </div>
 
-                <!-- CTA Button Ajukan Sekarang -->
+                <!-- Answer Container -->
+                <div class="faq-answer-container" id="faq-answer-container" style="display: none;">
+                    <div class="faq-answer-card">
+                        <h4 class="faq-answer-question" id="faq-answer-question">Apakah mendaftar SIDEKA-NG gratis?</h4>
+                        <p class="faq-answer-text" id="faq-answer-text">Ya, Pendaftaran SIDEKA-NG gratis untuk tahun pertama gratis, tahun kedua dan seterusnya berbayar hanya untuk domain desa.id saja.</p>
+                    </div>
+                </div>
+
                 <div class="faq-cta-wrapper">
                     <button class="btn btn-faq-cta" id="btn-faq-ajukan">
                         Ajukan Sekarang &rsaquo;
@@ -221,7 +223,6 @@
     <section class="cek-status-section" id="cek-status">
         <div class="container">
             <div class="cek-status-grid">
-                <!-- Left Web Graphic Illustration -->
                 <div class="cek-status-illustration">
                     <div class="graphic-window-box">
                         <div class="window-header-dots">
@@ -238,14 +239,12 @@
                     </div>
                 </div>
 
-                <!-- Right Content & Search Box -->
                 <div class="cek-status-content">
                     <h2 class="cek-status-title">Cek Status</h2>
                     <p class="cek-status-subtitle">
                         Cek status berkas dan domain yang sudah diajukan. Belum mengajukan? <a href="#ajukan" id="link-cek-status-ajukan" style="color: #ffffff; text-decoration: underline;">Ajukan sekarang.</a>
                     </p>
 
-                    <!-- Search Form -->
                     <form class="cek-status-search-box" id="form-cek-status" onsubmit="return false;">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2">
                             <circle cx="11" cy="11" r="8"></circle>
@@ -255,7 +254,6 @@
                         <button type="submit" class="btn-search-trigger" id="btn-search-status">Cari</button>
                     </form>
 
-                    <!-- Demo hints with explicit IDs -->
                     <div class="search-demo-hints">
                         <span>Coba ketik data mock:</span>
                         <button type="button" class="hint-badge hint-yellow" id="btn-mock-wangunsari">Wangunsari (Diproses)</button>
@@ -273,7 +271,6 @@
     <footer class="footer-kbb">
         <div class="container">
             <div class="footer-grid">
-                <!-- Column 1: Kontak Kami & Map -->
                 <div class="footer-col">
                     <h4 class="footer-col-title">KONTAK KAMI:</h4>
                     <div class="footer-address">
@@ -294,7 +291,6 @@
                     </div>
                 </div>
 
-                <!-- Column 2: Online Contacts & Social -->
                 <div class="footer-col">
                     <ul class="footer-contact-list">
                         <li>
@@ -313,7 +309,6 @@
                     </div>
                 </div>
 
-                <!-- Column 3: Quick Navigation -->
                 <div class="footer-col">
                     <ul class="footer-nav-list">
                         <li><a href="#top">&rsaquo; Beranda</a></li>
@@ -323,7 +318,6 @@
                     </ul>
                 </div>
 
-                <!-- Column 4: Logo -->
                 <div class="footer-col footer-col-logo">
                     <div class="footer-logo-badge">
                         <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="2">
@@ -335,7 +329,6 @@
                 </div>
             </div>
 
-            <!-- Bottom Copyright -->
             <div class="footer-bottom-bar">
                 <p>&copy; 2026 Diskominfo - Portal Layanan Domain Desa Resmi (.desa.id)</p>
             </div>
@@ -584,7 +577,7 @@
                         <h4 class="docs-list-title">DAFTAR 4 BERKAS YANG TELAH DIUNGGAH:</h4>
                         <div class="doc-file-item">
                             <div class="doc-file-info">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path></svg>
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2-2V8z"></path></svg>
                                 <span class="doc-label">Surat Permohonan Fasilitasi Domain</span>
                             </div>
                             <span class="doc-filename">Surat_Permohonan_Wangunsari.pdf</span>

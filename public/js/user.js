@@ -167,7 +167,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // FAQ Custom Dropdown Menu Toggle (Landing Page)
+    // FAQ Custom Dropdown Menu Toggle (Landing Page) — legacy, no-op if elements removed
     const faqCustomSelect = document.getElementById('faq-custom-select');
     const faqDropdownMenu = document.getElementById('faq-dropdown-menu');
 
@@ -181,6 +181,119 @@ document.addEventListener('DOMContentLoaded', () => {
         document.addEventListener('click', () => {
             faqCustomSelect.classList.remove('active');
             faqDropdownMenu.classList.remove('show');
+        });
+    }
+
+    // ================================================
+    // FAQ SEARCH WITH SUGGESTED SEARCH (Landing Page)
+    // ================================================
+    const faqSearchInput = document.getElementById('faq-search-input');
+    const faqPreviewDropdown = document.getElementById('faq-preview-dropdown');
+    const faqAnswerContainer = document.getElementById('faq-answer-container');
+    const faqAnswerQuestion = document.getElementById('faq-answer-question');
+    const faqAnswerText = document.getElementById('faq-answer-text');
+    const btnFaqSearchSubmit = document.getElementById('btn-faq-search-submit');
+
+    const faqData = [
+        {
+            q: "Apa itu SIDEKA-NG?",
+            a: "Sideka-NG (Sistem Informasi Desa dan Kawasan-New Generation) adalah aplikasi umum buatan pemerintah Indonesia yang dikelola untuk mendukung layanan publik dan administrasi di tingkat desa atau kelurahan."
+        },
+        {
+            q: "Apakah mendaftar SIDEKA-NG sama dengan Website Desa?",
+            a: "Ya betul SIDEKA-NG Adalah Website Desa dan Layanan Desa"
+        },
+        {
+            q: "Apakah mendaftar SIDEKA-NG gratis?",
+            a: "Ya, Pendaftaran SIDEKA-NG gratis untuk tahun pertama gratis, tahun kedua dan seterusnya berbayar hanya untuk domain desa.id saja."
+        },
+        {
+            q: "Berapa biayanya?",
+            a: "Biaya untuk perpanjang domain desa.id sebesar 50.000,- + PPn"
+        }
+    ];
+
+    function faqSearchFilter(query) {
+        if (!query) return [];
+        const q = query.toLowerCase();
+        return faqData.filter(item =>
+            item.q.toLowerCase().includes(q) || item.a.toLowerCase().includes(q)
+        );
+    }
+
+    function renderFaqSuggestions(matches) {
+        faqPreviewDropdown.innerHTML = '';
+        if (matches.length === 0) {
+            faqPreviewDropdown.innerHTML = '<div class="faq-no-result">Tidak ada pertanyaan yang cocok.</div>';
+            faqPreviewDropdown.classList.add('show');
+            return;
+        }
+        matches.forEach(item => {
+            const div = document.createElement('div');
+            div.className = 'faq-suggestion-item';
+            div.innerHTML = '<svg class="faq-suggestion-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg><span>' + item.q + '</span>';
+            div.addEventListener('click', () => showFaqAnswer(item));
+            faqPreviewDropdown.appendChild(div);
+        });
+        faqPreviewDropdown.classList.add('show');
+    }
+
+    function showFaqAnswer(item) {
+        faqAnswerQuestion.textContent = item.q;
+        faqAnswerText.textContent = item.a;
+        faqAnswerContainer.style.display = 'block';
+        faqPreviewDropdown.classList.remove('show');
+        faqSearchInput.value = item.q;
+    }
+
+    function hideFaqSuggestions() {
+        faqPreviewDropdown.classList.remove('show');
+    }
+
+    if (faqSearchInput && faqPreviewDropdown && faqAnswerContainer) {
+        // On input: show suggestions
+        faqSearchInput.addEventListener('input', () => {
+            const query = faqSearchInput.value.trim();
+            if (!query) {
+                hideFaqSuggestions();
+                faqAnswerContainer.style.display = 'none';
+                return;
+            }
+            const matches = faqSearchFilter(query);
+            renderFaqSuggestions(matches);
+        });
+
+        // On Enter key: select first match
+        faqSearchInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                const query = faqSearchInput.value.trim();
+                const matches = faqSearchFilter(query);
+                if (matches.length > 0) {
+                    showFaqAnswer(matches[0]);
+                }
+            }
+        });
+
+        // On Cari button click: select first match
+        if (btnFaqSearchSubmit) {
+            btnFaqSearchSubmit.addEventListener('click', () => {
+                const query = faqSearchInput.value.trim();
+                const matches = faqSearchFilter(query);
+                if (matches.length > 0) {
+                    showFaqAnswer(matches[0]);
+                } else if (query) {
+                    faqAnswerContainer.style.display = 'none';
+                    renderFaqSuggestions([]);
+                }
+            });
+        }
+
+        // Click outside closes suggestions
+        document.addEventListener('click', (e) => {
+            if (!faqSearchInput.contains(e.target) && !faqPreviewDropdown.contains(e.target) && (!btnFaqSearchSubmit || !btnFaqSearchSubmit.contains(e.target))) {
+                hideFaqSuggestions();
+            }
         });
     }
 
