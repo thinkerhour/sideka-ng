@@ -536,7 +536,7 @@ body {
 }
 
 /* ================================================== */
-/* HALAMAN DETAIL FAQ (/faq/1) - PRECISE TARGET DESIGN*/
+/* HALAMAN DETAIL FAQ (/faq/1)                        */
 /* ================================================== */
 .faq-detail-section {
     padding: 60px 0 100px 0;
@@ -824,7 +824,7 @@ body {
 .hint-green { background: #bbf7d0; color: #166534; }
 
 /* ================================================== */
-/* MODAL BACKDROP & OVERLAY FIX                       */
+/* MODAL BACKDROP & OVERLAY                           */
 /* ================================================== */
 .modal-backdrop {
     position: fixed;
@@ -862,6 +862,15 @@ body {
     transition: transform 0.25s ease;
     max-height: 90vh;
     overflow-y: auto;
+    /* HIDE VISIBLE SCROLLBAR TRACK WHILE KEEPING SCROLL FUNCTIONALITY */
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.modal-card::-webkit-scrollbar {
+    display: none;
+    width: 0;
+    height: 0;
 }
 
 .modal-card-large {
@@ -878,7 +887,7 @@ body {
 }
 
 /* ================================================== */
-/* POPUP STATUS CARDS                                 */
+/* POPUP STATUS CARDS - HIDDEN SCROLLBAR TRACK FIX    */
 /* ================================================== */
 .status-popup-card {
     background: #ffffff;
@@ -891,6 +900,15 @@ body {
     transition: transform 0.25s ease;
     max-height: 90vh;
     overflow-y: auto;
+    /* HIDE VISIBLE SCROLLBAR TRACK WHILE KEEPING SCROLL FUNCTIONALITY */
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.status-popup-card::-webkit-scrollbar {
+    display: none;
+    width: 0;
+    height: 0;
 }
 
 .status-popup-header {
