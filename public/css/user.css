@@ -7,6 +7,10 @@
     box-sizing: border-box;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 :root {
     --primary-blue: #2563eb;
     --primary-blue-hover: #1d4ed8;
@@ -44,7 +48,7 @@ body {
 
 .container {
     width: 100%;
-    max-width: 1200px;
+    max-width: 1100px;
     margin: 0 auto;
     padding: 0 24px;
 }
@@ -188,6 +192,168 @@ body {
 }
 
 /* ================================================== */
+/* SECTION DOMAIN TERDAFTAR                           */
+/* ================================================== */
+.domain-section {
+    position: relative;
+    z-index: 5;
+    padding: 90px 0 100px 0;
+    background-color: #060e1d;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 32px;
+}
+
+.section-title {
+    font-size: 34px;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 10px;
+    letter-spacing: -0.5px;
+}
+
+.section-subtitle-text {
+    font-size: 15px;
+    color: #94a3b8;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.search-bar-wireframe {
+    max-width: 640px;
+    margin: 0 auto 36px auto;
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50px;
+    padding: 12px 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #64748b;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.search-input-wireframe {
+    width: 100%;
+    border: none;
+    background: transparent;
+    outline: none;
+    font-family: inherit;
+    font-size: 14px;
+    color: #1e293b;
+}
+
+.search-input-wireframe::placeholder {
+    color: #94a3b8;
+}
+
+.table-responsive {
+    width: 100%;
+    overflow-x: auto;
+    border-radius: var(--radius-md);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: #ffffff;
+}
+
+.domain-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    background: #ffffff;
+
+    /* Cell layout borders */
+    border: 1px solid #cbd5e1;
+}
+
+.domain-table th,
+.domain-table td {
+    border: 1px solid #e2e8f0;
+}
+
+.domain-table thead {
+    background-color: #0b1329;
+    color: #ffffff;
+}
+
+.domain-table th {
+    padding: 16px 20px;
+    font-weight: 600;
+    font-size: 13px;
+    text-align: left;
+    letter-spacing: 0.3px;
+}
+
+.domain-table th.col-no {
+    width: 60px;
+    text-align: center;
+}
+
+.domain-table th.col-desa {
+    width: 28%;
+}
+
+.domain-table th.col-kecamatan {
+    width: 28%;
+}
+
+.domain-table th.col-domain {
+    width: 38%;
+}
+
+.domain-table tbody tr {
+    transition: background-color 0.15s ease;
+}
+
+.domain-table tbody tr:nth-child(even) {
+    background-color: #f8fafc;
+}
+
+.domain-table tbody tr:hover {
+    background-color: #f1f5f9;
+}
+
+.domain-table td {
+    padding: 14px 20px;
+    color: var(--text-dark);
+}
+
+.domain-cell {
+    font-style: italic;
+    color: #2563eb;
+    font-weight: 500;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.table-footer-action {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 24px;
+}
+
+.btn-next-page {
+    background-color: #0f1c34;
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: var(--radius-sm);
+    padding: 10px 24px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.btn-next-page:hover {
+    background-color: #1e293b;
+}
+
+/* ================================================== */
 /* BUTTONS                                            */
 /* ================================================== */
 .btn {
@@ -261,6 +427,7 @@ body {
     text-align: center;
     color: #64748b;
     font-size: 13px;
+    background: #040914;
 }
 
 /* ================================================== */
@@ -566,6 +733,14 @@ body {
     .requirements-grid,
     .upload-grid {
         grid-template-columns: 1fr;
+    }
+
+    .domain-section {
+        padding: 60px 0;
+    }
+
+    .section-title {
+        font-size: 26px;
     }
 
     .modal-card {

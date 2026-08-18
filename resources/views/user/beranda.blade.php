@@ -23,7 +23,7 @@
             </div>
 
             <nav class="nav-links">
-                <a href="#daftar-domain" class="nav-item">Daftar Domain</a>
+                <a href="#domain-terdaftar" class="nav-item">Daftar Domain</a>
                 <a href="#pengajuan" class="nav-item" id="nav-pengajuan">Pengajuan</a>
                 <a href="#cek-status" class="nav-item">Cek Status</a>
                 <a href="#faq" class="nav-item nav-pill">
@@ -56,6 +56,113 @@
             </div>
         </div>
     </main>
+
+    <!-- ================================================== -->
+    <!-- SECTION DOMAIN TERDAFTAR                           -->
+    <!-- ================================================== -->
+    <section class="domain-section" id="domain-terdaftar">
+        <div class="container">
+            <!-- Section Header -->
+            <div class="section-header">
+                <h2 class="section-title">Domain Terdaftar</h2>
+                <p class="section-subtitle-text">
+                    Daftar domain desa yang telah terdaftar melalui layanan SIDeKa-NG.
+                </p>
+            </div>
+
+            <!-- Wireframe Search Bar -->
+            <div class="search-bar-wireframe">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+                <input type="text" placeholder="Cari domain atau nama desa..." readonly class="search-input-wireframe">
+            </div>
+
+            <!-- Table Responsive Wrapper -->
+            <div class="table-responsive">
+                <table class="domain-table">
+                    <thead>
+                        <tr>
+                            <th class="col-no">No</th>
+                            <th class="col-desa">Nama Desa</th>
+                            <th class="col-kecamatan">Kecamatan</th>
+                            <th class="col-domain">Nama Domain Desa</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="text-center">1</td>
+                            <td>Wangunsari</td>
+                            <td>Sindangkerta</td>
+                            <td class="domain-cell">wangunsari-sindangkerta.desa.id</td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">2</td>
+                            <td>Rancasenggang</td>
+                            <td>Sindangkerta</td>
+                            <td class="domain-cell">rancasenggang-sindangkerta.desa.id</td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">3</td>
+                            <td>Buninagara</td>
+                            <td>Sindangkerta</td>
+                            <td class="domain-cell">buninagara-sindangkerta.desa.id</td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">4</td>
+                            <td>Cibedug</td>
+                            <td>Rongga</td>
+                            <td class="domain-cell">cibedug.desa.id</td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">5</td>
+                            <td>Padalarang</td>
+                            <td>Padalarang</td>
+                            <td class="domain-cell">padalarang-padalarang.desa.id</td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">6</td>
+                            <td>Pakuhaji</td>
+                            <td>Ngamprah</td>
+                            <td class="domain-cell">pakuhaji-kbb.desa.id</td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">7</td>
+                            <td>Mekarsari</td>
+                            <td>Ngamprah</td>
+                            <td class="domain-cell">mekarsari-ngamprah.desa.id</td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">8</td>
+                            <td>Lembang</td>
+                            <td>Lembang</td>
+                            <td class="domain-cell">lembang.desa.id</td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">9</td>
+                            <td>Cihanjuang</td>
+                            <td>Parongpong</td>
+                            <td class="domain-cell">cihanjuang.desa.id</td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">10</td>
+                            <td>Batujajar Barat</td>
+                            <td>Batujajar</td>
+                            <td class="domain-cell">batujajarbarat.desa.id</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Table Footer / Action (Selanjutnya Button) -->
+            <div class="table-footer-action">
+                <button class="btn btn-secondary-action btn-next-page" type="button">
+                    Selanjutnya &rarr;
+                </button>
+            </div>
+        </div>
+    </section>
 
     <!-- FOOTER SIMPLE WIREFRAME -->
     <footer class="footer">
