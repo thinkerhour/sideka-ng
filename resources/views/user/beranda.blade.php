@@ -49,7 +49,8 @@
                     Ajukan permohonan layanan dan pantau proses pengajuan website desa melalui layanan SIDeKa-NG.
                 </p>
                 <div class="hero-cta">
-                    <button class="btn btn-primary" id="btn-ajukan-sideka">
+                    <!-- CTA BUTTON RESTORED TO ROUND PILL SHAPE -->
+                    <button class="btn-ajukan-round" id="btn-ajukan-sideka">
                         Ajukan SIDeKa-NG &rarr;
                     </button>
                 </div>
@@ -214,20 +215,139 @@
         </div>
     </section>
 
-    <!-- FOOTER SIMPLE WIREFRAME -->
-    <footer class="footer">
+    <!-- ================================================== -->
+    <!-- SECTION CEK STATUS                                 -->
+    <!-- ================================================== -->
+    <section class="cek-status-section" id="cek-status">
         <div class="container">
-            <p>&copy; 2026 Diskominfotik Kabupaten Bandung Barat - Layanan SIDeKa-NG</p>
+            <div class="cek-status-grid">
+                <!-- Left Web Graphic Illustration -->
+                <div class="cek-status-illustration">
+                    <div class="graphic-window-box">
+                        <div class="window-header-dots">
+                            <span></span><span></span><span></span>
+                        </div>
+                        <div class="window-content-inner">
+                            <svg width="120" height="90" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="1.5">
+                                <rect x="2" y="3" width="20" height="14" rx="2"></rect>
+                                <line x1="8" y1="21" x2="16" y2="21"></line>
+                                <line x1="12" y1="17" x2="12" y2="21"></line>
+                                <polygon points="10 8 16 11 10 14 10 8" fill="#60a5fa"></polygon>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Content & Search Box -->
+                <div class="cek-status-content">
+                    <h2 class="cek-status-title">Cek Status</h2>
+                    <p class="cek-status-subtitle">
+                        Cek status berkas dan domain yang sudah diajukan. Belum mengajukan? <a href="#ajukan" id="link-cek-status-ajukan" style="color: #ffffff; text-decoration: underline;">Ajukan sekarang.</a>
+                    </p>
+
+                    <!-- Search Form -->
+                    <form class="cek-status-search-box" id="form-cek-status" onsubmit="return false;">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                        </svg>
+                        <input type="text" id="input-search-desa" placeholder="Nama Domain atau Nama Desa..." class="cek-status-input">
+                        <button type="submit" class="btn-search-trigger" id="btn-search-status">Cari</button>
+                    </form>
+
+                    <!-- Demo hints with explicit IDs -->
+                    <div class="search-demo-hints">
+                        <span>Coba ketik data mock:</span>
+                        <button type="button" class="hint-badge hint-yellow" id="btn-mock-wangunsari">Wangunsari (Diproses)</button>
+                        <button type="button" class="hint-badge hint-red" id="btn-mock-pasirhalang">Pasirhalang (Revisi)</button>
+                        <button type="button" class="hint-badge hint-green" id="btn-mock-lembang">Lembang (Berhasil)</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================================================== -->
+    <!-- FOOTER (DISCOMINFOTIK KBB)                         -->
+    <!-- ================================================== -->
+    <footer class="footer-kbb">
+        <div class="container">
+            <div class="footer-grid">
+                <!-- Column 1: Kontak Kami & Map -->
+                <div class="footer-col">
+                    <h4 class="footer-col-title">KONTAK KAMI:</h4>
+                    <div class="footer-address">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                            <circle cx="12" cy="10" r="3"></circle>
+                        </svg>
+                        <span>Gedung B Komplek Perkantoran Pemerintah Kabupaten Bandung Barat Jl. Raya Padalarang-Cisarua Km.2 Ngamprah</span>
+                    </div>
+                    <div class="footer-map-placeholder">
+                        <svg width="100%" height="60" viewBox="0 0 300 60" fill="none">
+                            <rect width="300" height="60" fill="#0c1738" rx="6"/>
+                            <path d="M0 20 Q 75 40 150 20 T 300 30" stroke="#1e3a8a" stroke-width="2" fill="none"/>
+                            <path d="M50 0 L 50 60 M 150 0 L 150 60 M 250 0 L 250 60" stroke="#1e293b" stroke-width="1"/>
+                            <circle cx="150" cy="30" r="10" fill="#ef4444"/>
+                            <circle cx="150" cy="30" r="4" fill="#ffffff"/>
+                        </svg>
+                    </div>
+                </div>
+
+                <!-- Column 2: Online Contacts & Social -->
+                <div class="footer-col">
+                    <ul class="footer-contact-list">
+                        <li>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+                            <span>diskominfotik.bandungbaratkab.go.id/</span>
+                        </li>
+                        <li>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                            <span>diskominfotik@bandungbaratkab.go.id</span>
+                        </li>
+                    </ul>
+                    <div class="footer-social-icons">
+                        <a href="#instagram" class="social-circle">IG</a>
+                        <a href="#youtube" class="social-circle">YT</a>
+                        <a href="#facebook" class="social-circle">FB</a>
+                    </div>
+                </div>
+
+                <!-- Column 3: Quick Navigation -->
+                <div class="footer-col">
+                    <ul class="footer-nav-list">
+                        <li><a href="#top">&rsaquo; Beranda</a></li>
+                        <li><a href="#domain-terdaftar">&rsaquo; Daftar Domain</a></li>
+                        <li><a href="#pengajuan" id="footer-nav-pengajuan">&rsaquo; Pengajuan</a></li>
+                        <li><a href="#faq">&rsaquo; FAQ</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 4: Logo -->
+                <div class="footer-col footer-col-logo">
+                    <div class="footer-logo-badge">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="2">
+                            <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                            <polyline points="2 17 12 22 22 17"></polyline>
+                            <polyline points="2 12 12 17 22 12"></polyline>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bottom Copyright -->
+            <div class="footer-bottom-bar">
+                <p>&copy; 2026 Diskominfo - Portal Layanan Domain Desa Resmi (.desa.id)</p>
+            </div>
         </div>
     </footer>
 </div>
 
 <!-- ================================================== -->
-<!-- MODAL 1: INFORMASI PERSYARATAN -->
+<!-- MODAL 1: INFORMASI PERSYARATAN OVERLAY             -->
 <!-- ================================================== -->
 <div class="modal-backdrop" id="modal-persyaratan">
     <div class="modal-card">
-        <!-- Modal Header -->
         <div class="modal-header">
             <div class="modal-title-group">
                 <div class="modal-icon">
@@ -244,7 +364,6 @@
             <button class="modal-close-btn" data-close-modal>&times;</button>
         </div>
 
-        <!-- Modal Body -->
         <div class="modal-body">
             <div class="alert-box">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -289,21 +408,17 @@
             </div>
         </div>
 
-        <!-- Modal Footer -->
         <div class="modal-footer">
-            <button class="btn btn-secondary-action" id="btn-next-to-form">
-                SELANJUTNYA
-            </button>
+            <button class="btn btn-secondary-action" id="btn-next-to-form">SELANJUTNYA</button>
         </div>
     </div>
 </div>
 
 <!-- ================================================== -->
-<!-- MODAL 2: FORM PENGAJUAN (4 UPLOAD FIELDS ONLY) -->
+<!-- MODAL 2: FORM PENGAJUAN (4 UPLOAD FIELDS ONLY)     -->
 <!-- ================================================== -->
 <div class="modal-backdrop" id="modal-form">
     <div class="modal-card modal-card-large">
-        <!-- Modal Header -->
         <div class="modal-header">
             <div class="modal-title-group">
                 <div class="modal-icon">
@@ -319,7 +434,6 @@
             <button class="modal-close-btn" data-close-modal>&times;</button>
         </div>
 
-        <!-- Modal Body -->
         <div class="modal-body">
             <div class="alert-box">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -330,76 +444,47 @@
                 <span>Silakan unggah seluruh dokumen persyaratan yang telah disiapkan.</span>
             </div>
 
-            <!-- Form Upload Grid (2 Column Desktop, 1 Column Mobile) -->
             <form id="form-upload-berkas" onsubmit="return false;">
                 <div class="upload-grid">
-                    <!-- Field 1 -->
                     <div class="upload-field-card">
-                        <label class="upload-label" for="file-surat-permohonan">
-                            1. Surat Permohonan Fasilitasi Domain desa.id
-                        </label>
+                        <label class="upload-label" for="file-surat-permohonan">1. Surat Permohonan Fasilitasi Domain desa.id</label>
                         <div class="file-input-wrapper">
                             <input type="file" id="file-surat-permohonan" accept=".pdf,.doc,.docx" class="file-input">
                             <div class="file-input-custom">
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                                    <polyline points="17 8 12 3 7 8"></polyline>
-                                    <line x1="12" y1="3" x2="12" y2="15"></line>
-                                </svg>
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
                                 <span class="file-name-display">Pilih file atau drag ke sini</span>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Field 2 -->
                     <div class="upload-field-card">
-                        <label class="upload-label" for="file-sk-kades">
-                            2. Surat Keputusan Pengangkatan Kepala Desa
-                        </label>
+                        <label class="upload-label" for="file-sk-kades">2. Surat Keputusan Pengangkatan Kepala Desa</label>
                         <div class="file-input-wrapper">
                             <input type="file" id="file-sk-kades" accept=".pdf,.doc,.docx" class="file-input">
                             <div class="file-input-custom">
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                                    <polyline points="17 8 12 3 7 8"></polyline>
-                                    <line x1="12" y1="3" x2="12" y2="15"></line>
-                                </svg>
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
                                 <span class="file-name-display">Pilih file atau drag ke sini</span>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Field 3 -->
                     <div class="upload-field-card">
-                        <label class="upload-label" for="file-surat-kuasa">
-                            3. Surat Kuasa
-                        </label>
+                        <label class="upload-label" for="file-surat-kuasa">3. Surat Kuasa</label>
                         <div class="file-input-wrapper">
                             <input type="file" id="file-surat-kuasa" accept=".pdf,.doc,.docx" class="file-input">
                             <div class="file-input-custom">
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                                    <polyline points="17 8 12 3 7 8"></polyline>
-                                    <line x1="12" y1="3" x2="12" y2="15"></line>
-                                </svg>
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
                                 <span class="file-name-display">Pilih file atau drag ke sini</span>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Field 4 -->
                     <div class="upload-field-card">
-                        <label class="upload-label" for="file-surat-admin">
-                            4. Surat Penunjukan Admin Website desa.id
-                        </label>
+                        <label class="upload-label" for="file-surat-admin">4. Surat Penunjukan Admin Website desa.id</label>
                         <div class="file-input-wrapper">
                             <input type="file" id="file-surat-admin" accept=".pdf,.doc,.docx" class="file-input">
                             <div class="file-input-custom">
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                                    <polyline points="17 8 12 3 7 8"></polyline>
-                                    <line x1="12" y1="3" x2="12" y2="15"></line>
-                                </svg>
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
                                 <span class="file-name-display">Pilih file atau drag ke sini</span>
                             </div>
                         </div>
@@ -412,27 +497,22 @@
             </form>
         </div>
 
-        <!-- Modal Footer -->
         <div class="modal-footer">
-            <button class="btn btn-primary" id="btn-submit-form">
-                SUBMIT
-            </button>
+            <button class="btn btn-primary" id="btn-submit-form">SUBMIT</button>
         </div>
     </div>
 </div>
 
 <!-- ================================================== -->
-<!-- MODAL 3: KONFIRMASI BERHASIL SUBMIT -->
+<!-- MODAL 3: KONFIRMASI BERHASIL SUBMIT                -->
 <!-- ================================================== -->
 <div class="modal-backdrop" id="modal-konfirmasi">
     <div class="modal-card modal-card-small">
-        <!-- Modal Header -->
         <div class="modal-header modal-header-clean">
             <div></div>
             <button class="modal-close-btn" data-close-modal>&times;</button>
         </div>
 
-        <!-- Modal Body -->
         <div class="modal-body modal-body-centered">
             <div class="success-icon">
                 <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2.5">
@@ -446,11 +526,349 @@
             </p>
         </div>
 
-        <!-- Modal Footer -->
         <div class="modal-footer modal-footer-centered">
-            <button class="btn btn-primary btn-full-width" id="btn-ok-konfirmasi">
-                OK
-            </button>
+            <button class="btn btn-primary btn-full-width" id="btn-ok-konfirmasi">OK</button>
+        </div>
+    </div>
+</div>
+
+<!-- ================================================== -->
+<!-- MODAL STATUS POPUP: KONDISI 1 - DIPROSES           -->
+<!-- ================================================== -->
+<div class="modal-backdrop" id="popup-status-diproses">
+    <div class="status-popup-card">
+        <div class="status-popup-header">
+            <div>
+                <h2 class="status-village-title" id="diproses-village-name">Desa Wangunsari</h2>
+                <p class="status-village-sub" id="diproses-village-sub">Kecamatan Sindangkerta, Kab. Bandung Barat</p>
+            </div>
+            <div class="status-badge-wrap">
+                <span class="status-badge-label">STATUS BERKAS PENGAJUAN</span>
+                <div class="status-pill status-pill-yellow">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                    Sedang Diproses
+                </div>
+            </div>
+        </div>
+
+        <div class="status-popup-body">
+            <div class="status-popup-grid">
+                <div class="status-popup-left">
+                    <h3 class="popup-section-heading">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+                        RINCIAN PENGAJUAN FASILITASI
+                    </h3>
+
+                    <div class="info-boxes-row">
+                        <div class="dark-info-box">
+                            <span class="info-box-label">Usulan Domain</span>
+                            <span class="info-box-value domain-code" id="diproses-domain">wangunsari.desa.id</span>
+                        </div>
+                        <div class="dark-info-box">
+                            <span class="info-box-label">Tanggal Pengajuan</span>
+                            <span class="info-box-value" id="diproses-date">10 Januari 2026</span>
+                        </div>
+                    </div>
+
+                    <div class="status-notice-box notice-yellow">
+                        <div class="notice-title">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                            Proses Verifikasi Berkas Sedang Berjalan
+                        </div>
+                        <p class="notice-desc">
+                            Pengajuan Anda telah diterima oleh Tim Verifikasi Diskominfo Kabupaten Bandung Barat. Dokumen sedang diteliti kelengkapannya.
+                        </p>
+                    </div>
+
+                    <div class="docs-uploaded-section">
+                        <h4 class="docs-list-title">DAFTAR 4 BERKAS YANG TELAH DIUNGGAH:</h4>
+                        <div class="doc-file-item">
+                            <div class="doc-file-info">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path></svg>
+                                <span class="doc-label">Surat Permohonan Fasilitasi Domain</span>
+                            </div>
+                            <span class="doc-filename">Surat_Permohonan_Wangunsari.pdf</span>
+                        </div>
+                        <div class="doc-file-item">
+                            <div class="doc-file-info">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path></svg>
+                                <span class="doc-label">Surat Kuasa</span>
+                            </div>
+                            <span class="doc-filename">Surat_Kuasa_Wangunsari.pdf</span>
+                        </div>
+                        <div class="doc-file-item">
+                            <div class="doc-file-info">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path></svg>
+                                <span class="doc-label">SK Pengangkatan Kepala Desa</span>
+                            </div>
+                            <span class="doc-filename">SK_Kades_Wangunsari.pdf</span>
+                        </div>
+                        <div class="doc-file-item">
+                            <div class="doc-file-info">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path></svg>
+                                <span class="doc-label">Surat Penunjukan Admin Website</span>
+                            </div>
+                            <span class="doc-filename">Surat_Penunjukan_Admin_Wangunsari.pdf</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="status-popup-right">
+                    <div class="active-status-card">
+                        <h4 class="active-status-title">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                            Status Masa Aktif Domain & Jatuh Tempo
+                        </h4>
+                        <div class="active-status-inner-placeholder">
+                            <div class="placeholder-info-icon">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+                            </div>
+                            <h5 class="placeholder-title">Masa Aktif Belum Diterbitkan</h5>
+                            <p class="placeholder-desc">
+                                Tanggal aktif dan jatuh tempo domain akan secara otomatis muncul di sini setelah keabsahan berkas dinyatakan benar dan pengajuan Domain diterima dan berhasil oleh Kominfo.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="status-popup-footer">
+                <button type="button" class="btn-tutup-status" data-close-modal>Tutup</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ================================================== -->
+<!-- MODAL STATUS POPUP: KONDISI 2 - REVISI             -->
+<!-- ================================================== -->
+<div class="modal-backdrop" id="popup-status-revisi">
+    <div class="status-popup-card">
+        <div class="status-popup-header">
+            <div>
+                <h2 class="status-village-title" id="revisi-village-name">Desa Pasirhalang</h2>
+                <p class="status-village-sub" id="revisi-village-sub">Kecamatan Cisarua, Kab. Bandung Barat</p>
+            </div>
+            <div class="status-badge-wrap">
+                <span class="status-badge-label">STATUS BERKAS PENGAJUAN</span>
+                <div class="status-pill status-pill-red">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                    Revisi Dokumen
+                </div>
+            </div>
+        </div>
+
+        <div class="status-popup-body">
+            <div class="status-popup-grid">
+                <div class="status-popup-left">
+                    <h3 class="popup-section-heading">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+                        RINCIAN PENGAJUAN FASILITASI
+                    </h3>
+
+                    <div class="info-boxes-row">
+                        <div class="dark-info-box">
+                            <span class="info-box-label">Usulan Domain</span>
+                            <span class="info-box-value domain-code" id="revisi-domain">pasirhalang.desa.id</span>
+                        </div>
+                        <div class="dark-info-box">
+                            <span class="info-box-label">Tanggal Pengajuan</span>
+                            <span class="info-box-value" id="revisi-date">10 Januari 2026</span>
+                        </div>
+                    </div>
+
+                    <div class="status-notice-box notice-red">
+                        <div class="notice-title">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                            Catatan Revisi
+                        </div>
+                        <p class="notice-desc" id="revisi-note-text">
+                            "Stempel pada Surat Kuasa belum terlihat jelas dan SK Pengangkatan Kepala Desa belum melampirkan lembar pengesahan terakhir."
+                        </p>
+                    </div>
+
+                    <div class="docs-uploaded-section">
+                        <div class="docs-list-header-row">
+                            <h4 class="docs-list-title">DAFTAR 4 BERKAS YANG TELAH DIUNGGAH:</h4>
+                            <button type="button" class="btn-unggah-ulang" id="btn-trigger-reupload">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+                                Unggah Ulang
+                            </button>
+                        </div>
+
+                        <div class="doc-file-item" id="doc-item-1">
+                            <div class="doc-file-info">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path></svg>
+                                <span class="doc-label">Surat Permohonan Fasilitasi Domain</span>
+                            </div>
+                            <div class="doc-file-right">
+                                <span class="doc-filename">Surat_Permohonan_Pasirhalang.pdf</span>
+                                <button type="button" class="btn-remove-doc" onclick="removeDocItem('doc-item-1')">&times;</button>
+                            </div>
+                        </div>
+                        <div class="doc-file-item" id="doc-item-2">
+                            <div class="doc-file-info">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path></svg>
+                                <span class="doc-label">Surat Kuasa</span>
+                            </div>
+                            <div class="doc-file-right">
+                                <span class="doc-filename">Surat_Kuasa_Pasirhalang.pdf</span>
+                                <button type="button" class="btn-remove-doc" onclick="removeDocItem('doc-item-2')">&times;</button>
+                            </div>
+                        </div>
+                        <div class="doc-file-item" id="doc-item-3">
+                            <div class="doc-file-info">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path></svg>
+                                <span class="doc-label">SK Pengangkatan Kepala Desa</span>
+                            </div>
+                            <div class="doc-file-right">
+                                <span class="doc-filename">SK_Kades_Pasirhalang.pdf</span>
+                                <button type="button" class="btn-remove-doc" onclick="removeDocItem('doc-item-3')">&times;</button>
+                            </div>
+                        </div>
+                        <div class="doc-file-item" id="doc-item-4">
+                            <div class="doc-file-info">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path></svg>
+                                <span class="doc-label">Surat Penunjukan Admin Website</span>
+                            </div>
+                            <div class="doc-file-right">
+                                <span class="doc-filename">Surat_Penunjukan_Admin_Pasirhalang.pdf</span>
+                                <button type="button" class="btn-remove-doc" onclick="removeDocItem('doc-item-4')">&times;</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="status-popup-right">
+                    <div class="active-status-card">
+                        <h4 class="active-status-title">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                            Status Masa Aktif Domain & Jatuh Tempo
+                        </h4>
+                        <div class="active-status-inner-placeholder">
+                            <div class="placeholder-info-icon">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+                            </div>
+                            <h5 class="placeholder-title">Masa Aktif Belum Diterbitkan</h5>
+                            <p class="placeholder-desc">
+                                Tanggal aktif dan jatuh tempo domain akan secara otomatis muncul di sini setelah keabsahan berkas dinyatakan benar dan pengajuan Domain diterima dan berhasil oleh Kominfo.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="status-popup-footer">
+                <button type="button" class="btn-tutup-status" data-close-modal>Tutup</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ================================================== -->
+<!-- MODAL STATUS POPUP: KONDISI 3 - BERHASIL DIDAFTARKAN -->
+<!-- ================================================== -->
+<div class="modal-backdrop" id="popup-status-berhasil">
+    <div class="status-popup-card">
+        <div class="status-popup-header">
+            <div>
+                <h2 class="status-village-title" id="berhasil-village-name">Desa Lembang</h2>
+                <p class="status-village-sub" id="berhasil-village-sub">Kecamatan Lembang, Kab. Bandung Barat</p>
+            </div>
+            <div class="status-badge-wrap">
+                <span class="status-badge-label">STATUS BERKAS PENGAJUAN</span>
+                <div class="status-pill status-pill-green">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    Domain Berhasil Didaftarkan
+                </div>
+            </div>
+        </div>
+
+        <div class="status-popup-body">
+            <div class="status-popup-grid">
+                <div class="status-popup-left">
+                    <h3 class="popup-section-heading">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+                        RINCIAN PENGAJUAN FASILITASI
+                    </h3>
+
+                    <div class="info-boxes-row">
+                        <div class="dark-info-box">
+                            <span class="info-box-label">Usulan Domain</span>
+                            <span class="info-box-value domain-code" id="berhasil-domain">lembang.desa.id</span>
+                        </div>
+                        <div class="dark-info-box">
+                            <span class="info-box-label">Tanggal Pengajuan</span>
+                            <span class="info-box-value" id="berhasil-date">10 Januari 2026</span>
+                        </div>
+                    </div>
+
+                    <div class="status-notice-box notice-green">
+                        <div class="notice-title">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                            Pendaftaran Domain Berhasil Diterbitkan
+                        </div>
+                        <p class="notice-desc">
+                            Selamat! Domain resmi <em>https://lembang.desa.id</em> telah berhasil didaftarkan dan aktif digunakan untuk portal resmi desa.
+                        </p>
+                    </div>
+
+                    <div class="docs-uploaded-section">
+                        <h4 class="docs-list-title">DAFTAR 4 BERKAS YANG TELAH DIUNGGAH:</h4>
+                        <div class="doc-file-item">
+                            <div class="doc-file-info">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path></svg>
+                                <span class="doc-label">Surat Permohonan Fasilitasi Domain</span>
+                            </div>
+                            <span class="doc-filename">Surat_Permohonan_Lembang.pdf</span>
+                        </div>
+                        <div class="doc-file-item">
+                            <div class="doc-file-info">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path></svg>
+                                <span class="doc-label">Surat Kuasa</span>
+                            </div>
+                            <span class="doc-filename">Surat_Kuasa_Lembang.pdf</span>
+                        </div>
+                        <div class="doc-file-item">
+                            <div class="doc-file-info">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path></svg>
+                                <span class="doc-label">SK Pengangkatan Kepala Desa</span>
+                            </div>
+                            <span class="doc-filename">SK_Kades_Lembang.pdf</span>
+                        </div>
+                        <div class="doc-file-item">
+                            <div class="doc-file-info">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path></svg>
+                                <span class="doc-label">Surat Penunjukan Admin Website</span>
+                            </div>
+                            <span class="doc-filename">Surat_Penunjukan_Admin_Lembang.pdf</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="status-popup-right">
+                    <div class="active-status-card">
+                        <h4 class="active-status-title">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                            Status Masa Aktif Domain & Jatuh Tempo
+                        </h4>
+
+                        <div class="date-status-box box-active-date">
+                            <span class="date-box-label">Tanggal Aktif Domain</span>
+                            <span class="date-box-value" id="berhasil-aktif-date">12 Januari 2026</span>
+                        </div>
+
+                        <div class="date-status-box box-expire-date">
+                            <span class="date-box-label">Tanggal Jatuh Tempo (Kadaluarsa)</span>
+                            <span class="date-box-value" id="berhasil-expire-date">12 Januari 2027</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="status-popup-footer">
+                <button type="button" class="btn-tutup-status" data-close-modal>Tutup</button>
+            </div>
         </div>
     </div>
 </div>

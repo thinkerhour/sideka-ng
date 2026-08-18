@@ -2,22 +2,54 @@
  * SIDeKa-NG User Wireframe UI Interactions
  * Pure Frontend Interaction (No Backend / API calls)
  */
+
+// Helper to remove document item on Revisi status popup simulation
+function removeDocItem(elementId) {
+    const item = document.getElementById(elementId);
+    if (item) {
+        item.style.opacity = '0.4';
+        item.style.textDecoration = 'line-through';
+        const btn = item.querySelector('.btn-remove-doc');
+        if (btn) btn.textContent = '✓';
+    }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     // Elements - Modals & Buttons
     const btnAjukan = document.getElementById('btn-ajukan-sideka');
     const navPengajuan = document.getElementById('nav-pengajuan');
+    const footerNavPengajuan = document.getElementById('footer-nav-pengajuan');
     const btnFaqAjukan = document.getElementById('btn-faq-ajukan');
+    const linkCekStatusAjukan = document.getElementById('link-cek-status-ajukan');
     const btnNextToForm = document.getElementById('btn-next-to-form');
     const btnSubmitForm = document.getElementById('btn-submit-form');
     const btnOkKonfirmasi = document.getElementById('btn-ok-konfirmasi');
     const btnDownloadTemplate = document.getElementById('btn-download-template');
+    const btnTriggerReupload = document.getElementById('btn-trigger-reupload');
 
+    // Modals
     const modalPersyaratan = document.getElementById('modal-persyaratan');
     const modalForm = document.getElementById('modal-form');
     const modalKonfirmasi = document.getElementById('modal-konfirmasi');
 
+    const popupDiproses = document.getElementById('popup-status-diproses');
+    const popupRevisi = document.getElementById('popup-status-revisi');
+    const popupBerhasil = document.getElementById('popup-status-berhasil');
+
+    // Demo hint buttons
+    const btnMockWangunsari = document.getElementById('btn-mock-wangunsari');
+    const btnMockPasirhalang = document.getElementById('btn-mock-pasirhalang');
+    const btnMockLembang = document.getElementById('btn-mock-lembang');
+
     const allCloseBtns = document.querySelectorAll('[data-close-modal]');
-    const allModals = [modalPersyaratan, modalForm, modalKonfirmasi];
+    const allModals = [
+        modalPersyaratan, 
+        modalForm, 
+        modalKonfirmasi, 
+        popupDiproses, 
+        popupRevisi, 
+        popupBerhasil
+    ];
 
     // Helper functions
     function openModal(modal) {
@@ -29,31 +61,22 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function closeAllModals() {
-        allModals.forEach(m => m && m.classList.remove('active'));
+        allModals.forEach(m => {
+            if (m) m.classList.remove('active');
+        });
         document.body.style.overflow = '';
     }
 
     // 1. Click "Ajukan SIDeKa-NG" -> Open Modal Informasi Persyaratan
-    if (btnAjukan) {
-        btnAjukan.addEventListener('click', (e) => {
-            e.preventDefault();
-            openModal(modalPersyaratan);
-        });
-    }
-
-    if (navPengajuan) {
-        navPengajuan.addEventListener('click', (e) => {
-            e.preventDefault();
-            openModal(modalPersyaratan);
-        });
-    }
-
-    if (btnFaqAjukan) {
-        btnFaqAjukan.addEventListener('click', (e) => {
-            e.preventDefault();
-            openModal(modalPersyaratan);
-        });
-    }
+    const triggerSubmissionBtns = [btnAjukan, navPengajuan, footerNavPengajuan, btnFaqAjukan, linkCekStatusAjukan];
+    triggerSubmissionBtns.forEach(btn => {
+        if (btn) {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                openModal(modalPersyaratan);
+            });
+        }
+    });
 
     // 2. Click "SELANJUTNYA" in Modal Persyaratan -> Open Modal Form Pengajuan
     if (btnNextToForm) {
@@ -77,6 +100,25 @@ document.addEventListener('DOMContentLoaded', () => {
             e.preventDefault();
             closeAllModals();
         });
+    }
+
+    // 5. Trigger Reupload on Revisi popup -> Open Modal Form
+    if (btnTriggerReupload) {
+        btnTriggerReupload.addEventListener('click', (e) => {
+            e.preventDefault();
+            openModal(modalForm);
+        });
+    }
+
+    // Demo hint badge buttons
+    if (btnMockWangunsari) {
+        btnMockWangunsari.addEventListener('click', () => openModal(popupDiproses));
+    }
+    if (btnMockPasirhalang) {
+        btnMockPasirhalang.addEventListener('click', () => openModal(popupRevisi));
+    }
+    if (btnMockLembang) {
+        btnMockLembang.addEventListener('click', () => openModal(popupBerhasil));
     }
 
     // Close buttons (X) & Backdrop click
@@ -142,14 +184,40 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Accordion Toggle (FAQ Detail Page)
-    const accordionTriggers = document.querySelectorAll('.accordion-trigger');
-    accordionTriggers.forEach(trigger => {
-        trigger.addEventListener('click', () => {
-            const item = trigger.closest('.accordion-item');
-            if (item) {
-                item.classList.toggle('active');
+    // Accordion Toggle (FAQ Detail Page) - FIXED FOR .faq-accordion-btn
+    const accordionBtns = document.querySelectorAll('.faq-accordion-btn, .accordion-trigger');
+    accordionBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const row = btn.closest('.faq-accordion-row, .accordion-item');
+            if (row) {
+                row.classList.toggle('active');
             }
         });
     });
+
+    // Cek Status Search Box Logic
+    const formCekStatus = document.getElementById('form-cek-status');
+    const inputSearchDesa = document.getElementById('input-search-desa');
+
+    if (formCekStatus && inputSearchDesa) {
+        formCekStatus.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const query = inputSearchDesa.value.trim().toLowerCase();
+
+            if (!query) {
+                alert('Silakan masukkan nama desa atau nama domain terlebih dahulu.');
+                return;
+            }
+
+            if (query.includes('pasir') || query.includes('revisi')) {
+                openModal(popupRevisi);
+            } else if (query.includes('lembang') || query.includes('berhasil') || query.includes('aktif')) {
+                openModal(popupBerhasil);
+            } else if (query.includes('wangun') || query.includes('proses') || query.includes('diproses')) {
+                openModal(popupDiproses);
+            } else {
+                openModal(popupDiproses); // Default mock fallback
+            }
+        });
+    }
 });
