@@ -2,4 +2,22 @@
 
 namespace App\Http\Middleware;
 
-// Middleware Proteksi Akses Admin
+use Closure;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Symfony\Component\HttpFoundation\Response;
+
+class AdminAuthenticate
+{
+    /**
+     * Handle an incoming request.
+     */
+    public function handle(Request $request, Closure $next): Response
+    {
+        if (!Auth::check()) {
+            return redirect()->route('admin.login')->with('error', 'Silakan login terlebih dahulu untuk mengakses halaman Admin.');
+        }
+
+        return $next($request);
+    }
+}
