@@ -393,29 +393,94 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Cek Status Search Box Logic
+    // Cek Status Search Box Logic (Database Connected)
     const formCekStatus = document.getElementById('form-cek-status');
     const inputSearchDesa = document.getElementById('input-search-desa');
+
+    async function performCekStatusSearch(query) {
+        if (!query) {
+            alert('Silakan masukkan nama desa atau nama domain terlebih dahulu.');
+            return;
+        }
+
+        try {
+            const response = await fetch('/cek-status/search?keyword=' + encodeURIComponent(query), {
+                headers: {
+                    'Accept': 'application/json',
+                    'X-Requested-With': 'XMLHttpRequest'
+                }
+            });
+
+            const res = await response.json();
+
+            if (!res.found) {
+                alert(res.message || 'Data pengajuan tidak ditemukan. Silakan periksa kembali.');
+                return;
+            }
+
+            const item = res.data;
+            const status = (item.status || '').toLowerCase();
+
+            if (status === 'revisi') {
+                // Dynamic population for Modal Revisi
+                const elTitle = document.getElementById('revisi-village-name');
+                const elSub = document.getElementById('revisi-village-sub');
+                const elDom = document.getElementById('revisi-domain');
+                const elDate = document.getElementById('revisi-date');
+                const elNote = document.getElementById('revisi-note-text');
+
+                if (elTitle) elTitle.textContent = 'Desa ' + item.nama_desa;
+                if (elSub) elSub.textContent = 'Kecamatan ' + item.kecamatan + ', Kab. Bandung Barat';
+                if (elDom) elDom.textContent = item.nama_domain;
+                if (elDate) elDate.textContent = item.tanggal_pengajuan;
+                if (elNote) elNote.textContent = '"' + (item.keterangan_revisi || 'Mohon melengkapi kembali dokumen persyaratan yang kurang.') + '"';
+
+                openModal(popupRevisi);
+
+            } else if (status === 'berhasil' || status === 'domain berhasil') {
+                // Dynamic population for Modal Berhasil
+                const elTitle = document.getElementById('berhasil-village-name');
+                const elSub = document.getElementById('berhasil-village-sub');
+                const elDom = document.getElementById('berhasil-domain');
+                const elDate = document.getElementById('berhasil-date');
+                const elAktifDate = document.getElementById('berhasil-aktif-date');
+                const elExpireDate = document.getElementById('berhasil-expire-date');
+
+                if (elTitle) elTitle.textContent = 'Desa ' + item.nama_desa;
+                if (elSub) elSub.textContent = 'Kecamatan ' + item.kecamatan + ', Kab. Bandung Barat';
+                if (elDom) elDom.textContent = item.nama_domain;
+                if (elDate) elDate.textContent = item.tanggal_pengajuan;
+                if (elAktifDate) elAktifDate.textContent = item.tanggal_aktif;
+                if (elExpireDate) elExpireDate.textContent = item.tanggal_kadaluarsa;
+
+                openModal(popupBerhasil);
+
+            } else {
+                // Dynamic population for Modal Diproses
+                const elTitle = document.getElementById('diproses-village-name');
+                const elSub = document.getElementById('diproses-village-sub');
+                const elDom = document.getElementById('diproses-domain');
+                const elDate = document.getElementById('diproses-date');
+
+                if (elTitle) elTitle.textContent = 'Desa ' + item.nama_desa;
+                if (elSub) elSub.textContent = 'Kecamatan ' + item.kecamatan + ', Kab. Bandung Barat';
+                if (elDom) elDom.textContent = item.nama_domain;
+                if (elDate) elDate.textContent = item.tanggal_pengajuan;
+
+                openModal(popupDiproses);
+            }
+
+        } catch (err) {
+            console.error('Cek status fetch error:', err);
+            alert('Terjadi kesalahan saat memeriksa status pengajuan. Silakan coba lagi.');
+        }
+    }
 
     if (formCekStatus && inputSearchDesa) {
         formCekStatus.addEventListener('submit', (e) => {
             e.preventDefault();
-            const query = inputSearchDesa.value.trim().toLowerCase();
-
-            if (!query) {
-                alert('Silakan masukkan nama desa atau nama domain terlebih dahulu.');
-                return;
-            }
-
-            if (query.includes('pasir') || query.includes('revisi')) {
-                openModal(popupRevisi);
-            } else if (query.includes('lembang') || query.includes('berhasil') || query.includes('aktif')) {
-                openModal(popupBerhasil);
-            } else if (query.includes('wangun') || query.includes('proses') || query.includes('diproses')) {
-                openModal(popupDiproses);
-            } else {
-                openModal(popupDiproses); // Default mock fallback
-            }
+            const query = inputSearchDesa.value.trim();
+            performCekStatusSearch(query);
         });
     }
 

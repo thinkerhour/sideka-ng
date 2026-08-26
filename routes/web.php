@@ -13,6 +13,7 @@ Route::get('/', [App\Http\Controllers\User\BerandaController::class, 'index'])->
 Route::get('/faq/search', [App\Http\Controllers\User\FaqController::class, 'search'])->name('user.faq.search');
 Route::get('/faq/{id?}', [App\Http\Controllers\User\FaqController::class, 'show'])->where('id', '[0-9]+')->name('user.faq.show');
 
+Route::get('/cek-status/search', [App\Http\Controllers\User\CekStatusController::class, 'search'])->name('user.cek-status.search');
 Route::post('/pengajuan', [App\Http\Controllers\User\PengajuanController::class, 'store'])->name('user.pengajuan.store');
 
 

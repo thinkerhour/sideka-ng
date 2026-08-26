@@ -16,16 +16,65 @@ class DesaSeeder extends Seeder
     public function run(): void
     {
         $samples = [
+            // Status: Diproses
             [
                 'nama_desa' => 'Wangunsari',
                 'kecamatan' => 'Sindangkerta',
                 'nama_kepala_desa' => 'H. Kurnia',
                 'nama_admin_website' => 'Budi Santoso',
-                'email_admin' => 'admin@wangunsari-sindangkerta.desa.id',
+                'email_admin' => 'budi@wangunsari-sindangkerta.desa.id',
                 'no_telp_admin' => '081234567801',
-                'website' => 'https://wangunsari-sindangkerta.desa.id',
+                'website' => null,
+                'status' => 'Diproses',
+                'domain' => null,
+            ],
+            [
+                'nama_desa' => 'Ciburuy',
+                'kecamatan' => 'Padalarang',
+                'nama_kepala_desa' => 'H. Ahmad Supardi',
+                'nama_admin_website' => 'Budi Santoso',
+                'email_admin' => 'budi.admin@ciburuy.desa.id',
+                'no_telp_admin' => '081234567891',
+                'website' => null,
+                'status' => 'Diproses',
+                'domain' => null,
+            ],
+            // Status: Revisi
+            [
+                'nama_desa' => 'Pasirhalang',
+                'kecamatan' => 'Cisarua',
+                'nama_kepala_desa' => 'Asep Gunawan',
+                'nama_admin_website' => 'Rahmat Hidayat',
+                'email_admin' => 'admin@pasirhalang.desa.id',
+                'no_telp_admin' => '081234567808',
+                'website' => null,
+                'status' => 'Revisi',
+                'keterangan_revisi' => 'Stempel pada Surat Kuasa belum terlihat jelas dan SK Pengangkatan Kepala Desa belum melampirkan lembar pengesahan terakhir.',
+                'domain' => null,
+            ],
+            [
+                'nama_desa' => 'Mekarsari',
+                'kecamatan' => 'Ngamprah',
+                'nama_kepala_desa' => 'H. Ahmad',
+                'nama_admin_website' => 'Rizki Ramadan',
+                'email_admin' => 'admin@mekarsari-ngamprah.desa.id',
+                'no_telp_admin' => '081234567807',
+                'website' => null,
+                'status' => 'Revisi',
+                'keterangan_revisi' => 'Mohon mengunggah ulang Surat Kuasa dengan stempel basah Kepala Desa yang terlihat jelas.',
+                'domain' => null,
+            ],
+            // Status: Domain Berhasil (10 Desa Terdaftar)
+            [
+                'nama_desa' => 'Lembang',
+                'kecamatan' => 'Lembang',
+                'nama_kepala_desa' => 'Hj. Yulia Agustina',
+                'nama_admin_website' => 'Dimas Prayoga',
+                'email_admin' => 'admin@lembang.desa.id',
+                'no_telp_admin' => '085712345678',
+                'website' => 'https://lembang.desa.id',
                 'status' => 'Domain Berhasil',
-                'domain' => 'wangunsari-sindangkerta.desa.id',
+                'domain' => 'lembang.desa.id',
             ],
             [
                 'nama_desa' => 'Rancasenggang',
@@ -83,28 +132,6 @@ class DesaSeeder extends Seeder
                 'domain' => 'pakuhaji-kbb.desa.id',
             ],
             [
-                'nama_desa' => 'Mekarsari',
-                'kecamatan' => 'Ngamprah',
-                'nama_kepala_desa' => 'H. Ahmad',
-                'nama_admin_website' => 'Rizki Ramadan',
-                'email_admin' => 'admin@mekarsari-ngamprah.desa.id',
-                'no_telp_admin' => '081234567807',
-                'website' => 'https://mekarsari-ngamprah.desa.id',
-                'status' => 'Domain Berhasil',
-                'domain' => 'mekarsari-ngamprah.desa.id',
-            ],
-            [
-                'nama_desa' => 'Lembang',
-                'kecamatan' => 'Lembang',
-                'nama_kepala_desa' => 'Hj. Yulia Agustina',
-                'nama_admin_website' => 'Dimas Prayoga',
-                'email_admin' => 'admin@lembang.desa.id',
-                'no_telp_admin' => '085712345678',
-                'website' => 'https://lembang.desa.id',
-                'status' => 'Domain Berhasil',
-                'domain' => 'lembang.desa.id',
-            ],
-            [
                 'nama_desa' => 'Cihanjuang',
                 'kecamatan' => 'Parongpong',
                 'nama_kepala_desa' => 'Ginanjar Rahayu',
@@ -126,10 +153,32 @@ class DesaSeeder extends Seeder
                 'status' => 'Domain Berhasil',
                 'domain' => 'batujajarbarat.desa.id',
             ],
+            [
+                'nama_desa' => 'Kertamulya',
+                'kecamatan' => 'Padalarang',
+                'nama_kepala_desa' => 'Drs. Supriatna',
+                'nama_admin_website' => 'Randi Kurnia',
+                'email_admin' => 'randi@kertamulya.desa.id',
+                'no_telp_admin' => '081298765432',
+                'website' => 'https://kertamulya.desa.id',
+                'status' => 'Domain Berhasil',
+                'domain' => 'kertamulya.desa.id',
+            ],
+            [
+                'nama_desa' => 'Jayagiri',
+                'kecamatan' => 'Lembang',
+                'nama_kepala_desa' => 'Rahmat Hidayat, S.IP',
+                'nama_admin_website' => 'Siti Nurhaliza',
+                'email_admin' => 'siti@jayagiri.desa.id',
+                'no_telp_admin' => '081345678901',
+                'website' => 'https://jayagiri.desa.id',
+                'status' => 'Domain Berhasil',
+                'domain' => 'jayagiri.desa.id',
+            ],
         ];
 
         foreach ($samples as $item) {
-            $desa = Desa::firstOrCreate(
+            $desa = Desa::updateOrCreate(
                 [
                     'nama_desa' => $item['nama_desa'],
                     'kecamatan' => $item['kecamatan'],
@@ -144,7 +193,7 @@ class DesaSeeder extends Seeder
             );
 
             // Pengajuan
-            $pengajuan = Pengajuan::firstOrCreate(
+            $pengajuan = Pengajuan::updateOrCreate(
                 ['id_desa' => $desa->id_desa],
                 [
                     'status' => $item['status'],
@@ -162,7 +211,7 @@ class DesaSeeder extends Seeder
             ];
 
             foreach ($jenisDokumens as $jenis => $filename) {
-                Dokumen::firstOrCreate(
+                Dokumen::updateOrCreate(
                     [
                         'id_pengajuan' => $pengajuan->id_pengajuan,
                         'jenis_dokumen' => $jenis,
@@ -175,8 +224,8 @@ class DesaSeeder extends Seeder
             }
 
             // Domain jika status Domain Berhasil
-            if ($item['status'] === 'Domain Berhasil' && !empty($item['domain'])) {
-                Domain::firstOrCreate(
+            if (($item['status'] === 'Domain Berhasil' || $item['status'] === 'Berhasil') && !empty($item['domain'])) {
+                Domain::updateOrCreate(
                     ['id_desa' => $desa->id_desa],
                     [
                         'nama_domain' => $item['domain'],

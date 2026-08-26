@@ -213,13 +213,6 @@
                         <input type="text" id="input-search-desa" placeholder="Nama Domain atau Nama Desa..." class="cek-status-input">
                         <button type="submit" class="btn-search-trigger" id="btn-search-status">Cari</button>
                     </form>
-
-                    <div class="search-demo-hints">
-                        <span>Coba ketik data mock:</span>
-                        <button type="button" class="hint-badge hint-yellow" id="btn-mock-wangunsari">Wangunsari (Diproses)</button>
-                        <button type="button" class="hint-badge hint-red" id="btn-mock-pasirhalang">Pasirhalang (Revisi)</button>
-                        <button type="button" class="hint-badge hint-green" id="btn-mock-lembang">Lembang (Berhasil)</button>
-                    </div>
                 </div>
             </div>
         </div>
