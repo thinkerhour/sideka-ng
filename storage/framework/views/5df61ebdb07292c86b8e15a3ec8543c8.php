@@ -201,8 +201,8 @@
                 <!-- Answer Container -->
                 <div class="faq-answer-container" id="faq-answer-container" style="display: none;">
                     <div class="faq-answer-card">
-                        <h4 class="faq-answer-question" id="faq-answer-question">Apakah mendaftar SIDEKA-NG gratis?</h4>
-                        <p class="faq-answer-text" id="faq-answer-text">Ya, Pendaftaran SIDEKA-NG gratis untuk tahun pertama gratis, tahun kedua dan seterusnya berbayar hanya untuk domain desa.id saja.</p>
+                        <h4 class="faq-answer-question" id="faq-answer-question"></h4>
+                        <p class="faq-answer-text" id="faq-answer-text"></p>
                     </div>
                 </div>
 

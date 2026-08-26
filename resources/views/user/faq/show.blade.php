@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="page-wrapper">
-    <!-- HEADER / NAVIGATION (Shared Header) -->
+    <!-- HEADER / NAVIGATION -->
     <header class="navbar">
         <div class="container navbar-container">
             <div class="brand">
@@ -29,7 +29,13 @@
                     FAQ
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <circle cx="12" cy="12" r="10"></circle>
-    @include('partials.navbar')
+                        <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                        <path d="M12 12a2 2 0 0 0 2-2c0-1.1-.9-2-2-2s-2 .9-2 2"></path>
+                    </svg>
+                </a>
+            </nav>
+        </div>
+    </header>
 
     <!-- FAQ SEARCH SECTION -->
     <section class="faq-search-section" id="faq">
@@ -37,48 +43,48 @@
             <h1 class="faq-title" style="text-align:center; margin-bottom:24px;">FAQ</h1>
             <input type="text" id="faq-search-input" class="faq-search-input" placeholder="Cari pertanyaan..." autocomplete="off" />
             <ul id="faq-suggestions" class="faq-suggestions"></ul>
-            <div id="faq-answer" class="faq-answer" style="margin-top:24px; display:none;">
-                <h2 id="faq-answer-question" class="faq-answer-question"></h2>
-                <p id="faq-answer-text" class="faq-answer-text"></p>
+            <div id="faq-answer" class="faq-answer" style="margin-top:24px; {{ $selectedFaq ? '' : 'display:none;' }}">
+                <h2 id="faq-answer-question" class="faq-answer-question">{{ $selectedFaq ? $selectedFaq->pertanyaan : '' }}</h2>
+                <p id="faq-answer-text" class="faq-answer-text">{{ $selectedFaq ? $selectedFaq->jawaban : '' }}</p>
             </div>
         </div>
     </section>
 
-    <!-- FOOTER SIMPLE WIREFRAME -->
-    @include('partials.footer')
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container footer-container">
+            <div class="footer-brand">
+                <div class="footer-logo">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 2L2 7L12 12L22 7L12 2Z"></path>
+                        <path d="M2 17L12 22L22 17"></path>
+                        <path d="M2 12L12 17L22 12"></path>
+                    </svg>
+                </div>
+                <div>
+                    <div class="footer-title">DISKOMINFOTIK</div>
+                    <div class="footer-subtitle">Kabupaten Bandung Barat</div>
+                </div>
+            </div>
+            <div class="footer-copy">
+                &copy; {{ date('Y') }} DISKOMINFOTIK KBB. All rights reserved.
+            </div>
+        </div>
+    </footer>
 </div>
-@endsection
 
-@section('scripts')
 <script>
-    const faqs = [
-        {
-            q: "Apa itu SIDEKA-NG?",
-            a: "Sideka-NG (Sistem Informasi Desa dan Kawasan-New Generation) adalah aplikasi umum buatan pemerintah Indonesia yang dikelola untuk mendukung layanan publik dan administrasi di tingkat desa atau kelurahan."
-        },
-        {
-            q: "Apakah mendaftar SIDEKA-NG sama denganWebsite Desa?",
-            a: "Ya betul SIDEKA-NG Adalah Website Desa dan Layanan Desa"
-        },
-        {
-            q: "Apakah mendaftar SIDEKA-NG gratis?",
-            a: "Ya, Pendaftaran SIDEKA-NG gratis untuk tahun pertama gratis, tahun kedua dan seterusnya berbayar hanya untuk domain desa.id saja."
-        },
-        {
-            q: "Berapa biayanya?",
-            a: "Biaya untuk perpanjang domain desa.id sebesar 50.000,- + PPn"
-        }
-    ];
-
     const searchInput = document.getElementById('faq-search-input');
     const suggestionsEl = document.getElementById('faq-suggestions');
     const answerEl = document.getElementById('faq-answer');
     const answerQuestionEl = document.getElementById('faq-answer-question');
     const answerTextEl = document.getElementById('faq-answer-text');
 
+    let searchTimer = null;
+
     function renderSuggestions(matches) {
         suggestionsEl.innerHTML = '';
-        if (matches.length === 0) {
+        if (!matches || matches.length === 0) {
             suggestionsEl.style.display = 'none';
             return;
         }
@@ -100,28 +106,47 @@
         searchInput.value = item.q;
     }
 
-    searchInput.addEventListener('input', (e) => {
-        const query = e.target.value.trim().toLowerCase();
-        if (!query) {
-            renderSuggestions([]);
-            answerEl.style.display = 'none';
-            return;
-        }
-        const matches = faqs.filter(f => f.q.toLowerCase().includes(query));
-        renderSuggestions(matches);
-    });
-
-    // Handle Enter key to select first suggestion
-    searchInput.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter') {
-            const firstItem = suggestionsEl.firstElementChild;
-            if (firstItem) {
-                const q = firstItem.textContent;
-                const item = faqs.find(f => f.q === q);
-                if (item) showAnswer(item);
+    if (searchInput) {
+        searchInput.addEventListener('input', (e) => {
+            const query = e.target.value.trim();
+            clearTimeout(searchTimer);
+            if (!query) {
+                renderSuggestions([]);
+                answerEl.style.display = 'none';
+                return;
             }
-            e.preventDefault();
-        }
-    });
+            searchTimer = setTimeout(async () => {
+                try {
+                    const response = await fetch('/faq/search?q=' + encodeURIComponent(query));
+                    if (response.ok) {
+                        const matches = await response.json();
+                        renderSuggestions(matches);
+                    }
+                } catch (err) {
+                    console.error('Error fetching FAQ:', err);
+                }
+            }, 200);
+        });
+
+        searchInput.addEventListener('keydown', async (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                const query = searchInput.value.trim();
+                if (query) {
+                    try {
+                        const response = await fetch('/faq/search?q=' + encodeURIComponent(query));
+                        if (response.ok) {
+                            const matches = await response.json();
+                            if (matches.length > 0) {
+                                showAnswer(matches[0]);
+                            }
+                        }
+                    } catch (err) {
+                        console.error('Error selecting FAQ:', err);
+                    }
+                }
+            }
+        });
+    }
 </script>
 @endsection

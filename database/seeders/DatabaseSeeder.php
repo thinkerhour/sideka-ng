@@ -15,6 +15,7 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             DesaSeeder::class,
             DocumentSeeder::class,
+            FaqSeeder::class,
         ]);
     }
 }

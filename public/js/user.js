@@ -273,36 +273,36 @@ document.addEventListener('DOMContentLoaded', () => {
     const faqAnswerText = document.getElementById('faq-answer-text');
     const btnFaqSearchSubmit = document.getElementById('btn-faq-search-submit');
 
-    const faqData = [
-        {
-            q: "Apa itu SIDEKA-NG?",
-            a: "Sideka-NG (Sistem Informasi Desa dan Kawasan-New Generation) adalah aplikasi umum buatan pemerintah Indonesia yang dikelola untuk mendukung layanan publik dan administrasi di tingkat desa atau kelurahan."
-        },
-        {
-            q: "Apakah mendaftar SIDEKA-NG sama dengan Website Desa?",
-            a: "Ya betul SIDEKA-NG Adalah Website Desa dan Layanan Desa"
-        },
-        {
-            q: "Apakah mendaftar SIDEKA-NG gratis?",
-            a: "Ya, Pendaftaran SIDEKA-NG gratis untuk tahun pertama gratis, tahun kedua dan seterusnya berbayar hanya untuk domain desa.id saja."
-        },
-        {
-            q: "Berapa biayanya?",
-            a: "Biaya untuk perpanjang domain desa.id sebesar 50.000,- + PPn"
-        }
-    ];
+    let faqDebounceTimer = null;
 
-    function faqSearchFilter(query) {
-        if (!query) return [];
-        const q = query.toLowerCase();
-        return faqData.filter(item =>
-            item.q.toLowerCase().includes(q) || item.a.toLowerCase().includes(q)
-        );
+    async function fetchFaqSuggestions(query) {
+        if (!query) {
+            hideFaqSuggestions();
+            if (faqAnswerContainer) faqAnswerContainer.style.display = 'none';
+            return [];
+        }
+
+        try {
+            const response = await fetch('/faq/search?q=' + encodeURIComponent(query), {
+                headers: {
+                    'Accept': 'application/json',
+                    'X-Requested-With': 'XMLHttpRequest'
+                }
+            });
+            if (response.ok) {
+                const matches = await response.json();
+                renderFaqSuggestions(matches);
+                return matches;
+            }
+        } catch (err) {
+            console.error('Error fetching FAQ suggestions from database:', err);
+        }
+        return [];
     }
 
     function renderFaqSuggestions(matches) {
         faqPreviewDropdown.innerHTML = '';
-        if (matches.length === 0) {
+        if (!matches || matches.length === 0) {
             faqPreviewDropdown.innerHTML = '<div class="faq-no-result">Tidak ada pertanyaan yang cocok.</div>';
             faqPreviewDropdown.classList.add('show');
             return;
@@ -330,40 +330,46 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     if (faqSearchInput && faqPreviewDropdown && faqAnswerContainer) {
-        // On input: show suggestions
+        // On input: show suggestions from database via AJAX
         faqSearchInput.addEventListener('input', () => {
             const query = faqSearchInput.value.trim();
+            clearTimeout(faqDebounceTimer);
             if (!query) {
                 hideFaqSuggestions();
                 faqAnswerContainer.style.display = 'none';
                 return;
             }
-            const matches = faqSearchFilter(query);
-            renderFaqSuggestions(matches);
+            faqDebounceTimer = setTimeout(() => {
+                fetchFaqSuggestions(query);
+            }, 200);
         });
 
-        // On Enter key: select first match
-        faqSearchInput.addEventListener('keydown', (e) => {
+        // On Enter key: select first match from database
+        faqSearchInput.addEventListener('keydown', async (e) => {
             if (e.key === 'Enter') {
                 e.preventDefault();
                 const query = faqSearchInput.value.trim();
-                const matches = faqSearchFilter(query);
-                if (matches.length > 0) {
-                    showFaqAnswer(matches[0]);
+                if (query) {
+                    const matches = await fetchFaqSuggestions(query);
+                    if (matches && matches.length > 0) {
+                        showFaqAnswer(matches[0]);
+                    }
                 }
             }
         });
 
-        // On Cari button click: select first match
+        // On Cari button click: select first match from database
         if (btnFaqSearchSubmit) {
-            btnFaqSearchSubmit.addEventListener('click', () => {
+            btnFaqSearchSubmit.addEventListener('click', async () => {
                 const query = faqSearchInput.value.trim();
-                const matches = faqSearchFilter(query);
-                if (matches.length > 0) {
-                    showFaqAnswer(matches[0]);
-                } else if (query) {
-                    faqAnswerContainer.style.display = 'none';
-                    renderFaqSuggestions([]);
+                if (query) {
+                    const matches = await fetchFaqSuggestions(query);
+                    if (matches && matches.length > 0) {
+                        showFaqAnswer(matches[0]);
+                    } else {
+                        faqAnswerContainer.style.display = 'none';
+                        renderFaqSuggestions([]);
+                    }
                 }
             });
         }
