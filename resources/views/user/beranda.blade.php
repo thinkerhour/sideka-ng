@@ -228,39 +228,46 @@
             <div class="footer-grid">
                 <div class="footer-col">
                     <h4 class="footer-col-title">KONTAK KAMI:</h4>
-                    <div class="footer-address">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-                            <circle cx="12" cy="10" r="3"></circle>
-                        </svg>
-                        <span>Gedung B Komplek Perkantoran Pemerintah Kabupaten Bandung Barat Jl. Raya Padalarang-Cisarua Km.2 Ngamprah</span>
-                    </div>
-                    <div class="footer-map-placeholder">
-                        <svg width="100%" height="60" viewBox="0 0 300 60" fill="none">
-                            <rect width="300" height="60" fill="#0c1738" rx="6"/>
-                            <path d="M0 20 Q 75 40 150 20 T 300 30" stroke="#1e3a8a" stroke-width="2" fill="none"/>
-                            <path d="M50 0 L 50 60 M 150 0 L 150 60 M 250 0 L 250 60" stroke="#1e293b" stroke-width="1"/>
-                            <circle cx="150" cy="30" r="10" fill="#ef4444"/>
-                            <circle cx="150" cy="30" r="4" fill="#ffffff"/>
-                        </svg>
+                    <a href="https://maps.app.goo.gl/2rjbucCU76uYxtKSA" target="_blank" rel="noopener noreferrer" style="text-decoration: none; color: inherit; display: block;" title="Buka di Google Maps">
+                        <div class="footer-address">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                                <circle cx="12" cy="10" r="3"></circle>
+                            </svg>
+                            <span>Gedung B Komplek Perkantoran Pemerintah Kabupaten Bandung Barat Jl. Raya Padalarang-Cisarua Km.2 Ngamprah</span>
+                        </div>
+                    </a>
+                    <div class="footer-map-placeholder" title="Preview Lokasi Kantor Diskominfotik KBB">
+                        <iframe 
+                            src="https://maps.google.com/maps?q=Gedung+B+Komplek+Perkantoran+Pemerintah+Kabupaten+Bandung+Barat&t=&z=15&ie=UTF8&iwloc=&output=embed" 
+                            width="100%" 
+                            height="100" 
+                            style="border:0; display:block; border-radius: 6px;" 
+                            allowfullscreen="" 
+                            loading="lazy" 
+                            referrerpolicy="no-referrer-when-downgrade">
+                        </iframe>
                     </div>
                 </div>
 
                 <div class="footer-col">
                     <ul class="footer-contact-list">
                         <li>
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
-                            <span>diskominfotik.bandungbaratkab.go.id/</span>
+                            <a href="https://diskominfotik.bandungbaratkab.go.id/" target="_blank" rel="noopener noreferrer" style="text-decoration: none; color: inherit; display: inline-flex; align-items: center; gap: 8px;">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+                                <span>diskominfotik.bandungbaratkab.go.id/</span>
+                            </a>
                         </li>
                         <li>
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
-                            <span>diskominfotik@bandungbaratkab.go.id</span>
+                            <a href="mailto:diskominfotik@bandungbaratkab.go.id" style="text-decoration: none; color: inherit; display: inline-flex; align-items: center; gap: 8px;">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                                <span>diskominfotik@bandungbaratkab.go.id</span>
+                            </a>
                         </li>
                     </ul>
                     <div class="footer-social-icons">
-                        <a href="#instagram" class="social-circle">IG</a>
-                        <a href="#youtube" class="social-circle">YT</a>
-                        <a href="#facebook" class="social-circle">FB</a>
+                        <a href="https://www.instagram.com/diskominfotik_kbb?igsi=MWM1bTFzN3hucGFlbg==" target="_blank" rel="noopener noreferrer" class="social-circle" title="Instagram Diskominfotik KBB">IG</a>
+                        <a href="https://youtube.com/@infratekdiskominfotikkabbandun?si=Kdp3sMdR_BMz-8O6" target="_blank" rel="noopener noreferrer" class="social-circle" title="YouTube Diskominfotik KBB">YT</a>
                     </div>
                 </div>
 
