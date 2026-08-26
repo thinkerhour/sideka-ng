@@ -418,4 +418,50 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+
+    // Domain Terdaftar Real-Time Search Logic
+    const inputSearchDomain = document.getElementById('input-search-domain');
+    let domainSearchTimer = null;
+
+    if (inputSearchDomain) {
+        inputSearchDomain.addEventListener('input', () => {
+            clearTimeout(domainSearchTimer);
+            domainSearchTimer = setTimeout(() => {
+                const query = inputSearchDomain.value.trim();
+                const url = new URL(window.location.origin + window.location.pathname);
+                if (query) {
+                    url.searchParams.set('search', query);
+                }
+                url.hash = 'domain-terdaftar';
+
+                fetch(url.toString(), {
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest'
+                    }
+                })
+                .then(res => res.text())
+                .then(html => {
+                    const parser = new DOMParser();
+                    const doc = parser.parseFromString(html, 'text/html');
+                    const newTbody = doc.querySelector('.domain-table tbody');
+                    const newFooter = doc.querySelector('#domain-terdaftar .table-footer-action');
+
+                    const currentTbody = document.querySelector('.domain-table tbody');
+                    const currentFooter = document.querySelector('#domain-terdaftar .table-footer-action');
+
+                    if (newTbody && currentTbody) {
+                        currentTbody.innerHTML = newTbody.innerHTML;
+                    }
+                    if (currentFooter && newFooter) {
+                        currentFooter.innerHTML = newFooter.innerHTML;
+                        currentFooter.style.display = '';
+                    } else if (currentFooter && !newFooter) {
+                        currentFooter.style.display = 'none';
+                    }
+                    window.history.replaceState({}, '', url.toString());
+                })
+                .catch(err => console.error('Domain search error:', err));
+            }, 250);
+        });
+    }
 });

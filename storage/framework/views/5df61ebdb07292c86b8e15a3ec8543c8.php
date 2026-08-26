@@ -67,13 +67,13 @@
                 </p>
             </div>
 
-            <div class="search-bar-wireframe">
+            <form method="GET" action="<?php echo e(url('/#domain-terdaftar')); ?>" class="search-bar-wireframe" id="form-search-domain">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <circle cx="11" cy="11" r="8"></circle>
                     <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
                 </svg>
-                <input type="text" placeholder="Cari domain atau nama desa..." readonly class="search-input-wireframe">
-            </div>
+                <input type="text" name="search" id="input-search-domain" value="<?php echo e($search ?? ''); ?>" placeholder="Cari domain atau nama desa..." class="search-input-wireframe" autocomplete="off">
+            </form>
 
             <div class="table-responsive">
                 <table class="domain-table">
@@ -86,75 +86,37 @@
                         </tr>
                     </thead>
                     <tbody>
+                        <?php $__empty_1 = true; $__currentLoopData = $domains; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $index => $domain): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
                         <tr>
-                            <td class="text-center">1</td>
-                            <td>Wangunsari</td>
-                            <td>Sindangkerta</td>
-                            <td class="domain-cell">wangunsari-sindangkerta.desa.id</td>
+                            <td class="text-center"><?php echo e($domains->firstItem() ? $domains->firstItem() + $index : $index + 1); ?></td>
+                            <td><?php echo e($domain->desa ? $domain->desa->nama_desa : '-'); ?></td>
+                            <td><?php echo e($domain->desa ? $domain->desa->kecamatan : '-'); ?></td>
+                            <td class="domain-cell"><?php echo e($domain->nama_domain); ?></td>
                         </tr>
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
                         <tr>
-                            <td class="text-center">2</td>
-                            <td>Rancasenggang</td>
-                            <td>Sindangkerta</td>
-                            <td class="domain-cell">rancasenggang-sindangkerta.desa.id</td>
+                            <td colspan="4" class="text-center" style="padding: 24px; color: #64748b;">
+                                Belum ada domain terdaftar.
+                            </td>
                         </tr>
-                        <tr>
-                            <td class="text-center">3</td>
-                            <td>Buninagara</td>
-                            <td>Sindangkerta</td>
-                            <td class="domain-cell">buninagara-sindangkerta.desa.id</td>
-                        </tr>
-                        <tr>
-                            <td class="text-center">4</td>
-                            <td>Cibedug</td>
-                            <td>Rongga</td>
-                            <td class="domain-cell">cibedug.desa.id</td>
-                        </tr>
-                        <tr>
-                            <td class="text-center">5</td>
-                            <td>Padalarang</td>
-                            <td>Padalarang</td>
-                            <td class="domain-cell">padalarang-padalarang.desa.id</td>
-                        </tr>
-                        <tr>
-                            <td class="text-center">6</td>
-                            <td>Pakuhaji</td>
-                            <td>Ngamprah</td>
-                            <td class="domain-cell">pakuhaji-kbb.desa.id</td>
-                        </tr>
-                        <tr>
-                            <td class="text-center">7</td>
-                            <td>Mekarsari</td>
-                            <td>Ngamprah</td>
-                            <td class="domain-cell">mekarsari-ngamprah.desa.id</td>
-                        </tr>
-                        <tr>
-                            <td class="text-center">8</td>
-                            <td>Lembang</td>
-                            <td>Lembang</td>
-                            <td class="domain-cell">lembang.desa.id</td>
-                        </tr>
-                        <tr>
-                            <td class="text-center">9</td>
-                            <td>Cihanjuang</td>
-                            <td>Parongpong</td>
-                            <td class="domain-cell">cihanjuang.desa.id</td>
-                        </tr>
-                        <tr>
-                            <td class="text-center">10</td>
-                            <td>Batujajar Barat</td>
-                            <td>Batujajar</td>
-                            <td class="domain-cell">batujajarbarat.desa.id</td>
-                        </tr>
+                        <?php endif; ?>
                     </tbody>
                 </table>
             </div>
 
+            <?php if($domains->hasPages()): ?>
             <div class="table-footer-action">
-                <button class="btn btn-secondary-action btn-next-page" type="button">
+                <?php if($domains->hasMorePages()): ?>
+                <a href="<?php echo e($domains->nextPageUrl()); ?>#domain-terdaftar" class="btn btn-secondary-action btn-next-page" style="text-decoration: none; display: inline-flex; align-items: center; justify-content: center;">
+                    Selanjutnya &rarr;
+                </a>
+                <?php else: ?>
+                <button class="btn btn-secondary-action btn-next-page" type="button" disabled style="opacity: 0.5; cursor: default;">
                     Selanjutnya &rarr;
                 </button>
+                <?php endif; ?>
             </div>
+            <?php endif; ?>
         </div>
     </section>
 

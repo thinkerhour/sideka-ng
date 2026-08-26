@@ -362,7 +362,7 @@ body {
 
 .table-footer-action {
     display: flex;
-    justify-content: flex-end;
+    justify-content: center;
     margin-top: 28px;
 }
 

@@ -737,3 +737,9 @@
 #4 C:/Users/User/sideka-ng/artisan(13): Illuminate/Foundation/Application->handleCommand(Object(Symfony/Component/Console/Input/ArgvInput))
 #5 {main}
 "} 
+[2026-08-26 12:47:27] local.ERROR: App\Http\Controllers\User\BerandaController::index(): Argument #1 ($request) must be of type App\Http\Controllers\User\Request, Illuminate\Http\Request given, called in C:\Users\User\.gemini\antigravity\brain\d346fc7d-9c42-4aec-b38c-d57b069fcdb4\scratch\test_search_domain.php on line 15 {"exception":"[object] (TypeError(code: 0): App\\Http\\Controllers\\User\\BerandaController::index(): Argument #1 ($request) must be of type App\\Http\\Controllers\\User\\Request, Illuminate\\Http\\Request given, called in C:\\Users\\User\\.gemini\\antigravity\\brain\\d346fc7d-9c42-4aec-b38c-d57b069fcdb4\\scratch\\test_search_domain.php on line 15 at C:/Users/User/sideka-ng/app/Http/Controllers/User/BerandaController.php:13)
+[stacktrace]
+#0 C:/Users/User/.gemini/antigravity/brain/d346fc7d-9c42-4aec-b38c-d57b069fcdb4/scratch/test_search_domain.php(15): App/Http/Controllers/User/BerandaController->index(Object(Illuminate/Http/Request))
+#1 C:/Users/User/.gemini/antigravity/brain/d346fc7d-9c42-4aec-b38c-d57b069fcdb4/scratch/test_search_domain.php(28): testSearch('Wangunsari')
+#2 {main}
+"} 
