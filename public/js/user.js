@@ -24,7 +24,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnNextToForm = document.getElementById('btn-next-to-form');
     const btnSubmitForm = document.getElementById('btn-submit-form');
     const btnOkKonfirmasi = document.getElementById('btn-ok-konfirmasi');
-    const btnDownloadTemplate = document.getElementById('btn-download-template');
     const btnTriggerReupload = document.getElementById('btn-trigger-reupload');
 
     // Modals
@@ -67,12 +66,34 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.style.overflow = '';
     }
 
+    // Helper to reset upload form and its UI displays
+    function resetUploadForm() {
+        const formUpload = document.getElementById('form-upload-berkas');
+        if (formUpload) {
+            formUpload.reset();
+        }
+        ['file-surat-permohonan', 'file-sk-kades', 'file-surat-kuasa', 'file-surat-admin'].forEach(id => {
+            const el = document.getElementById(id);
+            if (el) el.value = '';
+        });
+        document.querySelectorAll('#form-upload-berkas .file-name-display').forEach(display => {
+            display.textContent = 'Pilih file atau drag ke sini';
+            display.style.color = '';
+            display.style.fontWeight = '';
+        });
+    }
+
+    // Always ensure upload form is pristine on page load / browser back-forward cache
+    resetUploadForm();
+    window.addEventListener('pageshow', resetUploadForm);
+
     // 1. Click "Ajukan SIDeKa-NG" -> Open Modal Informasi Persyaratan
     const triggerSubmissionBtns = [btnAjukan, navPengajuan, footerNavPengajuan, btnFaqAjukan, linkCekStatusAjukan];
     triggerSubmissionBtns.forEach(btn => {
         if (btn) {
             btn.addEventListener('click', (e) => {
                 e.preventDefault();
+                resetUploadForm();
                 openModal(modalPersyaratan);
             });
         }
@@ -86,18 +107,84 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 3. Click "SUBMIT" in Modal Form -> Open Modal Konfirmasi Berhasil
+    // 3. Click "SUBMIT" in Modal Form -> Validasi 4 Dokumen & Submit via AJAX
     if (btnSubmitForm) {
-        btnSubmitForm.addEventListener('click', (e) => {
+        btnSubmitForm.addEventListener('click', async (e) => {
             e.preventDefault();
-            openModal(modalKonfirmasi);
+
+            const inputPermohonan = document.getElementById('file-surat-permohonan');
+            const inputSkKades = document.getElementById('file-sk-kades');
+            const inputKuasa = document.getElementById('file-surat-kuasa');
+            const inputAdmin = document.getElementById('file-surat-admin');
+
+            // 1. Validasi Frontend: Semua 4 dokumen harus dipilih
+            const hasPermohonan = inputPermohonan && inputPermohonan.files && inputPermohonan.files.length > 0;
+            const hasSkKades = inputSkKades && inputSkKades.files && inputSkKades.files.length > 0;
+            const hasKuasa = inputKuasa && inputKuasa.files && inputKuasa.files.length > 0;
+            const hasAdmin = inputAdmin && inputAdmin.files && inputAdmin.files.length > 0;
+
+            if (!hasPermohonan || !hasSkKades || !hasKuasa || !hasAdmin) {
+                alert('Data belum lengkap di upload! Cek kembali.');
+                return;
+            }
+
+            // 2. Siapkan FormData (multipart/form-data)
+            const formData = new FormData();
+            formData.append('surat_permohonan', inputPermohonan.files[0]);
+            formData.append('sk_kepala_desa', inputSkKades.files[0]);
+            formData.append('surat_kuasa', inputKuasa.files[0]);
+            formData.append('surat_penunjukan_admin', inputAdmin.files[0]);
+
+            const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') 
+                || document.querySelector('input[name="_token"]')?.value;
+
+            // 3. Disable tombol saat pengiriman
+            const originalText = btnSubmitForm.textContent;
+            btnSubmitForm.disabled = true;
+            btnSubmitForm.textContent = 'MENGIRIM...';
+
+            try {
+                const response = await fetch('/pengajuan', {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'X-CSRF-TOKEN': csrfToken || '',
+                        'Accept': 'application/json',
+                    },
+                });
+
+                let data = null;
+                try {
+                    data = await response.json();
+                } catch (parseErr) {
+                    data = null;
+                }
+
+                if (response.ok && data && data.success) {
+                    // Reset form & UI
+                    resetUploadForm();
+
+                    // Buka Modal Konfirmasi Berhasil hanya jika backend sukses
+                    openModal(modalKonfirmasi);
+                } else {
+                    const errorMsg = (data && data.message) ? data.message : 'Data belum lengkap di upload! Cek kembali.';
+                    alert(errorMsg);
+                }
+            } catch (err) {
+                console.error('Submit error:', err);
+                alert('Terjadi kesalahan jaringan atau server saat mengirim pengajuan. Silakan coba lagi.');
+            } finally {
+                btnSubmitForm.disabled = false;
+                btnSubmitForm.textContent = originalText;
+            }
         });
     }
 
-    // 4. Click "OK" in Modal Konfirmasi -> Close all & Return to Beranda
+    // 4. Click "OK" in Modal Konfirmasi -> Close all & Reset form
     if (btnOkKonfirmasi) {
         btnOkKonfirmasi.addEventListener('click', (e) => {
             e.preventDefault();
+            resetUploadForm();
             closeAllModals();
         });
     }
@@ -158,14 +245,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
-
-    // Template download placeholder alert
-    if (btnDownloadTemplate) {
-        btnDownloadTemplate.addEventListener('click', (e) => {
-            e.preventDefault();
-            alert('Placeholder: Template Surat Kuasa akan diunduh.');
-        });
-    }
 
     // FAQ Custom Dropdown Menu Toggle (Landing Page) — legacy, no-op if elements removed
     const faqCustomSelect = document.getElementById('faq-custom-select');

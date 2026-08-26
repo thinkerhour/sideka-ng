@@ -370,9 +370,19 @@
             </div>
 
             <div class="requirements-grid">
-                <div class="req-item">
-                    <span class="req-num">1.</span>
-                    <span class="req-text">Surat Permohonan Fasilitasi Domain desa.id</span>
+                <div class="req-item req-with-download">
+                    <div class="req-text-wrap">
+                        <span class="req-num">1.</span>
+                        <span class="req-text">Surat Permohonan Fasilitasi Domain desa.id</span>
+                    </div>
+                    <a href="<?php echo e(asset('documents/pengajuan/contoh-surat-permohonan.pdf')); ?>" download="contoh-surat-permohonan.pdf" class="btn btn-download-template" id="btn-download-permohonan">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                            <polyline points="7 10 12 15 17 10"></polyline>
+                            <line x1="12" y1="15" x2="12" y2="3"></line>
+                        </svg>
+                        Contoh Surat Permohonan
+                    </a>
                 </div>
                 <div class="req-item">
                     <span class="req-num">3.</span>
@@ -383,18 +393,28 @@
                         <span class="req-num">2.</span>
                         <span class="req-text">Surat Kuasa</span>
                     </div>
-                    <a href="#download-template" class="btn btn-download-template" id="btn-download-template">
+                    <a href="<?php echo e(asset('documents/pengajuan/template-surat-kuasa.pdf')); ?>" download="template-surat-kuasa.pdf" class="btn btn-download-template" id="btn-download-template">
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
                             <polyline points="7 10 12 15 17 10"></polyline>
                             <line x1="12" y1="15" x2="12" y2="3"></line>
                         </svg>
-                        Unduh Template Surat Kuasa
+                        Template Surat Kuasa
                     </a>
                 </div>
-                <div class="req-item">
-                    <span class="req-num">4.</span>
-                    <span class="req-text">Surat Penunjukan Admin Website desa.id</span>
+                <div class="req-item req-with-download">
+                    <div class="req-text-wrap">
+                        <span class="req-num">4.</span>
+                        <span class="req-text">Surat Penunjukan Admin Website desa.id</span>
+                    </div>
+                    <a href="<?php echo e(asset('documents/pengajuan/contoh-surat-penunjukan-admin.pdf')); ?>" download="contoh-surat-penunjukan-admin.pdf" class="btn btn-download-template" id="btn-download-admin">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                            <polyline points="7 10 12 15 17 10"></polyline>
+                            <line x1="12" y1="15" x2="12" y2="3"></line>
+                        </svg>
+                        Contoh Surat Penunjukan Admin
+                    </a>
                 </div>
             </div>
         </div>
@@ -435,12 +455,13 @@
                 <span>Silakan unggah seluruh dokumen persyaratan yang telah disiapkan.</span>
             </div>
 
-            <form id="form-upload-berkas" onsubmit="return false;">
+            <form id="form-upload-berkas" onsubmit="return false;" enctype="multipart/form-data" autocomplete="off">
+                <?php echo csrf_field(); ?>
                 <div class="upload-grid">
                     <div class="upload-field-card">
                         <label class="upload-label" for="file-surat-permohonan">1. Surat Permohonan Fasilitasi Domain desa.id</label>
                         <div class="file-input-wrapper">
-                            <input type="file" id="file-surat-permohonan" accept=".pdf,.doc,.docx" class="file-input">
+                            <input type="file" id="file-surat-permohonan" name="surat_permohonan" accept=".pdf,.doc,.docx" class="file-input" autocomplete="off">
                             <div class="file-input-custom">
                                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
                                 <span class="file-name-display">Pilih file atau drag ke sini</span>
@@ -451,7 +472,7 @@
                     <div class="upload-field-card">
                         <label class="upload-label" for="file-sk-kades">2. Surat Keputusan Pengangkatan Kepala Desa</label>
                         <div class="file-input-wrapper">
-                            <input type="file" id="file-sk-kades" accept=".pdf,.doc,.docx" class="file-input">
+                            <input type="file" id="file-sk-kades" name="sk_kepala_desa" accept=".pdf,.doc,.docx" class="file-input" autocomplete="off">
                             <div class="file-input-custom">
                                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
                                 <span class="file-name-display">Pilih file atau drag ke sini</span>
@@ -462,7 +483,7 @@
                     <div class="upload-field-card">
                         <label class="upload-label" for="file-surat-kuasa">3. Surat Kuasa</label>
                         <div class="file-input-wrapper">
-                            <input type="file" id="file-surat-kuasa" accept=".pdf,.doc,.docx" class="file-input">
+                            <input type="file" id="file-surat-kuasa" name="surat_kuasa" accept=".pdf,.doc,.docx" class="file-input" autocomplete="off">
                             <div class="file-input-custom">
                                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
                                 <span class="file-name-display">Pilih file atau drag ke sini</span>
@@ -473,7 +494,7 @@
                     <div class="upload-field-card">
                         <label class="upload-label" for="file-surat-admin">4. Surat Penunjukan Admin Website desa.id</label>
                         <div class="file-input-wrapper">
-                            <input type="file" id="file-surat-admin" accept=".pdf,.doc,.docx" class="file-input">
+                            <input type="file" id="file-surat-admin" name="surat_penunjukan_admin" accept=".pdf,.doc,.docx" class="file-input" autocomplete="off">
                             <div class="file-input-custom">
                                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
                                 <span class="file-name-display">Pilih file atau drag ke sini</span>

@@ -16,6 +16,9 @@ Route::get('/faq/{id?}', function ($id = 1) {
     return view('user.faq.show', ['id' => $id]);
 });
 
+Route::post('/pengajuan', [App\Http\Controllers\User\PengajuanController::class, 'store'])->name('user.pengajuan.store');
+
+
 /*
 |--------------------------------------------------------------------------
 | Admin & Dashboard Routes

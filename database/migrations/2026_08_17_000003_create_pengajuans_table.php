@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('pengajuans', function (Blueprint $table) {
             $table->id('id_pengajuan');
             $table->foreignId('id_desa')
-                  ->unique()
+                  ->nullable()
                   ->constrained('desas', 'id_desa')
-                  ->onDelete('cascade');
+                  ->nullOnDelete();
             $table->enum('status', ['Diproses', 'Revisi', 'Domain Berhasil'])->default('Diproses');
             $table->text('keterangan_revisi')->nullable();
             $table->dateTime('tanggal_pengajuan');

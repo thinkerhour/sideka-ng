@@ -1454,8 +1454,7 @@ body {
 
 .req-item { font-size: 13px; color: var(--text-dark); line-height: 1.4; }
 .req-num { font-weight: 700; margin-right: 4px; }
-.req-text-wrap { margin-bottom: 4px; }
-.req-with-download { display: flex; flex-direction: column; align-items: flex-start; }
+.req-with-download { display: flex; flex-direction: column; width: 100%; }
 
 .upload-grid {
     display: grid;
@@ -1704,20 +1703,24 @@ body {
 .btn-secondary-action:hover { background-color: #1e293b; }
 
 .btn-download-template {
-    background-color: #3b82f6;
+    background-color: var(--primary-blue);
     color: #ffffff;
     border-radius: var(--radius-sm);
     padding: 8px 14px;
     font-size: 12px;
     font-weight: 500;
     display: inline-flex;
+    justify-content: center;
     align-items: center;
     gap: 6px;
     text-decoration: none;
     margin-top: 6px;
+    width: 100%;
+    box-sizing: border-box;
+    transition: background-color 0.2s ease;
 }
 
-.btn-download-template:hover { background-color: #2563eb; }
+.btn-download-template:hover { background-color: var(--primary-blue-hover); }
 .btn-full-width { width: 100%; }
 
 /* ================================================== */
