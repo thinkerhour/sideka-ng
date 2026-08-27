@@ -9,17 +9,11 @@ use Illuminate\Http\Request;
 class FaqController extends Controller
 {
     /**
-     * Tampilkan halaman detail FAQ.
+     * Tampilkan halaman FAQ (mengarahkan ke section FAQ pada Beranda).
      */
     public function show($id = null)
     {
-        $faqs = Faq::all();
-        $selectedFaq = $id ? Faq::find($id) : $faqs->first();
-
-        return view('user.faq.show', [
-            'faqs'        => $faqs,
-            'selectedFaq' => $selectedFaq,
-        ]);
+        return redirect('/#faq');
     }
 
     /**

@@ -113,7 +113,7 @@
     </section>
 
     <!-- ================================================== -->
-    <!-- SECTION FAQ LANDING PAGE (UPDATED WITH SEARCH INPUT) -->
+    <!-- SECTION FAQ LANDING PAGE (ACCORDION / DROPDOWN)    -->
     <!-- ================================================== -->
     <section class="faq-landing-section" id="faq">
         <div class="container">
@@ -131,39 +131,31 @@
                         </span>
                     </h2>
                     <p class="faq-subtitle-text">
-                        Masih memiliki pertanyaan? Ketik pertanyaan Anda di bawah ini untuk mencari jawaban seputar layanan SIDeKa-NG.
+                        Masih memiliki pertanyaan? Klik pertanyaan di bawah ini untuk melihat jawaban seputar layanan SIDeKa-NG.
                     </p>
                 </div>
 
-                <!-- FAQ Search Input and Auto-preview Dropdown -->
-                <div class="faq-search-wrapper">
-                    <div class="faq-search-bar">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="faq-search-icon">
-                            <circle cx="11" cy="11" r="8"></circle>
-                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-                        </svg>
-                        <input type="text" id="faq-search-input" placeholder="Ketik kata kunci pertanyaan... (Contoh: gratis, biaya, apa itu)" class="faq-search-input-field" autocomplete="off">
-                        <button type="button" class="btn-faq-search-submit" id="btn-faq-search-submit">Cari</button>
+                <!-- FAQ Accordion List -->
+                <div class="faq-accordion-list" id="faq-accordion-list">
+                    <?php $__empty_1 = true; $__currentLoopData = $faqs; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $index => $faq): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
+                    <div class="faq-accordion-item" data-faq-id="<?php echo e($faq->id_faq); ?>">
+                        <button type="button" class="faq-accordion-header" aria-expanded="false">
+                            <span class="faq-accordion-question"><?php echo e($faq->pertanyaan); ?></span>
+                            <svg class="faq-accordion-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="6 9 12 15 18 9"></polyline>
+                            </svg>
+                        </button>
+                        <div class="faq-accordion-body">
+                            <div class="faq-accordion-content">
+                                <p class="faq-accordion-text"><?php echo e($faq->jawaban); ?></p>
+                            </div>
+                        </div>
                     </div>
-
-                    <!-- Autocomplete dropdown suggestions -->
-                    <div class="faq-preview-dropdown" id="faq-preview-dropdown">
-                        <!-- Populated dynamically via JS -->
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
+                    <div class="faq-empty-state">
+                        <p>Belum ada pertanyaan FAQ yang tersedia saat ini.</p>
                     </div>
-                </div>
-
-                <!-- Answer Container -->
-                <div class="faq-answer-container" id="faq-answer-container" style="display: none;">
-                    <div class="faq-answer-card">
-                        <h4 class="faq-answer-question" id="faq-answer-question"></h4>
-                        <p class="faq-answer-text" id="faq-answer-text"></p>
-                    </div>
-                </div>
-
-                <div class="faq-cta-wrapper" style="margin-top: 28px; display: flex; justify-content: center;">
-                    <button class="btn-ajukan-img" id="btn-faq-ajukan" type="button" aria-label="Ajukan SIDeKa-NG">
-                        <img src="<?php echo e(asset('assets/images/button_ajukan.png')); ?>" alt="Ajukan SIDEKA-NG" class="img-btn-ajukan">
-                    </button>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>

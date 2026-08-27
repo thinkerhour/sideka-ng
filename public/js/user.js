@@ -19,7 +19,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnAjukan = document.getElementById('btn-ajukan-sideka');
     const navPengajuan = document.getElementById('nav-pengajuan');
     const footerNavPengajuan = document.getElementById('footer-nav-pengajuan');
-    const btnFaqAjukan = document.getElementById('btn-faq-ajukan');
     const linkCekStatusAjukan = document.getElementById('link-cek-status-ajukan');
     const btnNextToForm = document.getElementById('btn-next-to-form');
     const btnSubmitForm = document.getElementById('btn-submit-form');
@@ -88,15 +87,13 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('pageshow', resetUploadForm);
 
     // 1. Click "Ajukan SIDeKa-NG" -> Open Modal Informasi Persyaratan
-    const triggerSubmissionBtns = [btnAjukan, navPengajuan, footerNavPengajuan, btnFaqAjukan, linkCekStatusAjukan];
+    const triggerSubmissionBtns = [btnAjukan, navPengajuan, footerNavPengajuan, linkCekStatusAjukan].filter(Boolean);
     triggerSubmissionBtns.forEach(btn => {
-        if (btn) {
-            btn.addEventListener('click', (e) => {
-                e.preventDefault();
-                resetUploadForm();
-                openModal(modalPersyaratan);
-            });
-        }
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            resetUploadForm();
+            openModal(modalPersyaratan);
+        });
     });
 
     // 2. Click "SELANJUTNYA" in Modal Persyaratan -> Open Modal Form Pengajuan
@@ -265,149 +262,39 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // FAQ Custom Dropdown Menu Toggle (Landing Page) — legacy, no-op if elements removed
-    const faqCustomSelect = document.getElementById('faq-custom-select');
-    const faqDropdownMenu = document.getElementById('faq-dropdown-menu');
-
-    if (faqCustomSelect && faqDropdownMenu) {
-        faqCustomSelect.addEventListener('click', (e) => {
-            e.stopPropagation();
-            faqCustomSelect.classList.toggle('active');
-            faqDropdownMenu.classList.toggle('show');
-        });
-
-        document.addEventListener('click', () => {
-            faqCustomSelect.classList.remove('active');
-            faqDropdownMenu.classList.remove('show');
-        });
-    }
-
     // ================================================
-    // FAQ SEARCH WITH SUGGESTED SEARCH (Landing Page)
+    // FAQ ACCORDION / DROPDOWN TOGGLE (Landing Page)
     // ================================================
-    const faqSearchInput = document.getElementById('faq-search-input');
-    const faqPreviewDropdown = document.getElementById('faq-preview-dropdown');
-    const faqAnswerContainer = document.getElementById('faq-answer-container');
-    const faqAnswerQuestion = document.getElementById('faq-answer-question');
-    const faqAnswerText = document.getElementById('faq-answer-text');
-    const btnFaqSearchSubmit = document.getElementById('btn-faq-search-submit');
+    const faqAccordionHeaders = document.querySelectorAll('.faq-accordion-header');
 
-    let faqDebounceTimer = null;
+    faqAccordionHeaders.forEach(header => {
+        header.addEventListener('click', () => {
+            const item = header.closest('.faq-accordion-item');
+            if (!item) return;
 
-    async function fetchFaqSuggestions(query) {
-        if (!query) {
-            hideFaqSuggestions();
-            if (faqAnswerContainer) faqAnswerContainer.style.display = 'none';
-            return [];
-        }
+            const body = item.querySelector('.faq-accordion-body');
+            const isCurrentlyActive = item.classList.contains('active');
 
-        try {
-            const response = await fetch('/faq/search?q=' + encodeURIComponent(query), {
-                headers: {
-                    'Accept': 'application/json',
-                    'X-Requested-With': 'XMLHttpRequest'
+            // Close other open accordion items
+            document.querySelectorAll('.faq-accordion-item').forEach(otherItem => {
+                if (otherItem !== item) {
+                    otherItem.classList.remove('active');
+                    const otherHeader = otherItem.querySelector('.faq-accordion-header');
+                    const otherBody = otherItem.querySelector('.faq-accordion-body');
+                    if (otherHeader) otherHeader.setAttribute('aria-expanded', 'false');
+                    if (otherBody) otherBody.style.maxHeight = null;
                 }
             });
-            if (response.ok) {
-                const matches = await response.json();
-                renderFaqSuggestions(matches);
-                return matches;
-            }
-        } catch (err) {
-            console.error('Error fetching FAQ suggestions from database:', err);
-        }
-        return [];
-    }
 
-    function renderFaqSuggestions(matches) {
-        faqPreviewDropdown.innerHTML = '';
-        if (!matches || matches.length === 0) {
-            faqPreviewDropdown.innerHTML = '<div class="faq-no-result">Tidak ada pertanyaan yang cocok.</div>';
-            faqPreviewDropdown.classList.add('show');
-            return;
-        }
-        matches.forEach(item => {
-            const div = document.createElement('div');
-            div.className = 'faq-suggestion-item';
-            div.innerHTML = '<svg class="faq-suggestion-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg><span>' + item.q + '</span>';
-            div.addEventListener('click', () => showFaqAnswer(item));
-            faqPreviewDropdown.appendChild(div);
-        });
-        faqPreviewDropdown.classList.add('show');
-    }
-
-    function showFaqAnswer(item) {
-        faqAnswerQuestion.textContent = item.q;
-        faqAnswerText.textContent = item.a;
-        faqAnswerContainer.style.display = 'block';
-        faqPreviewDropdown.classList.remove('show');
-        faqSearchInput.value = item.q;
-    }
-
-    function hideFaqSuggestions() {
-        faqPreviewDropdown.classList.remove('show');
-    }
-
-    if (faqSearchInput && faqPreviewDropdown && faqAnswerContainer) {
-        // On input: show suggestions from database via AJAX
-        faqSearchInput.addEventListener('input', () => {
-            const query = faqSearchInput.value.trim();
-            clearTimeout(faqDebounceTimer);
-            if (!query) {
-                hideFaqSuggestions();
-                faqAnswerContainer.style.display = 'none';
-                return;
-            }
-            faqDebounceTimer = setTimeout(() => {
-                fetchFaqSuggestions(query);
-            }, 200);
-        });
-
-        // On Enter key: select first match from database
-        faqSearchInput.addEventListener('keydown', async (e) => {
-            if (e.key === 'Enter') {
-                e.preventDefault();
-                const query = faqSearchInput.value.trim();
-                if (query) {
-                    const matches = await fetchFaqSuggestions(query);
-                    if (matches && matches.length > 0) {
-                        showFaqAnswer(matches[0]);
-                    }
-                }
-            }
-        });
-
-        // On Cari button click: select first match from database
-        if (btnFaqSearchSubmit) {
-            btnFaqSearchSubmit.addEventListener('click', async () => {
-                const query = faqSearchInput.value.trim();
-                if (query) {
-                    const matches = await fetchFaqSuggestions(query);
-                    if (matches && matches.length > 0) {
-                        showFaqAnswer(matches[0]);
-                    } else {
-                        faqAnswerContainer.style.display = 'none';
-                        renderFaqSuggestions([]);
-                    }
-                }
-            });
-        }
-
-        // Click outside closes suggestions
-        document.addEventListener('click', (e) => {
-            if (!faqSearchInput.contains(e.target) && !faqPreviewDropdown.contains(e.target) && (!btnFaqSearchSubmit || !btnFaqSearchSubmit.contains(e.target))) {
-                hideFaqSuggestions();
-            }
-        });
-    }
-
-    // Accordion Toggle (FAQ Detail Page) - FIXED FOR .faq-accordion-btn
-    const accordionBtns = document.querySelectorAll('.faq-accordion-btn, .accordion-trigger');
-    accordionBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            const row = btn.closest('.faq-accordion-row, .accordion-item');
-            if (row) {
-                row.classList.toggle('active');
+            // Toggle current item
+            if (isCurrentlyActive) {
+                item.classList.remove('active');
+                header.setAttribute('aria-expanded', 'false');
+                if (body) body.style.maxHeight = null;
+            } else {
+                item.classList.add('active');
+                header.setAttribute('aria-expanded', 'true');
+                if (body) body.style.maxHeight = body.scrollHeight + 'px';
             }
         });
     });

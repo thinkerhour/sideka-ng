@@ -27,116 +27,60 @@
         </div>
     </header>
 
-    <!-- FAQ SEARCH SECTION -->
-    <section class="faq-search-section" id="faq">
+    <!-- FAQ SECTION -->
+    <section class="faq-landing-section" id="faq">
         <div class="container">
-            <h1 class="faq-title" style="text-align:center; margin-bottom:24px;">FAQ</h1>
-            <input type="text" id="faq-search-input" class="faq-search-input" placeholder="Cari pertanyaan..." autocomplete="off" />
-            <ul id="faq-suggestions" class="faq-suggestions"></ul>
-            <div id="faq-answer" class="faq-answer" style="margin-top:24px; {{ $selectedFaq ? '' : 'display:none;' }}">
-                <h2 id="faq-answer-question" class="faq-answer-question">{{ $selectedFaq ? $selectedFaq->pertanyaan : '' }}</h2>
-                <p id="faq-answer-text" class="faq-answer-text">{{ $selectedFaq ? $selectedFaq->jawaban : '' }}</p>
+            <div class="faq-landing-card">
+                <div class="faq-header-group">
+                    <h1 class="faq-title">
+                        FAQ
+                        <span class="faq-icon-group">
+                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="9" cy="7" r="4"></circle>
+                                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                            </svg>
+                        </span>
+                    </h1>
+                    <p class="faq-subtitle-text">
+                        Masih memiliki pertanyaan? Klik pertanyaan di bawah ini untuk melihat jawaban seputar layanan SIDeKa-NG.
+                    </p>
+                </div>
+
+                <!-- FAQ Accordion List -->
+                <div class="faq-accordion-list" id="faq-accordion-list">
+                    @forelse ($faqs as $index => $faq)
+                    <div class="faq-accordion-item" data-faq-id="{{ $faq->id_faq }}">
+                        <button type="button" class="faq-accordion-header" aria-expanded="false">
+                            <span class="faq-accordion-question">{{ $faq->pertanyaan }}</span>
+                            <svg class="faq-accordion-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="6 9 12 15 18 9"></polyline>
+                            </svg>
+                        </button>
+                        <div class="faq-accordion-body">
+                            <div class="faq-accordion-content">
+                                <p class="faq-accordion-text">{{ $faq->jawaban }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    @empty
+                    <div class="faq-empty-state">
+                        <p>Belum ada pertanyaan FAQ yang tersedia saat ini.</p>
+                    </div>
+                    @endforelse
+                </div>
             </div>
         </div>
     </section>
 
     <!-- FOOTER -->
-    <footer class="footer">
-        <div class="container footer-container">
-            <div class="footer-brand">
-                <div class="footer-logo">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M12 2L2 7L12 12L22 7L12 2Z"></path>
-                        <path d="M2 17L12 22L22 17"></path>
-                        <path d="M2 12L12 17L22 12"></path>
-                    </svg>
-                </div>
-                <div>
-                    <div class="footer-title">DISKOMINFOTIK</div>
-                    <div class="footer-subtitle">Kabupaten Bandung Barat</div>
-                </div>
-            </div>
-            <div class="footer-copy">
-                &copy; {{ date('Y') }} DISKOMINFOTIK KBB. All rights reserved.
+    <footer class="footer-kbb">
+        <div class="container">
+            <div class="footer-bottom-bar" style="border-top: none; padding: 24px 0;">
+                <p>&copy; 2026 Diskominfo - Portal Layanan Domain Desa Resmi (.desa.id)</p>
             </div>
         </div>
     </footer>
 </div>
-
-<script>
-    const searchInput = document.getElementById('faq-search-input');
-    const suggestionsEl = document.getElementById('faq-suggestions');
-    const answerEl = document.getElementById('faq-answer');
-    const answerQuestionEl = document.getElementById('faq-answer-question');
-    const answerTextEl = document.getElementById('faq-answer-text');
-
-    let searchTimer = null;
-
-    function renderSuggestions(matches) {
-        suggestionsEl.innerHTML = '';
-        if (!matches || matches.length === 0) {
-            suggestionsEl.style.display = 'none';
-            return;
-        }
-        matches.forEach(item => {
-            const li = document.createElement('li');
-            li.textContent = item.q;
-            li.className = 'faq-suggestion-item';
-            li.addEventListener('click', () => showAnswer(item));
-            suggestionsEl.appendChild(li);
-        });
-        suggestionsEl.style.display = 'block';
-    }
-
-    function showAnswer(item) {
-        answerQuestionEl.textContent = item.q;
-        answerTextEl.textContent = item.a;
-        answerEl.style.display = 'block';
-        suggestionsEl.style.display = 'none';
-        searchInput.value = item.q;
-    }
-
-    if (searchInput) {
-        searchInput.addEventListener('input', (e) => {
-            const query = e.target.value.trim();
-            clearTimeout(searchTimer);
-            if (!query) {
-                renderSuggestions([]);
-                answerEl.style.display = 'none';
-                return;
-            }
-            searchTimer = setTimeout(async () => {
-                try {
-                    const response = await fetch('/faq/search?q=' + encodeURIComponent(query));
-                    if (response.ok) {
-                        const matches = await response.json();
-                        renderSuggestions(matches);
-                    }
-                } catch (err) {
-                    console.error('Error fetching FAQ:', err);
-                }
-            }, 200);
-        });
-
-        searchInput.addEventListener('keydown', async (e) => {
-            if (e.key === 'Enter') {
-                e.preventDefault();
-                const query = searchInput.value.trim();
-                if (query) {
-                    try {
-                        const response = await fetch('/faq/search?q=' + encodeURIComponent(query));
-                        if (response.ok) {
-                            const matches = await response.json();
-                            if (matches.length > 0) {
-                                showAnswer(matches[0]);
-                            }
-                        }
-                    } catch (err) {
-                        console.error('Error selecting FAQ:', err);
-                    }
-                }
-            }
-        });
-    }
-</script>
 @endsection

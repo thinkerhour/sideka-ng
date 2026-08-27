@@ -4,12 +4,13 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Models\Domain;
+use App\Models\Faq;
 use Illuminate\Http\Request;
 
 class BerandaController extends Controller
 {
     /**
-     * Tampilkan halaman Beranda beserta daftar domain terdaftar.
+     * Tampilkan halaman Beranda beserta daftar domain terdaftar dan FAQ.
      */
     public function index(Request $request)
     {
@@ -28,8 +29,9 @@ class BerandaController extends Controller
         }
 
         $domains = $query->paginate(10)->appends($request->query());
+        $faqs = Faq::orderBy('id_faq', 'asc')->get();
 
-        return view('user.beranda', compact('domains', 'search'));
+        return view('user.beranda', compact('domains', 'search', 'faqs'));
     }
 }
 
