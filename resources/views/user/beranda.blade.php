@@ -5,38 +5,30 @@
     <!-- HERO BACKGROUND OVERLAY -->
     <div class="hero-background"></div>
 
-    <!-- HEADER / NAVIGATION -->
-    <header class="navbar">
-        <div class="container navbar-container">
-            <div class="brand">
-                <div class="brand-logo-placeholder">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                </div>
+  <!-- HEADER / NAVIGATION -->
+<header class="navbar">
+    <div class="container navbar-container">
+        <div class="brand">
+            <a href="{{ url('/') }}" class="brand-link">
+                <img src="{{ asset('assets/images/logo_diskominfotik.png') }}" alt="Logo Diskominfotik" class="brand-logo-img">
                 <div class="brand-text">
                     <span class="brand-title">DISKOMINFOTIK</span>
                     <span class="brand-subtitle">KABUPATEN BANDUNG BARAT</span>
                 </div>
-            </div>
-
-            <nav class="nav-links">
-                <a href="#domain-terdaftar" class="nav-item">Daftar Domain</a>
-                <a href="#pengajuan" class="nav-item" id="nav-pengajuan">Pengajuan</a>
-                <a href="#cek-status" class="nav-item">Cek Status</a>
-                <a href="#faq" class="nav-item nav-pill">
-                    FAQ
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <circle cx="12" cy="12" r="10"></circle>
-                        <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
-                        <line x1="12" y1="17" x2="12.01" y2="17"></line>
-                    </svg>
-                </a>
-            </nav>
+            </a>
         </div>
-    </header>
+
+        <nav class="nav-links">
+            <a href="#domain-terdaftar" class="nav-item">Daftar Domain</a>
+            <a href="#pengajuan" class="nav-item" id="nav-pengajuan">Pengajuan</a>
+            <a href="#cek-status" class="nav-item">Cek Status</a>
+            <a href="#faq" class="nav-item nav-pill-faq">
+                <span>FAQ</span>
+                <img src="{{ asset('assets/icons/question.svg') }}" alt="FAQ" class="faq-icon-img" width="18" height="18">
+            </a>
+        </nav>
+    </div>
+</header>
 
     <!-- HERO SECTION -->
     <main class="hero-section">
@@ -46,11 +38,11 @@
                     Pengajuan Sistem Informasi Desa<br>dan Kawasan <em>New Generation</em>
                 </h1>
                 <p class="hero-subtitle">
-                    Ajukan permohonan layanan dan pantau proses pengajuan website desa melalui layanan SIDeKa-NG.
+                    Ajukan permohonan layanan, pantau proses pengajuan, dan akses informasi layanan website desa melalui Diskominfotik Kab. Bandung Barat
                 </p>
                 <div class="hero-cta">
-                    <button class="btn-ajukan-round" id="btn-ajukan-sideka">
-                        Ajukan SIDeKa-NG &rarr;
+                    <button class="btn-ajukan-img" id="btn-ajukan-sideka" type="button" aria-label="Ajukan SIDeKa-NG">
+                        <img src="{{ asset('assets/images/button_ajukan.png') }}" alt="Ajukan SIDEKA-NG" class="img-btn-ajukan">
                     </button>
                 </div>
             </div>
@@ -63,14 +55,14 @@
     <section class="domain-section" id="domain-terdaftar">
         <div class="container">
             <div class="section-header">
-                <h2 class="section-title">Domain Terdaftar</h2>
+                <h2 class="section-title">Domain desa Terdaftar</h2>
                 <p class="section-subtitle-text">
-                    Daftar domain desa yang telah terdaftar melalui layanan SIDeKa-NG.
+                    Daftar domain resmi website desa dan kawasan yang telah aktif dan dikelola oleh Diskominfotik Kab. Bandung Barat
                 </p>
             </div>
 
             <form method="GET" action="{{ url('/#domain-terdaftar') }}" class="search-bar-wireframe" id="form-search-domain">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#000130" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
                     <circle cx="11" cy="11" r="8"></circle>
                     <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
                 </svg>
@@ -81,16 +73,16 @@
                 <table class="domain-table">
                     <thead>
                         <tr>
-                            <th class="col-no">No</th>
-                            <th class="col-desa">Nama Desa</th>
+                            <th class="col-no">No.</th>
+                            <th class="col-desa">Desa</th>
                             <th class="col-kecamatan">Kecamatan</th>
-                            <th class="col-domain">Nama Domain Desa</th>
+                            <th class="col-domain">Domain</th>
                         </tr>
                     </thead>
                     <tbody>
                         @forelse ($domains as $index => $domain)
                         <tr>
-                            <td class="text-center">{{ $domains->firstItem() ? $domains->firstItem() + $index : $index + 1 }}</td>
+                            <td class="text-center">{{ ($domains->firstItem() ? $domains->firstItem() + $index : $index + 1) }}.</td>
                             <td>{{ $domain->desa ? $domain->desa->nama_desa : '-' }}</td>
                             <td>{{ $domain->desa ? $domain->desa->kecamatan : '-' }}</td>
                             <td class="domain-cell">{{ $domain->nama_domain }}</td>
@@ -109,13 +101,13 @@
             @if ($domains->hasPages())
             <div class="table-footer-action">
                 @if ($domains->hasMorePages())
-                <a href="{{ $domains->nextPageUrl() }}#domain-terdaftar" class="btn btn-secondary-action btn-next-page" style="text-decoration: none; display: inline-flex; align-items: center; justify-content: center;">
-                    Selanjutnya &rarr;
+                <a href="{{ $domains->nextPageUrl() }}#domain-terdaftar" class="btn-selanjutnya-img" aria-label="Selanjutnya">
+                    <img src="{{ asset('assets/images/button_selanjutnya.png') }}" alt="Selanjutnya" class="img-btn-selanjutnya">
                 </a>
                 @else
-                <button class="btn btn-secondary-action btn-next-page" type="button" disabled style="opacity: 0.5; cursor: default;">
-                    Selanjutnya &rarr;
-                </button>
+                <span class="btn-selanjutnya-img disabled">
+                    <img src="{{ asset('assets/images/button_selanjutnya.png') }}" alt="Selanjutnya" class="img-btn-selanjutnya" style="opacity: 0.45;">
+                </span>
                 @endif
             </div>
             @endif
@@ -170,9 +162,9 @@
                     </div>
                 </div>
 
-                <div class="faq-cta-wrapper">
-                    <button class="btn btn-faq-cta" id="btn-faq-ajukan">
-                        Ajukan Sekarang &rsaquo;
+                <div class="faq-cta-wrapper" style="margin-top: 28px; display: flex; justify-content: center;">
+                    <button class="btn-ajukan-img" id="btn-faq-ajukan" type="button" aria-label="Ajukan SIDeKa-NG">
+                        <img src="{{ asset('assets/images/button_ajukan.png') }}" alt="Ajukan SIDEKA-NG" class="img-btn-ajukan">
                     </button>
                 </div>
             </div>
@@ -182,37 +174,26 @@
     <!-- ================================================== -->
     <!-- SECTION CEK STATUS                                 -->
     <!-- ================================================== -->
+   
     <section class="cek-status-section" id="cek-status">
         <div class="container">
             <div class="cek-status-grid">
                 <div class="cek-status-illustration">
-                    <div class="graphic-window-box">
-                        <div class="window-header-dots">
-                            <span></span><span></span><span></span>
-                        </div>
-                        <div class="window-content-inner">
-                            <svg width="120" height="90" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="1.5">
-                                <rect x="2" y="3" width="20" height="14" rx="2"></rect>
-                                <line x1="8" y1="21" x2="16" y2="21"></line>
-                                <line x1="12" y1="17" x2="12" y2="21"></line>
-                                <polygon points="10 8 16 11 10 14 10 8" fill="#60a5fa"></polygon>
-                            </svg>
-                        </div>
-                    </div>
+                        <img src="{{ asset('assets/images/logo_cekstatus.png') }}" alt="Ilustrasi Cek Status" class="img-cek-status-logo">
                 </div>
 
                 <div class="cek-status-content">
                     <h2 class="cek-status-title">Cek Status</h2>
                     <p class="cek-status-subtitle">
-                        Cek status berkas dan domain yang sudah diajukan. Belum mengajukan? <a href="#ajukan" id="link-cek-status-ajukan" style="color: #ffffff; text-decoration: underline;">Ajukan sekarang.</a>
+                        Cek status berkas dan domain yang sudah diajukan. Belum mengajukan? <a href="#pengajuan" id="link-cek-status-ajukan" class="link-ajukan-inline">Ajukan sekarang.</a>
                     </p>
 
                     <form class="cek-status-search-box" id="form-cek-status" onsubmit="return false;">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#000130" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" class="search-icon-navy">
                             <circle cx="11" cy="11" r="8"></circle>
                             <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
                         </svg>
-                        <input type="text" id="input-search-desa" placeholder="Nama Domain atau Nama Desa..." class="cek-status-input">
+                        <input type="text" id="input-search-desa" placeholder="Nama Domain..." class="cek-status-input" autocomplete="off">
                         <button type="submit" class="btn-search-trigger" id="btn-search-status">Cari</button>
                     </form>
                 </div>
@@ -221,7 +202,7 @@
     </section>
 
     <!-- ================================================== -->
-    <!-- FOOTER (DISCOMINFOTIK KBB)                         -->
+    <!-- FOOTER (DISCOMINFOTIK KBB - FIGMA MATCHING)        -->
     <!-- ================================================== -->
     <footer class="footer-kbb">
         <div class="container">
@@ -230,7 +211,7 @@
                     <h4 class="footer-col-title">KONTAK KAMI:</h4>
                     <a href="https://maps.app.goo.gl/2rjbucCU76uYxtKSA" target="_blank" rel="noopener noreferrer" style="text-decoration: none; color: inherit; display: block;" title="Buka di Google Maps">
                         <div class="footer-address">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="footer-icon-pin">
                                 <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
                                 <circle cx="12" cy="10" r="3"></circle>
                             </svg>
@@ -253,41 +234,42 @@
                 <div class="footer-col">
                     <ul class="footer-contact-list">
                         <li>
-                            <a href="https://diskominfotik.bandungbaratkab.go.id/" target="_blank" rel="noopener noreferrer" style="text-decoration: none; color: inherit; display: inline-flex; align-items: center; gap: 8px;">
+                            <a href="https://diskominfotik.bandungbaratkab.go.id/" target="_blank" rel="noopener noreferrer" class="footer-contact-link">
                                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
                                 <span>diskominfotik.bandungbaratkab.go.id/</span>
                             </a>
                         </li>
                         <li>
-                            <a href="mailto:diskominfotik@bandungbaratkab.go.id" style="text-decoration: none; color: inherit; display: inline-flex; align-items: center; gap: 8px;">
+                            <a href="mailto:diskominfotik@bandungbaratkab.go.id" class="footer-contact-link">
                                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
                                 <span>diskominfotik@bandungbaratkab.go.id</span>
                             </a>
                         </li>
                     </ul>
                     <div class="footer-social-icons">
-                        <a href="https://www.instagram.com/diskominfotik_kbb?igsi=MWM1bTFzN3hucGFlbg==" target="_blank" rel="noopener noreferrer" class="social-circle" title="Instagram Diskominfotik KBB">IG</a>
-                        <a href="https://youtube.com/@infratekdiskominfotikkabbandun?si=Kdp3sMdR_BMz-8O6" target="_blank" rel="noopener noreferrer" class="social-circle" title="YouTube Diskominfotik KBB">YT</a>
+                        <a href="https://www.instagram.com/diskominfotik_kbb?igsi=MWM1bTFzN3hucGFlbg==" target="_blank" rel="noopener noreferrer" class="social-circle" title="Instagram Diskominfotik KBB">
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                        </a>
+                        <a href="https://youtube.com/@infratekdiskominfotikkabbandun?si=Kdp3sMdR_BMz-8O6" target="_blank" rel="noopener noreferrer" class="social-circle" title="YouTube Diskominfotik KBB">
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19.1c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.43z"></path><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02" fill="currentColor"></polygon></svg>
+                        </a>
+                        <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" class="social-circle" title="Facebook Diskominfotik KBB">
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+                        </a>
                     </div>
                 </div>
 
                 <div class="footer-col">
                     <ul class="footer-nav-list">
-                        <li><a href="#top">&rsaquo; Beranda</a></li>
-                        <li><a href="#domain-terdaftar">&rsaquo; Daftar Domain</a></li>
-                        <li><a href="#pengajuan" id="footer-nav-pengajuan">&rsaquo; Pengajuan</a></li>
-                        <li><a href="#faq">&rsaquo; FAQ</a></li>
+                        <li><a href="#top">&#9654; Beranda</a></li>
+                        <li><a href="#domain-terdaftar">&#9654; Daftar Domain</a></li>
+                        <li><a href="#pengajuan" id="footer-nav-pengajuan">&#9654; Pengajuan</a></li>
+                        <li><a href="#faq">&#9654; FAQ</a></li>
                     </ul>
                 </div>
 
                 <div class="footer-col footer-col-logo">
-                    <div class="footer-logo-badge">
-                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="2">
-                            <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
-                            <polyline points="2 17 12 22 22 17"></polyline>
-                            <polyline points="2 12 12 17 22 12"></polyline>
-                        </svg>
-                    </div>
+                    <img src="{{ asset('assets/images/logo_diskominfotik.png') }}" alt="Logo Diskominfotik" class="footer-logo-img">
                 </div>
             </div>
 
@@ -302,11 +284,11 @@
 <!-- MODAL 1: INFORMASI PERSYARATAN OVERLAY             -->
 <!-- ================================================== -->
 <div class="modal-backdrop" id="modal-persyaratan">
-    <div class="modal-card">
-        <div class="modal-header">
+    <div class="modal-card modal-card-persyaratan">
+        <div class="modal-header modal-header-dark">
             <div class="modal-title-group">
                 <div class="modal-icon">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
                         <polyline points="14 2 14 8 20 8"></polyline>
                         <line x1="16" y1="13" x2="8" y2="13"></line>
@@ -314,77 +296,77 @@
                         <polyline points="10 9 9 9 8 9"></polyline>
                     </svg>
                 </div>
-                <h2>Pengajuan SIDeKa-NG Domain .desa.id</h2>
+                <h2 class="modal-persyaratan-title">Pengajuan SIDEKA-NG Domain .desa.id</h2>
             </div>
-            <button class="modal-close-btn" data-close-modal>&times;</button>
-        </div>
-
-        <div class="modal-body">
-            <div class="alert-box">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <circle cx="12" cy="12" r="10"></circle>
-                    <line x1="12" y1="8" x2="12" y2="12"></line>
-                    <line x1="12" y1="16" x2="12.01" y2="16"></line>
+            <button class="modal-close-btn" data-close-modal aria-label="Tutup">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
                 </svg>
-                <span>Pastikan seluruh berkas telah disiapkan dan diisi sesuai dengan dokumen resmi yang diperlukan.</span>
+            </button>
+        </div>
+
+        <div class="modal-body modal-body-persyaratan">
+            <div class="alert-box alert-box-persyaratan">
+                <span>Isi data pemerintah desa dan pemohon secara lengkap dan teliti sesuai dokumen resmi Surat Permohonan dari Kepala Desa.</span>
             </div>
 
-            <div class="section-subtitle">
-                <h3>Berkas dan Syarat yang Wajib Disiapkan <span class="info-icon">&#9432;</span></h3>
+            <div class="section-subtitle-persyaratan">
+                <h3>
+                    Berkas dan Syarat yang wajib disiapkan 
+                    <img src="{{ asset('assets/icons/syarat_pengajuan.svg') }}" width="18" height="18" alt="info" class="icon-syarat-img">
+                </h3>
             </div>
 
-            <div class="requirements-grid">
-                <div class="req-item req-with-download">
-                    <div class="req-text-wrap">
-                        <span class="req-num">1.</span>
-                        <span class="req-text">Surat Permohonan Fasilitasi Domain desa.id</span>
-                    </div>
+            <div class="requirements-grid-persyaratan">
+                <!-- Row 1, Col 1: Syarat 1 -->
+                <div class="req-item-block">
+                    <div class="req-label-text">1. Surat Permohonan Fasilitasi Domain desa.id</div>
                     <a href="{{ asset('documents/pengajuan/contoh-surat-permohonan.pdf') }}" download="contoh-surat-permohonan.pdf" class="btn btn-download-template" id="btn-download-permohonan">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
                             <polyline points="7 10 12 15 17 10"></polyline>
                             <line x1="12" y1="15" x2="12" y2="3"></line>
                         </svg>
-                        Contoh Surat Permohonan
+                        <span>Contoh Surat Permohonan</span>
                     </a>
                 </div>
-                <div class="req-item">
-                    <span class="req-num">3.</span>
-                    <span class="req-text">Surat Keputusan Pengangkatan Kepala Desa</span>
+
+                <!-- Row 1, Col 2: Syarat 3 -->
+                <div class="req-item-block">
+                    <div class="req-label-text">3. Surat Keputusan Pengangkatan Kepala Desa</div>
                 </div>
-                <div class="req-item req-with-download">
-                    <div class="req-text-wrap">
-                        <span class="req-num">2.</span>
-                        <span class="req-text">Surat Kuasa</span>
-                    </div>
+
+                <!-- Row 2, Col 1: Syarat 2 -->
+                <div class="req-item-block">
+                    <div class="req-label-text">2. Surat Kuasa</div>
                     <a href="{{ asset('documents/pengajuan/template-surat-kuasa.pdf') }}" download="template-surat-kuasa.pdf" class="btn btn-download-template" id="btn-download-template">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
                             <polyline points="7 10 12 15 17 10"></polyline>
                             <line x1="12" y1="15" x2="12" y2="3"></line>
                         </svg>
-                        Template Surat Kuasa
+                        <span>Template Surat Kuasa</span>
                     </a>
                 </div>
-                <div class="req-item req-with-download">
-                    <div class="req-text-wrap">
-                        <span class="req-num">4.</span>
-                        <span class="req-text">Surat Penunjukan Admin Website desa.id</span>
-                    </div>
+
+                <!-- Row 2, Col 2: Syarat 4 -->
+                <div class="req-item-block">
+                    <div class="req-label-text">4. Surat Penunjukan Admin Website desa.id</div>
                     <a href="{{ asset('documents/pengajuan/contoh-surat-penunjukan-admin.pdf') }}" download="contoh-surat-penunjukan-admin.pdf" class="btn btn-download-template" id="btn-download-admin">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
                             <polyline points="7 10 12 15 17 10"></polyline>
                             <line x1="12" y1="15" x2="12" y2="3"></line>
                         </svg>
-                        Contoh Surat Penunjukan Admin
+                        <span>Contoh Surat Penunjukan Admin</span>
                     </a>
                 </div>
             </div>
         </div>
 
-        <div class="modal-footer">
-            <button class="btn btn-secondary-action" id="btn-next-to-form">SELANJUTNYA</button>
+        <div class="modal-footer modal-footer-persyaratan">
+            <button class="btn btn-selanjutnya-dark" id="btn-next-to-form">SELANJUTNYA</button>
         </div>
     </div>
 </div>
@@ -411,11 +393,6 @@
 
         <div class="modal-body">
             <div class="alert-box">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <circle cx="12" cy="12" r="10"></circle>
-                    <line x1="12" y1="8" x2="12" y2="12"></line>
-                    <line x1="12" y1="16" x2="12.01" y2="16"></line>
-                </svg>
                 <span>Silakan unggah seluruh dokumen persyaratan yang telah disiapkan.</span>
             </div>
 
@@ -425,7 +402,7 @@
                     <div class="upload-field-card">
                         <label class="upload-label" for="file-surat-permohonan">1. Surat Permohonan Fasilitasi Domain desa.id</label>
                         <div class="file-input-wrapper">
-                            <input type="file" id="file-surat-permohonan" name="surat_permohonan" accept=".pdf,.doc,.docx" class="file-input" autocomplete="off">
+                            <input type="file" id="file-surat-permohonan" name="surat_permohonan" accept=".pdf" class="file-input" autocomplete="off">
                             <div class="file-input-custom">
                                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
                                 <span class="file-name-display">Pilih file atau drag ke sini</span>
@@ -436,7 +413,7 @@
                     <div class="upload-field-card">
                         <label class="upload-label" for="file-sk-kades">2. Surat Keputusan Pengangkatan Kepala Desa</label>
                         <div class="file-input-wrapper">
-                            <input type="file" id="file-sk-kades" name="sk_kepala_desa" accept=".pdf,.doc,.docx" class="file-input" autocomplete="off">
+                            <input type="file" id="file-sk-kades" name="sk_kepala_desa" accept=".pdf" class="file-input" autocomplete="off">
                             <div class="file-input-custom">
                                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
                                 <span class="file-name-display">Pilih file atau drag ke sini</span>
@@ -447,7 +424,7 @@
                     <div class="upload-field-card">
                         <label class="upload-label" for="file-surat-kuasa">3. Surat Kuasa</label>
                         <div class="file-input-wrapper">
-                            <input type="file" id="file-surat-kuasa" name="surat_kuasa" accept=".pdf,.doc,.docx" class="file-input" autocomplete="off">
+                            <input type="file" id="file-surat-kuasa" name="surat_kuasa" accept=".pdf" class="file-input" autocomplete="off">
                             <div class="file-input-custom">
                                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
                                 <span class="file-name-display">Pilih file atau drag ke sini</span>
@@ -458,7 +435,7 @@
                     <div class="upload-field-card">
                         <label class="upload-label" for="file-surat-admin">4. Surat Penunjukan Admin Website desa.id</label>
                         <div class="file-input-wrapper">
-                            <input type="file" id="file-surat-admin" name="surat_penunjukan_admin" accept=".pdf,.doc,.docx" class="file-input" autocomplete="off">
+                            <input type="file" id="file-surat-admin" name="surat_penunjukan_admin" accept=".pdf" class="file-input" autocomplete="off">
                             <div class="file-input-custom">
                                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
                                 <span class="file-name-display">Pilih file atau drag ke sini</span>
@@ -468,7 +445,7 @@
                 </div>
 
                 <div class="format-note">
-                    Format file yang diperbolehkan: <strong>PDF, DOC, DOCX</strong>
+                    Format file yang diperbolehkan: <strong>PDF</strong> (Ukuran minimal <strong>1 MB</strong> per berkas)
                 </div>
             </form>
         </div>

@@ -18,12 +18,12 @@ class PengajuanController extends Controller
      */
     public function store(Request $request)
     {
-        // 1. Validasi bahwa seluruh 4 dokumen wajib diunggah
+        // 1. Validasi bahwa seluruh 4 dokumen wajib diunggah dalam format PDF dan minimal 1 MB
         $validator = Validator::make($request->all(), [
-            'surat_permohonan'       => 'required|file|mimes:pdf,doc,docx|max:10240',
-            'sk_kepala_desa'         => 'required|file|mimes:pdf,doc,docx|max:10240',
-            'surat_kuasa'            => 'required|file|mimes:pdf,doc,docx|max:10240',
-            'surat_penunjukan_admin' => 'required|file|mimes:pdf,doc,docx|max:10240',
+            'surat_permohonan'       => 'required|file|mimes:pdf|min:1024|max:10240',
+            'sk_kepala_desa'         => 'required|file|mimes:pdf|min:1024|max:10240',
+            'surat_kuasa'            => 'required|file|mimes:pdf|min:1024|max:10240',
+            'surat_penunjukan_admin' => 'required|file|mimes:pdf|min:1024|max:10240',
         ], [
             'surat_permohonan.required'       => 'Data belum lengkap di upload! Cek kembali.',
             'sk_kepala_desa.required'         => 'Data belum lengkap di upload! Cek kembali.',
@@ -33,12 +33,20 @@ class PengajuanController extends Controller
             'sk_kepala_desa.file'             => 'Data belum lengkap di upload! Cek kembali.',
             'surat_kuasa.file'                => 'Data belum lengkap di upload! Cek kembali.',
             'surat_penunjukan_admin.file'     => 'Data belum lengkap di upload! Cek kembali.',
+            'surat_permohonan.mimes'          => 'Format berkas Surat Permohonan harus PDF.',
+            'sk_kepala_desa.mimes'            => 'Format berkas SK Kepala Desa harus PDF.',
+            'surat_kuasa.mimes'               => 'Format berkas Surat Kuasa harus PDF.',
+            'surat_penunjukan_admin.mimes'    => 'Format berkas Surat Penunjukan Admin harus PDF.',
+            'surat_permohonan.min'            => 'Ukuran berkas Surat Permohonan minimal 1 MB.',
+            'sk_kepala_desa.min'              => 'Ukuran berkas SK Kepala Desa minimal 1 MB.',
+            'surat_kuasa.min'                 => 'Ukuran berkas Surat Kuasa minimal 1 MB.',
+            'surat_penunjukan_admin.min'      => 'Ukuran berkas Surat Penunjukan Admin minimal 1 MB.',
         ]);
 
         if ($validator->fails()) {
             return response()->json([
                 'success' => false,
-                'message' => 'Data belum lengkap di upload! Cek kembali.',
+                'message' => $validator->errors()->first() ?? 'Data belum lengkap di upload! Cek kembali.',
                 'errors'  => $validator->errors(),
             ], 422);
         }

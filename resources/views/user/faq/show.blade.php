@@ -6,14 +6,8 @@
     <header class="navbar">
         <div class="container navbar-container">
             <div class="brand">
-                <a href="/" class="brand-link" style="display: flex; align-items: center; gap: 14px; text-decoration: none;">
-                    <div class="brand-logo-placeholder">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                    </div>
+                <a href="{{ url('/') }}" class="brand-link">
+                    <img src="{{ asset('assets/images/logo_diskominfotik.png') }}" alt="DISKOMINFOTIK KABUPATEN BANDUNG BARAT" class="brand-logo-img">
                     <div class="brand-text">
                         <span class="brand-title">DISKOMINFOTIK</span>
                         <span class="brand-subtitle">KABUPATEN BANDUNG BARAT</span>
@@ -22,16 +16,12 @@
             </div>
 
             <nav class="nav-links">
-                <a href="/#domain-terdaftar" class="nav-item">Daftar Domain</a>
-                <a href="/#pengajuan" class="nav-item">Pengajuan</a>
-                <a href="/#cek-status" class="nav-item">Cek Status</a>
-                <a href="/#faq" class="nav-item nav-pill">
-                    FAQ
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <circle cx="12" cy="12" r="10"></circle>
-                        <line x1="12" y1="16" x2="12.01" y2="16"></line>
-                        <path d="M12 12a2 2 0 0 0 2-2c0-1.1-.9-2-2-2s-2 .9-2 2"></path>
-                    </svg>
+                <a href="{{ url('/#domain-terdaftar') }}" class="nav-item">Daftar Domain</a>
+                <a href="{{ url('/#pengajuan') }}" class="nav-item">Pengajuan</a>
+                <a href="{{ url('/#cek-status') }}" class="nav-item">Cek Status</a>
+                <a href="{{ url('/#faq') }}" class="nav-item nav-pill-faq">
+                    <span>FAQ</span>
+                    <img src="{{ asset('assets/icons/question.svg') }}" alt="FAQ" class="faq-icon-img" width="18" height="18">
                 </a>
             </nav>
         </div>

@@ -117,15 +117,34 @@ document.addEventListener('DOMContentLoaded', () => {
             const inputKuasa = document.getElementById('file-surat-kuasa');
             const inputAdmin = document.getElementById('file-surat-admin');
 
-            // 1. Validasi Frontend: Semua 4 dokumen harus dipilih
-            const hasPermohonan = inputPermohonan && inputPermohonan.files && inputPermohonan.files.length > 0;
-            const hasSkKades = inputSkKades && inputSkKades.files && inputSkKades.files.length > 0;
-            const hasKuasa = inputKuasa && inputKuasa.files && inputKuasa.files.length > 0;
-            const hasAdmin = inputAdmin && inputAdmin.files && inputAdmin.files.length > 0;
+            // 1. Validasi Frontend: Semua 4 dokumen harus dipilih, berformat PDF, dan berukuran minimal 1 MB
+            const docInputs = [
+                { id: 'file-surat-permohonan', label: 'Surat Permohonan', input: inputPermohonan },
+                { id: 'file-sk-kades', label: 'SK Pengangkatan Kepala Desa', input: inputSkKades },
+                { id: 'file-surat-kuasa', label: 'Surat Kuasa', input: inputKuasa },
+                { id: 'file-surat-admin', label: 'Surat Penunjukan Admin', input: inputAdmin }
+            ];
 
-            if (!hasPermohonan || !hasSkKades || !hasKuasa || !hasAdmin) {
-                alert('Data belum lengkap di upload! Cek kembali.');
-                return;
+            const minSizeBytes = 1024 * 1024; // 1 MB (1024 KB)
+
+            for (const doc of docInputs) {
+                if (!doc.input || !doc.input.files || doc.input.files.length === 0) {
+                    alert('Data belum lengkap di upload! Cek kembali.');
+                    return;
+                }
+
+                const file = doc.input.files[0];
+                const fileName = file.name.toLowerCase();
+
+                if (!fileName.endsWith('.pdf')) {
+                    alert(`Format berkas ${doc.label} harus berupa file PDF.`);
+                    return;
+                }
+
+                if (file.size < minSizeBytes) {
+                    alert(`Ukuran berkas ${doc.label} minimal 1 MB.`);
+                    return;
+                }
             }
 
             // 2. Siapkan FormData (multipart/form-data)
