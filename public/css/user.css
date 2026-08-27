@@ -284,12 +284,12 @@ body {
 
 .hero-title {
     font-family: var(--font-heading);
-    font-size: 52px;
+    font-size: 58px;
     font-weight: 400;
     color: #ffffff;
     line-height: 1.15;
     margin-bottom: 22px;
-    letter-spacing: -0.5px;
+    letter-spacing: -1px;
 }
 
 .hero-title em {
@@ -356,12 +356,12 @@ body {
 
 .section-title {
     font-family: var(--font-heading);
-    font-size: 48px; /* Disesuaikan agar pas */
+    font-size: 54px; /* Disesuaikan agar pas */
     font-weight: 400;
     color: #ffffff;
     margin-bottom: 4px; /* Dikurangi dari 12px agar Rapat dengan sub-judul */
     line-height: 1.15;  /* Mengurangi tinggi baris teks judul */
-    letter-spacing: -0.5px;
+    letter-spacing: -1px;
 }
 
 .section-subtitle-text {
@@ -556,7 +556,7 @@ body {
     gap: 14px;
     margin-bottom: 16px;
     font-family: var(--font-heading);
-    letter-spacing: -0.5px;
+    letter-spacing: 1px;
 }
 
 .faq-icon-group {

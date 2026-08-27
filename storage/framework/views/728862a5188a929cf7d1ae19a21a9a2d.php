@@ -3,16 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', 'Dashboard Admin') - SIDeKa-NG</title>
+    <title><?php echo $__env->yieldContent('title', 'Dashboard Admin'); ?> - SIDeKa-NG</title>
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <!-- Admin Custom CSS -->
-    <link rel="stylesheet" href="{{ asset('css/admin.css') }}?v={{ time() }}">
+    <link rel="stylesheet" href="<?php echo e(asset('css/admin.css')); ?>?v=<?php echo e(time()); ?>">
     <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    @stack('styles')
+    <?php echo $__env->yieldPushContent('styles'); ?>
 </head>
 <body>
 
@@ -31,7 +31,7 @@
 
         <!-- Sidebar Header / Brand -->
         <div class="sidebar-header">
-            <img src="{{ asset('assets/images/logo_diskominfotik.png') }}" alt="Logo Diskominfotik" class="sidebar-logo-img">
+            <img src="<?php echo e(asset('assets/images/logo_diskominfotik.png')); ?>" alt="Logo Diskominfotik" class="sidebar-logo-img">
             <div class="sidebar-brand-text">
                 <span class="sidebar-brand-title">Dashboard Admin</span>
                 <span class="sidebar-brand-name">SIDEKA-NG</span>
@@ -41,7 +41,7 @@
         <!-- Navigation Menu -->
         <nav class="sidebar-nav">
             <!-- 1. Dashboard -->
-            <a href="{{ route('admin.dashboard') }}" class="sidebar-nav-item {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
+            <a href="<?php echo e(route('admin.dashboard')); ?>" class="sidebar-nav-item <?php echo e(request()->routeIs('admin.dashboard') ? 'active' : ''); ?>">
                 <span class="sidebar-nav-icon">
                     <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <rect x="3" y="3" width="7" height="7" rx="1.5" stroke-width="2"/>
@@ -54,7 +54,7 @@
             </a>
 
             <!-- 2. Data Pengajuan -->
-            <a href="{{ route('admin.pengajuan.index') }}" class="sidebar-nav-item {{ request()->routeIs('admin.pengajuan.*') ? 'active' : '' }}">
+            <a href="<?php echo e(route('admin.pengajuan.index')); ?>" class="sidebar-nav-item <?php echo e(request()->routeIs('admin.pengajuan.*') ? 'active' : ''); ?>">
                 <span class="sidebar-nav-icon">
                     <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
@@ -64,7 +64,7 @@
             </a>
 
             <!-- 3. Daftar Domain -->
-            <a href="{{ route('admin.domain.index') }}" class="sidebar-nav-item {{ request()->routeIs('admin.domain.*') ? 'active' : '' }}">
+            <a href="<?php echo e(route('admin.domain.index')); ?>" class="sidebar-nav-item <?php echo e(request()->routeIs('admin.domain.*') ? 'active' : ''); ?>">
                 <span class="sidebar-nav-icon">
                     <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"/>
@@ -74,7 +74,7 @@
             </a>
 
             <!-- 4. Data Desa -->
-            <a href="{{ route('admin.desa.index') }}" class="sidebar-nav-item {{ request()->routeIs('admin.desa.*') ? 'active' : '' }}">
+            <a href="<?php echo e(route('admin.desa.index')); ?>" class="sidebar-nav-item <?php echo e(request()->routeIs('admin.desa.*') ? 'active' : ''); ?>">
                 <span class="sidebar-nav-icon">
                     <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5m3 0h1m-1-4h.01M9 16h.01M9 12h.01M9 8h.01M15 16h.01M15 12h.01M15 8h.01"/>
@@ -84,7 +84,7 @@
             </a>
 
             <!-- 5. Grafik Pengajuan -->
-            <a href="{{ route('admin.grafik') }}" class="sidebar-nav-item {{ request()->routeIs('admin.grafik') ? 'active' : '' }}">
+            <a href="<?php echo e(route('admin.grafik')); ?>" class="sidebar-nav-item <?php echo e(request()->routeIs('admin.grafik') ? 'active' : ''); ?>">
                 <span class="sidebar-nav-icon">
                     <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"/>
@@ -96,8 +96,8 @@
 
         <!-- Sidebar Footer / Logout -->
         <div class="sidebar-footer" style="display: flex; justify-content: center; align-items: center; padding: 24px 20px; width: 100%;">
-            <form action="{{ route('admin.logout') }}" method="POST" style="margin: 0; width: 100%; display: flex; justify-content: center;">
-                @csrf
+            <form action="<?php echo e(route('admin.logout')); ?>" method="POST" style="margin: 0; width: 100%; display: flex; justify-content: center;">
+                <?php echo csrf_field(); ?>
                 <button type="submit" class="btn-sidebar-logout" style="margin: 0 auto;">
                     Logout
                 </button>
@@ -108,9 +108,9 @@
     <!-- ================= MAIN CONTENT AREA ================= -->
     <div class="admin-main">
         <!-- Top Header Bar -->
-        @php
+        <?php
             $pendingCount = \App\Models\Pengajuan::where('status', 'Diproses')->count();
-        @endphp
+        ?>
         <header class="admin-header">
             <div class="header-left-group">
                 <!-- Notification Button (Clickable -> Center Screen Modal) -->
@@ -118,9 +118,9 @@
                     <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
                     </svg>
-                    @if($pendingCount > 0)
-                        <span class="notif-badge-dot" title="{{ $pendingCount }} data pengajuan baru"></span>
-                    @endif
+                    <?php if($pendingCount > 0): ?>
+                        <span class="notif-badge-dot" title="<?php echo e($pendingCount); ?> data pengajuan baru"></span>
+                    <?php endif; ?>
                 </button>
 
                 <!-- Real-time Date Badge -->
@@ -129,11 +129,11 @@
                         <rect x="3" y="4" width="18" height="18" rx="2" stroke-width="2"/>
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 2v4M8 2v4M3 10h18"/>
                     </svg>
-                    <span id="date-display-text">{{ \Carbon\Carbon::now()->locale('id')->isoFormat('dddd, D MMMM YYYY') }}</span>
+                    <span id="date-display-text"><?php echo e(\Carbon\Carbon::now()->locale('id')->isoFormat('dddd, D MMMM YYYY')); ?></span>
                 </div>
 
                 <!-- Header Search Bar (Hanya tampil di 3 modul: Data Pengajuan, Daftar Domain, Data Desa) -->
-                @if(request()->routeIs('admin.pengajuan.*') || request()->routeIs('admin.domain.*') || request()->routeIs('admin.desa.*') || request()->is('admin/pengajuan*') || request()->is('admin/domain*') || request()->is('admin/desa*'))
+                <?php if(request()->routeIs('admin.pengajuan.*') || request()->routeIs('admin.domain.*') || request()->routeIs('admin.desa.*') || request()->is('admin/pengajuan*') || request()->is('admin/domain*') || request()->is('admin/desa*')): ?>
                     <div class="header-search-bar" style="position: relative; width: 320px; flex-shrink: 0;">
                         <svg class="header-search-icon" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
@@ -141,14 +141,14 @@
                         <input type="text" id="admin-global-search" class="header-search-input" placeholder="Cari data..." autocomplete="off">
                         <div id="admin-search-preview" class="header-search-preview-box" style="display: none;"></div>
                     </div>
-                @endif
+                <?php endif; ?>
             </div>
 
             <!-- Profile Info with Clickable Dropdown -->
             <div class="profile-dropdown-wrapper" id="profile-dropdown-wrapper" style="position: relative; cursor: pointer; user-select: none;">
                 <div class="header-profile-group" style="display: flex; align-items: center; gap: 12px; padding: 4px 8px; border-radius: 8px;">
                     <div class="header-profile-text" style="text-align: right;">
-                        <div class="header-profile-name" style="font-size: 14px; font-weight: 700; color: #ffffff; line-height: 1.2; white-space: nowrap;">{{ Auth::user()->name ?? 'Administrator' }}</div>
+                        <div class="header-profile-name" style="font-size: 14px; font-weight: 700; color: #ffffff; line-height: 1.2; white-space: nowrap;"><?php echo e(Auth::user()->name ?? 'Administrator'); ?></div>
                         <div class="header-profile-role" style="font-size: 11.5px; color: #cbd5e1; white-space: nowrap;">Kabupaten Bandung Barat</div>
                     </div>
                     <div class="header-avatar" style="width: 42px; height: 42px; border-radius: 50%; background: #cbd5e1; display: flex; align-items: center; justify-content: center; color: #475569;">
@@ -162,11 +162,11 @@
                 <!-- Dropdown Menu (Hidden by default, shown on click) -->
                 <div class="profile-dropdown-menu" id="profile-dropdown-menu" style="display: none; position: absolute; top: calc(100% + 10px); right: 0; min-width: 220px; background: #ffffff; border-radius: 12px; box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25); padding: 14px; z-index: 99999; border: 1px solid #e2e8f0; color: #1e293b;">
                     <div style="padding-bottom: 10px; border-bottom: 1px solid #f1f5f9; margin-bottom: 10px;">
-                        <div style="font-size: 13.5px; font-weight: 800; color: #0f172a;">{{ Auth::user()->name ?? 'Administrator' }}</div>
-                        <div style="font-size: 11.5px; color: #64748b; margin-top: 2px;">{{ Auth::user()->email ?? 'admin@sideka.go.id' }}</div>
+                        <div style="font-size: 13.5px; font-weight: 800; color: #0f172a;"><?php echo e(Auth::user()->name ?? 'Administrator'); ?></div>
+                        <div style="font-size: 11.5px; color: #64748b; margin-top: 2px;"><?php echo e(Auth::user()->email ?? 'admin@sideka.go.id'); ?></div>
                     </div>
-                    <form action="{{ route('admin.logout') }}" method="POST" style="margin: 0;">
-                        @csrf
+                    <form action="<?php echo e(route('admin.logout')); ?>" method="POST" style="margin: 0;">
+                        <?php echo csrf_field(); ?>
                         <button type="submit" class="btn-dropdown-logout" style="width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px; padding: 10px 16px; background: #fef2f2; color: #ef4444; border: 1px solid #fecaca; border-radius: 8px; font-family: inherit; font-size: 13px; font-weight: 700; cursor: pointer; transition: all 0.2s ease;">
                             <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
                             Logout
@@ -178,21 +178,23 @@
 
         <!-- Flash Messages -->
         <div style="padding: 24px 32px 0 32px;">
-            @if(session('success'))
+            <?php if(session('success')): ?>
                 <div style="background: #f0fdf4; border: 1px solid #bbf7d0; color: #166534; padding: 12px 20px; border-radius: 10px; font-size: 14px; font-weight: 600; margin-bottom: 0;">
-                    {{ session('success') }}
+                    <?php echo e(session('success')); ?>
+
                 </div>
-            @endif
-            @if(session('error'))
+            <?php endif; ?>
+            <?php if(session('error')): ?>
                 <div style="background: #fef2f2; border: 1px solid #fecaca; color: #991b1b; padding: 12px 20px; border-radius: 10px; font-size: 14px; font-weight: 600; margin-bottom: 0;">
-                    {{ session('error') }}
+                    <?php echo e(session('error')); ?>
+
                 </div>
-            @endif
+            <?php endif; ?>
         </div>
 
         <!-- Main View Area -->
         <main class="admin-content">
-            @yield('content')
+            <?php echo $__env->yieldContent('content'); ?>
         </main>
     </div>
 </div>
@@ -205,20 +207,20 @@
             <button type="button" class="modal-admin-close" id="btn-close-admin-notif" style="background: none; border: none; font-size: 24px; line-height: 1; color: #64748b; cursor: pointer; padding: 4px;">&times;</button>
         </div>
         <div class="modal-admin-body" style="font-size: 14px; color: #475569; line-height: 1.6; margin-bottom: 24px;">
-            @if($pendingCount > 0)
-                Terdapat <strong style="color: #0f172a;">{{ $pendingCount }} pengajuan domain baru</strong> yang perlu diverifikasi oleh Tim Diskominfo.
-            @else
+            <?php if($pendingCount > 0): ?>
+                Terdapat <strong style="color: #0f172a;"><?php echo e($pendingCount); ?> pengajuan domain baru</strong> yang perlu diverifikasi oleh Tim Diskominfo.
+            <?php else: ?>
                 Tidak ada pengajuan domain baru saat ini. Semua permohonan telah ditinjau.
-            @endif
+            <?php endif; ?>
         </div>
         <div class="modal-admin-footer" style="display: flex; justify-content: flex-end;">
-            @if($pendingCount > 0)
-                <a href="{{ route('admin.pengajuan.index', ['status' => 'Diproses']) }}" class="btn-action-primary" style="display: inline-flex; align-items: center; justify-content: center; gap: 8px; width: 100%; text-decoration: none; padding: 12px 20px; background: #2563eb; color: #ffffff; border-radius: 8px; font-weight: 700; font-size: 14px;">
+            <?php if($pendingCount > 0): ?>
+                <a href="<?php echo e(route('admin.pengajuan.index', ['status' => 'Diproses'])); ?>" class="btn-action-primary" style="display: inline-flex; align-items: center; justify-content: center; gap: 8px; width: 100%; text-decoration: none; padding: 12px 20px; background: #2563eb; color: #ffffff; border-radius: 8px; font-weight: 700; font-size: 14px;">
                     Lihat Data Pengajuan &rarr;
                 </a>
-            @else
+            <?php else: ?>
                 <button type="button" class="btn-action-secondary" id="btn-dismiss-admin-notif" style="width: 100%; padding: 10px 20px; background: #f1f5f9; color: #475569; border: 1px solid #cbd5e1; border-radius: 8px; font-weight: 700; cursor: pointer;">Tutup</button>
-            @endif
+            <?php endif; ?>
         </div>
     </div>
 </div>
@@ -313,7 +315,7 @@
                     return;
                 }
                 adminSearchTimer = setTimeout(function() {
-                    fetch('{{ route("admin.search-preview") }}?q=' + encodeURIComponent(q))
+                    fetch('<?php echo e(route("admin.search-preview")); ?>?q=' + encodeURIComponent(q))
                         .then(res => res.json())
                         .then(data => {
                             if (!data || data.length === 0) {
@@ -357,6 +359,7 @@
     });
 </script>
 
-@stack('scripts')
+<?php echo $__env->yieldPushContent('scripts'); ?>
 </body>
 </html>
+<?php /**PATH C:\Users\User\sideka-ng\resources\views/layouts/admin.blade.php ENDPATH**/ ?>

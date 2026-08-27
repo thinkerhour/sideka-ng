@@ -3,7 +3,19 @@
    Matching Reference Designs: Login Admin & Dashboard Admin
    ========================================================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+@font-face {
+    font-family: 'Poppins';
+    src: url('../assets/fonts/Poppins-Medium.ttf') format('truetype');
+    font-weight: 400 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Poppins';
+    src: url('../assets/fonts/Poppins-SemiBold.ttf') format('truetype');
+    font-weight: 600 700 800;
+    font-style: normal;
+}
 
 :root {
     --admin-purple-dark: #2c255b;
@@ -16,7 +28,7 @@
     --admin-text-muted: #64748b;
     --admin-primary-btn: #3c52a1;
     --admin-primary-hover: #2e4184;
-    --font-family: 'Plus Jakarta Sans', sans-serif;
+    --font-family: 'Poppins', sans-serif;
 }
 
 * {
@@ -34,22 +46,23 @@ body {
 }
 
 /* ==========================================================================
-   1. LOGIN PAGE STYLES (Ref: media_1787483540725.png)
+   1. LOGIN PAGE STYLES (FIGMA MATCHING)
    ========================================================================== */
 .login-body {
     min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(135deg, #474084 0%, #6c5aa7 50%, #9a88cd 100%);
+    background: linear-gradient(180deg, #44377d 0%, #7b65aa 45%, #bfa8dc 100%);
     padding: 24px;
+    font-family: var(--font-family);
 }
 
 .login-card {
     display: flex;
     width: 100%;
-    max-width: 980px;
-    min-height: 540px;
+    max-width: 920px;
+    min-height: 480px;
     background: #ffffff;
     border-radius: 20px;
     overflow: hidden;
@@ -57,60 +70,41 @@ body {
 }
 
 .login-left {
-    flex: 1.1;
+    flex: 1;
     position: relative;
-    background: linear-gradient(135deg, #603a9f 0%, #8250c4 50%, #583395 100%);
+    background-color: #603a9f;
+    background-image: url('../assets/images/bg_admin.png');
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 40px;
+    padding: 32px;
     overflow: hidden;
-}
-
-/* Geometric Polygon Pattern Overlay */
-.geometric-pattern-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    opacity: 0.25;
-    background-image: radial-gradient(#ffffff 1px, transparent 1px),
-                      linear-gradient(45deg, rgba(255,255,255,0.15) 25%, transparent 25%, transparent 75%, rgba(255,255,255,0.15) 75%),
-                      linear-gradient(45deg, rgba(255,255,255,0.15) 25%, transparent 25%, transparent 75%, rgba(255,255,255,0.15) 75%);
-    background-size: 20px 20px, 40px 40px, 40px 40px;
-    background-position: 0 0, 0 0, 20px 20px;
-    pointer-events: none;
-}
-
-/* Custom SVG Geometric Background for Left Section */
-.login-left-bg-svg {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    opacity: 0.45;
 }
 
 .login-illustration-container {
     position: relative;
     z-index: 2;
     width: 100%;
-    max-width: 360px;
-    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.login-illustration-svg {
+.img-admin-illustration {
+    display: block;
     width: 100%;
+    max-width: 300px;
     height: auto;
-    filter: drop-shadow(0 10px 20px rgba(0,0,0,0.2));
+    max-height: 310px;
+    object-fit: contain;
 }
 
 .login-right {
-    flex: 1;
-    padding: 48px 56px;
+    flex: 1.15;
+    padding: 44px 50px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -119,39 +113,48 @@ body {
 
 .login-header-group {
     text-align: center;
-    margin-bottom: 32px;
+    margin-bottom: 24px;
 }
 
-.login-logo {
-    width: 64px;
-    height: auto;
-    margin-bottom: 16px;
+.login-logo-img {
+    height: 44px;
+    width: auto;
+    display: block;
+    margin: 0 auto 12px auto;
+    object-fit: contain;
 }
 
 .login-title {
-    font-size: 26px;
-    font-weight: 800;
-    color: #111827;
-    margin-bottom: 8px;
+    font-family: var(--font-family);
+    font-size: 30px;
+    font-weight: 700;
+    color: #000000;
+    margin-bottom: 6px;
     letter-spacing: -0.5px;
 }
 
 .login-subtitle {
-    font-size: 12.5px;
-    color: #6b7280;
-    line-height: 1.5;
-    max-width: 340px;
+    font-family: var(--font-family);
+    font-size: 12px;
+    font-weight: 400;
+    color: #000000;
+    line-height: 1.45;
+    max-width: 370px;
     margin: 0 auto;
 }
 
 .login-form {
     display: flex;
     flex-direction: column;
-    gap: 18px;
+    gap: 14px;
+    max-width: 360px;
+    width: 100%;
+    margin: 0 auto;
 }
 
 .form-group-custom {
     position: relative;
+    width: 100%;
 }
 
 .input-icon-wrapper {
@@ -159,7 +162,7 @@ body {
     left: 18px;
     top: 50%;
     transform: translateY(-50%);
-    color: #6b7280;
+    color: #0c1538;
     display: flex;
     align-items: center;
     pointer-events: none;
@@ -167,48 +170,67 @@ body {
 
 .form-input-pill {
     width: 100%;
-    padding: 14px 20px 14px 48px;
-    background: #f4f5f9;
-    border: 1px solid #e5e7eb;
+    padding: 13px 20px 13px 48px;
+    background: #f4f5f8;
+    border: 1px solid transparent;
     border-radius: 50px;
     font-family: var(--font-family);
-    font-size: 14px;
+    font-size: 13.5px;
     color: #1f2937;
     outline: none;
     transition: all 0.2s ease;
 }
 
 .form-input-pill::placeholder {
-    color: #9ca3af;
+    color: #71717a;
+    font-size: 13px;
+    font-family: var(--font-family);
 }
 
 .form-input-pill:focus {
     background: #ffffff;
-    border-color: #4f46e5;
-    box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1);
+    border-color: #6366f1;
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.12);
 }
 
-.btn-login-submit {
-    margin-top: 10px;
-    align-self: center;
-    width: 160px;
-    padding: 12px 24px;
-    background: var(--admin-primary-btn);
-    color: #ffffff;
-    border: none;
-    border-radius: 50px;
-    font-family: var(--font-family);
-    font-size: 14px;
-    font-weight: 700;
+.login-btn-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-top: 12px;
+}
+
+.btn-masuk-img {
+    background: transparent !important;
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
     cursor: pointer;
-    box-shadow: 0 4px 14px rgba(60, 82, 161, 0.35);
-    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.15s ease, filter 0.15s ease;
 }
 
-.btn-login-submit:hover {
-    background: var(--admin-primary-hover);
-    transform: translateY(-1px);
-    box-shadow: 0 6px 18px rgba(60, 82, 161, 0.45);
+.btn-masuk-img:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.08);
+}
+
+.btn-masuk-img:active {
+    transform: translateY(0);
+}
+
+.img-btn-masuk {
+    display: block;
+    height: 34px;
+    width: auto;
+    object-fit: contain;
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
 }
 
 .login-alert-error {
@@ -272,9 +294,11 @@ body {
     z-index: 2;
 }
 
+.sidebar-logo-img,
 .sidebar-logo-icon {
     width: 38px;
     height: 38px;
+    object-fit: contain;
     flex-shrink: 0;
 }
 
@@ -285,7 +309,7 @@ body {
 
 .sidebar-brand-title {
     font-size: 11px;
-    font-weight: 600;
+    font-weight: 400;
     color: rgba(255, 255, 255, 0.8);
     text-transform: uppercase;
     letter-spacing: 0.5px;
@@ -293,7 +317,7 @@ body {
 
 .sidebar-brand-name {
     font-size: 18px;
-    font-weight: 800;
+    font-weight: 600;
     color: #ffffff;
     letter-spacing: -0.5px;
     line-height: 1.1;
@@ -317,7 +341,7 @@ body {
     color: rgba(255, 255, 255, 0.85);
     text-decoration: none;
     font-size: 14.5px;
-    font-weight: 600;
+    font-weight: 400;
     transition: all 0.2s ease;
     border-left: 4px solid transparent;
 }
@@ -329,6 +353,7 @@ body {
 
 .sidebar-nav-item.active {
     color: #ffffff;
+    font-weight: 500;
     background: rgba(255, 255, 255, 0.22);
     box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.15);
     border-top-right-radius: 50px;
@@ -368,7 +393,7 @@ body {
     border-radius: 50px;
     font-family: var(--font-family);
     font-size: 13.5px;
-    font-weight: 700;
+    font-weight: 400;
     cursor: pointer;
     text-decoration: none;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
@@ -530,7 +555,7 @@ body {
     padding: 8px 18px;
     border-radius: 8px;
     font-size: 13.5px;
-    font-weight: 700;
+    font-weight: 400;
     white-space: nowrap;
     flex-shrink: 0;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
@@ -552,6 +577,7 @@ body {
     border-radius: 50px;
     font-family: var(--font-family);
     font-size: 13px;
+    font-weight: 400;
     color: #1e293b;
     outline: none;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
@@ -603,12 +629,13 @@ body {
 
 .search-preview-title {
     font-size: 13px;
-    font-weight: 700;
+    font-weight: 500;
     color: #0f172a;
 }
 
 .search-preview-sub {
     font-size: 11.5px;
+    font-weight: 400;
     color: #64748b;
 }
 
@@ -637,13 +664,14 @@ body {
 
 .header-profile-name {
     font-size: 14px;
-    font-weight: 700;
+    font-weight: 600;
     color: #ffffff;
     line-height: 1.2;
 }
 
 .header-profile-role {
     font-size: 11.5px;
+    font-weight: 400;
     color: #cbd5e1;
 }
 
@@ -679,7 +707,7 @@ body {
     border-radius: 8px;
     font-family: var(--font-family);
     font-size: 13px;
-    font-weight: 700;
+    font-weight: 400;
     cursor: pointer;
     transition: all 0.2s ease;
 }
@@ -758,13 +786,13 @@ body {
 
 .stat-label {
     font-size: 12.5px;
-    font-weight: 600;
+    font-weight: 400;
     color: #64748b;
 }
 
 .stat-value {
     font-size: 24px;
-    font-weight: 800;
+    font-weight: 600;
     color: #0f172a;
     line-height: 1.2;
 }
@@ -786,7 +814,7 @@ body {
 
 .chart-card-title {
     font-size: 16px;
-    font-weight: 700;
+    font-weight: 600;
     color: #1e293b;
 }
 
@@ -801,7 +829,7 @@ body {
 .custom-table th {
     background: #f8fafc;
     color: #475569;
-    font-weight: 700;
+    font-weight: 600;
     text-align: left;
     padding: 14px 18px;
     border-bottom: 2px solid #e2e8f0;
@@ -811,6 +839,7 @@ body {
     padding: 14px 18px;
     border-bottom: 1px solid #f1f5f9;
     color: #1e293b;
+    font-weight: 400;
     vertical-align: middle;
 }
 
@@ -826,7 +855,7 @@ body {
     padding: 4px 12px;
     border-radius: 50px;
     font-size: 12px;
-    font-weight: 700;
+    font-weight: 400;
 }
 
 .badge-diproses { background: #eff6ff; color: #1d4ed8; border: 1px solid #bfdbfe; }
@@ -841,7 +870,7 @@ body {
     padding: 8px 16px;
     border-radius: 8px;
     font-size: 13px;
-    font-weight: 600;
+    font-weight: 400;
     cursor: pointer;
     text-decoration: none;
     display: inline-flex;
@@ -859,7 +888,7 @@ body {
     padding: 8px 16px;
     border-radius: 8px;
     font-size: 13px;
-    font-weight: 600;
+    font-weight: 400;
     cursor: pointer;
     text-decoration: none;
     display: inline-flex;
@@ -877,7 +906,7 @@ body {
     padding: 8px 16px;
     border-radius: 8px;
     font-size: 13px;
-    font-weight: 600;
+    font-weight: 400;
     cursor: pointer;
     text-decoration: none;
     display: inline-flex;
@@ -921,12 +950,13 @@ body {
 
 .doc-title {
     font-size: 13px;
-    font-weight: 700;
+    font-weight: 500;
     color: #1e293b;
 }
 
 .doc-status {
     font-size: 11.5px;
+    font-weight: 400;
     color: #64748b;
 }
 
@@ -943,6 +973,7 @@ body {
     justify-content: space-between;
     width: 100%;
     font-size: 13px;
+    font-weight: 400;
     color: #64748b;
 }
 
@@ -989,7 +1020,7 @@ body {
     align-items: center !important;
     padding: 6px 12px !important;
     font-size: 13px !important;
-    font-weight: 600 !important;
+    font-weight: 400 !important;
     color: #475569 !important;
     text-decoration: none !important;
     background: #ffffff !important;
@@ -1013,7 +1044,7 @@ body {
 .pagination-wrapper [aria-current="page"] span.relative.inline-flex {
     background: #2563eb !important;
     color: #ffffff !important;
-    font-weight: 700 !important;
+    font-weight: 600 !important;
     border-color: #2563eb !important;
 }
 
@@ -1025,11 +1056,12 @@ body {
 
 .pagination-wrapper p {
     font-size: 13px !important;
+    font-weight: 400 !important;
     color: #64748b !important;
     margin: 0 !important;
 }
 
 .pagination-wrapper p span {
-    font-weight: 700 !important;
+    font-weight: 500 !important;
     color: #1e293b !important;
 }
