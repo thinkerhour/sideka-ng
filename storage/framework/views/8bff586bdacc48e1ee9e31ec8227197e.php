@@ -1,8 +1,6 @@
-@extends('layouts.admin')
+<?php $__env->startSection('title', 'Grafik Pengajuan & Analisis Data'); ?>
 
-@section('title', 'Grafik Pengajuan & Analisis Data')
-
-@section('content')
+<?php $__env->startSection('content'); ?>
     <div style="margin-bottom: 24px;">
         <h1 style="font-size: 24px; font-weight: 800; color: #0f172a;">Grafik Pengajuan & Statistik Sistem</h1>
         <p style="font-size: 14px; color: #64748b;">Visualisasi statistik pengajuan domain desa.id dan persentase cakupan desa terdaftar.</p>
@@ -14,7 +12,7 @@
             <div class="stat-icon-wrapper stat-icon-purple">📋</div>
             <div class="stat-info-group">
                 <span class="stat-label">Total Permohonan</span>
-                <span class="stat-value">{{ number_format($totalPengajuan) }}</span>
+                <span class="stat-value"><?php echo e(number_format($totalPengajuan)); ?></span>
             </div>
         </div>
 
@@ -22,7 +20,7 @@
             <div class="stat-icon-wrapper stat-icon-blue">⏳</div>
             <div class="stat-info-group">
                 <span class="stat-label">Dalam Proses</span>
-                <span class="stat-value">{{ number_format($pengajuanDiproses) }}</span>
+                <span class="stat-value"><?php echo e(number_format($pengajuanDiproses)); ?></span>
             </div>
         </div>
 
@@ -30,7 +28,7 @@
             <div class="stat-icon-wrapper stat-icon-amber">✏️</div>
             <div class="stat-info-group">
                 <span class="stat-label">Perlu Revisi</span>
-                <span class="stat-value">{{ number_format($pengajuanRevisi) }}</span>
+                <span class="stat-value"><?php echo e(number_format($pengajuanRevisi)); ?></span>
             </div>
         </div>
 
@@ -38,7 +36,7 @@
             <div class="stat-icon-wrapper stat-icon-emerald">🌐</div>
             <div class="stat-info-group">
                 <span class="stat-label">Domain Disetujui</span>
-                <span class="stat-value">{{ number_format($domainBerhasil) }}</span>
+                <span class="stat-value"><?php echo e(number_format($domainBerhasil)); ?></span>
             </div>
         </div>
     </div>
@@ -74,7 +72,7 @@
                 <p style="font-size: 13px; color: #64748b; margin-top: 4px;">Akumulasi dan tren input domain desa aktif dari tahun ke tahun</p>
             </div>
             <span class="badge-status badge-berhasil" style="font-size: 13px; padding: 6px 14px;">
-                Total {{ $totalDomain }} Domain Terdaftar
+                Total <?php echo e($totalDomain); ?> Domain Terdaftar
             </span>
         </div>
         <div style="height: 340px; position: relative;">
@@ -90,7 +88,7 @@
             <div style="padding: 16px; background: #f8fafc; border-radius: 12px; border: 1px solid #e2e8f0;">
                 <div style="font-size: 12.5px; color: #64748b; font-weight: 600;">Rasio Disetujui</div>
                 <div style="font-size: 22px; font-weight: 800; color: #10b981; margin-top: 4px;">
-                    {{ $totalPengajuan > 0 ? round(($domainBerhasil / $totalPengajuan) * 100, 1) : 0 }}%
+                    <?php echo e($totalPengajuan > 0 ? round(($domainBerhasil / $totalPengajuan) * 100, 1) : 0); ?>%
                 </div>
                 <div style="font-size: 12px; color: #94a3b8; margin-top: 2px;">dari total pengajuan masuk</div>
             </div>
@@ -98,7 +96,8 @@
             <div style="padding: 16px; background: #f8fafc; border-radius: 12px; border: 1px solid #e2e8f0;">
                 <div style="font-size: 12.5px; color: #64748b; font-weight: 600;">Domain Desa Aktif</div>
                 <div style="font-size: 22px; font-weight: 800; color: #10b981; margin-top: 4px;">
-                    {{ number_format($domainAktif) }}
+                    <?php echo e(number_format($domainAktif)); ?>
+
                 </div>
                 <div style="font-size: 12px; color: #94a3b8; margin-top: 2px;">domain aktif beroperasi</div>
             </div>
@@ -106,7 +105,8 @@
             <div style="padding: 16px; background: #f8fafc; border-radius: 12px; border: 1px solid #e2e8f0;">
                 <div style="font-size: 12.5px; color: #64748b; font-weight: 600;">Domain Kadaluarsa</div>
                 <div style="font-size: 22px; font-weight: 800; color: #ef4444; margin-top: 4px;">
-                    {{ number_format($domainKadaluarsa) }}
+                    <?php echo e(number_format($domainKadaluarsa)); ?>
+
                 </div>
                 <div style="font-size: 12px; color: #94a3b8; margin-top: 2px;">memerlukan perpanjangan</div>
             </div>
@@ -114,15 +114,15 @@
             <div style="padding: 16px; background: #f8fafc; border-radius: 12px; border: 1px solid #e2e8f0;">
                 <div style="font-size: 12.5px; color: #64748b; font-weight: 600;">Total Desa Terdata</div>
                 <div style="font-size: 22px; font-weight: 800; color: #4338ca; margin-top: 4px;">
-                    {{ number_format($totalDesa) }} Desa
+                    <?php echo e(number_format($totalDesa)); ?> Desa
                 </div>
                 <div style="font-size: 12px; color: #94a3b8; margin-top: 2px;">Kabupaten Bandung Barat</div>
             </div>
         </div>
     </div>
-@endsection
+<?php $__env->stopSection(); ?>
 
-@push('scripts')
+<?php $__env->startPush('scripts'); ?>
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         // Chart 1: Distribusi Status Pengajuan (TETAP DIPERTAHANKAN)
@@ -133,7 +133,7 @@
                 labels: ['Diproses', 'Revisi', 'Domain Berhasil'],
                 datasets: [{
                     label: 'Jumlah Pengajuan',
-                    data: [{{ $pengajuanDiproses }}, {{ $pengajuanRevisi }}, {{ $domainBerhasil }}],
+                    data: [<?php echo e($pengajuanDiproses); ?>, <?php echo e($pengajuanRevisi); ?>, <?php echo e($domainBerhasil); ?>],
                     backgroundColor: ['#3b82f6', '#f59e0b', '#10b981'],
                     borderRadius: 10
                 }]
@@ -155,9 +155,9 @@
         new Chart(ctxMasaAktif, {
             type: 'doughnut',
             data: {
-                labels: ['Domain Aktif ({{ $domainAktif }})', 'Domain Kadaluarsa ({{ $domainKadaluarsa }})'],
+                labels: ['Domain Aktif (<?php echo e($domainAktif); ?>)', 'Domain Kadaluarsa (<?php echo e($domainKadaluarsa); ?>)'],
                 datasets: [{
-                    data: [{{ $domainAktif }}, {{ $domainKadaluarsa }}],
+                    data: [<?php echo e($domainAktif); ?>, <?php echo e($domainKadaluarsa); ?>],
                     backgroundColor: ['#10b981', '#ef4444'],
                     borderWidth: 2,
                     borderColor: '#ffffff'
@@ -178,10 +178,10 @@
         new Chart(ctxTahun, {
             type: 'bar',
             data: {
-                labels: {!! json_encode($yearsLabels) !!},
+                labels: <?php echo json_encode($yearsLabels); ?>,
                 datasets: [{
                     label: 'Jumlah Desa Terdaftar',
-                    data: {!! json_encode($domainYearData) !!},
+                    data: <?php echo json_encode($domainYearData); ?>,
                     backgroundColor: '#6366f1',
                     borderRadius: 8,
                     maxBarThickness: 60
@@ -213,4 +213,6 @@
         });
     });
 </script>
-@endpush
+<?php $__env->stopPush(); ?>
+
+<?php echo $__env->make('layouts.admin', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH C:\Users\User\sideka-ng\resources\views/admin/grafik.blade.php ENDPATH**/ ?>

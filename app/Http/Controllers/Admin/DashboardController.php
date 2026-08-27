@@ -101,8 +101,36 @@ class DashboardController extends Controller
         $domainBerhasil = Pengajuan::where('status', 'Domain Berhasil')->count();
         
         $totalDesa = Desa::count();
-        $desaBerdomain = Domain::count();
-        $desaBelumDomain = max(0, $totalDesa - $desaBerdomain);
+        $totalDomain = Domain::count();
+
+        // 1. Data Status Masa Aktif Domain (Aktif vs Kadaluarsa)
+        $today = now()->format('Y-m-d');
+        $domainKadaluarsa = Domain::whereNotNull('tanggal_kadaluarsa')
+            ->where('tanggal_kadaluarsa', '<', $today)
+            ->count();
+        $domainAktif = Domain::where(function($q) use ($today) {
+            $q->whereNull('tanggal_kadaluarsa')
+              ->orWhere('tanggal_kadaluarsa', '>=', $today);
+        })->count();
+
+        // 2. Data Jumlah Desa Terdaftar (Aktif) dari Tahun ke Tahun
+        $domainByYearRaw = Domain::selectRaw("YEAR(COALESCE(tanggal_aktif, created_at)) as tahun, COUNT(*) as total")
+            ->groupBy('tahun')
+            ->orderBy('tahun', 'asc')
+            ->pluck('total', 'tahun')
+            ->toArray();
+
+        $currentYear = (int) date('Y');
+        $minYear = !empty($domainByYearRaw) ? min(array_keys($domainByYearRaw)) : $currentYear;
+        $startYear = min($minYear, $currentYear - 3);
+
+        $yearsLabels = [];
+        $domainYearData = [];
+
+        for ($y = $startYear; $y <= $currentYear; $y++) {
+            $yearsLabels[] = 'Tahun ' . $y;
+            $domainYearData[] = $domainByYearRaw[$y] ?? 0;
+        }
 
         return view('admin.grafik', compact(
             'totalPengajuan',
@@ -110,8 +138,11 @@ class DashboardController extends Controller
             'pengajuanRevisi',
             'domainBerhasil',
             'totalDesa',
-            'desaBerdomain',
-            'desaBelumDomain'
+            'totalDomain',
+            'domainAktif',
+            'domainKadaluarsa',
+            'yearsLabels',
+            'domainYearData'
         ));
     }
 
