@@ -4,8 +4,11 @@
 
 @section('content')
     <div style="margin-bottom: 24px;">
-        <a href="{{ route('admin.desa.index') }}" style="color: #64748b; font-size: 13.5px; text-decoration: none; font-weight: 600; display: inline-flex; align-items: center; gap: 6px; margin-bottom: 8px;">
-            ← Kembali ke Data Desa
+        <a href="{{ route('admin.desa.index') }}" class="btn-action-secondary" style="display: inline-flex; align-items: center; gap: 8px; margin-bottom: 12px; text-decoration: none; font-weight: 700; font-size: 13.5px; padding: 8px 16px; border-radius: 8px;">
+            <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+            </svg>
+            Kembali ke Data Desa
         </a>
         <div style="display: flex; justify-content: space-between; align-items: center;">
             <div>
@@ -80,7 +83,7 @@
             <div style="display: flex; align-items: center; justify-content: space-between; padding: 16px; background: #f8fafc; border-radius: 12px; border: 1px solid #e2e8f0;">
                 <div>
                     <div style="font-size: 14.5px; font-weight: 700; color: #0f172a;">
-                        Diajukan pada: {{ \Carbon\Carbon::parse($desa->pengajuan->tanggal_pengajuan)->translatedFormat('d MMMM YYYY, H:i') }} WIB
+                        Diajukan pada: {{ \Carbon\Carbon::parse($desa->pengajuan->tanggal_pengajuan)->locale('id')->isoFormat('D MMMM YYYY, HH:mm') }} WIB
                     </div>
                     @if($desa->pengajuan->keterangan_revisi)
                         <div style="font-size: 13px; color: #b45309; margin-top: 4px;">

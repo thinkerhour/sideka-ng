@@ -114,4 +114,59 @@ class DashboardController extends Controller
             'desaBelumDomain'
         ));
     }
+
+    /**
+     * Preview pencarian global di header admin (Autocomplete)
+     */
+    public function searchPreview(Request $request)
+    {
+        $query = trim($request->input('q', ''));
+        if (empty($query)) {
+            return response()->json([]);
+        }
+
+        $results = [];
+
+        // Search in Pengajuan berelasi dengan Desa & Domain
+        $pengajuans = Pengajuan::with(['desa', 'desa.domain'])
+            ->whereHas('desa', function ($q) use ($query) {
+                $q->where('nama_desa', 'like', "%{$query}%")
+                  ->orWhere('kecamatan', 'like', "%{$query}%")
+                  ->orWhereHas('domain', function ($qDom) use ($query) {
+                      $qDom->where('nama_domain', 'like', "%{$query}%");
+                  });
+            })
+            ->take(5)
+            ->get();
+
+        foreach ($pengajuans as $p) {
+            $desaName = $p->desa ? $p->desa->nama_desa : '-';
+            $kecamatan = $p->desa ? $p->desa->kecamatan : '-';
+            $results[] = [
+                'type'     => 'pengajuan',
+                'title'    => 'Desa ' . $desaName,
+                'subtitle' => 'Kec. ' . $kecamatan . ' (Pengajuan Domain)',
+                'status'   => $p->status,
+                'url'      => route('admin.pengajuan.show', $p->id_pengajuan),
+            ];
+        }
+
+        // Search in Desa
+        $desas = Desa::where('nama_desa', 'like', "%{$query}%")
+            ->whereNotIn('id_desa', $pengajuans->pluck('id_desa'))
+            ->take(3)
+            ->get();
+
+        foreach ($desas as $d) {
+            $results[] = [
+                'type'     => 'desa',
+                'title'    => 'Desa ' . $d->nama_desa,
+                'subtitle' => 'Kec. ' . $d->kecamatan . ' (Data Desa)',
+                'status'   => null,
+                'url'      => route('admin.desa.show', $d->id_desa),
+            ];
+        }
+
+        return response()->json($results);
+    }
 }

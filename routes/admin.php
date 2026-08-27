@@ -33,5 +33,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
         // 5. Grafik Pengajuan
         Route::get('/grafik', [DashboardController::class, 'grafik'])->name('grafik');
+
+        // 6. Search Preview Endpoint (Autocomplete)
+        Route::get('/search-preview', [DashboardController::class, 'searchPreview'])->name('search-preview');
     });
 });

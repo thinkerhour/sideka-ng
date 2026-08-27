@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Desa;
 use App\Models\Domain;
 use App\Models\Pengajuan;
 use Illuminate\Http\Request;
@@ -42,6 +43,7 @@ class AdminPengajuanController extends Controller
     public function show($id)
     {
         $pengajuan = Pengajuan::with(['desa', 'dokumens'])->findOrFail($id);
+        $desas = Desa::orderBy('nama_desa', 'asc')->get();
 
         // Group dokumens by jenis_dokumen
         $dokumens = [
@@ -51,7 +53,7 @@ class AdminPengajuanController extends Controller
             'surat_penunjukan_admin' => $pengajuan->dokumens->firstWhere('jenis_dokumen', 'surat_penunjukan_admin'),
         ];
 
-        return view('admin.pengajuan.show', compact('pengajuan', 'dokumens'));
+        return view('admin.pengajuan.show', compact('pengajuan', 'dokumens', 'desas'));
     }
 
     /**
@@ -62,16 +64,19 @@ class AdminPengajuanController extends Controller
         $pengajuan = Pengajuan::findOrFail($id);
 
         $validated = $request->validate([
+            'id_desa' => ['nullable', 'exists:desas,id_desa'],
             'status' => ['required', 'in:Diproses,Revisi,Domain Berhasil'],
             'keterangan_revisi' => ['nullable', 'string', 'required_if:status,Revisi'],
             'nama_domain' => ['nullable', 'string', 'max:150', 'required_if:status,Domain Berhasil'],
         ], [
+            'id_desa.exists' => 'Data desa yang dipilih tidak ditemukan.',
             'status.required' => 'Status pengajuan wajib dipilih.',
             'status.in' => 'Status pengajuan tidak valid.',
             'keterangan_revisi.required_if' => 'Keterangan revisi wajib diisi jika status diubah ke Revisi.',
             'nama_domain.required_if' => 'Nama domain wajib diisi jika status diubah ke Domain Berhasil.',
         ]);
 
+        $pengajuan->id_desa = $validated['id_desa'] ?? null;
         $pengajuan->status = $validated['status'];
         if ($validated['status'] === 'Revisi') {
             $pengajuan->keterangan_revisi = $validated['keterangan_revisi'];
@@ -80,8 +85,11 @@ class AdminPengajuanController extends Controller
         }
         $pengajuan->save();
 
+        // Refresh relasi desa setelah update id_desa
+        $pengajuan->load('desa');
+
         // Jika status diubah ke Domain Berhasil dan nama_domain diisi, update/create di tabel domains
-        if ($validated['status'] === 'Domain Berhasil' && !empty($validated['nama_domain'])) {
+        if ($validated['status'] === 'Domain Berhasil' && !empty($validated['nama_domain']) && !empty($pengajuan->id_desa)) {
             Domain::updateOrCreate(
                 ['id_desa' => $pengajuan->id_desa],
                 [
@@ -98,6 +106,6 @@ class AdminPengajuanController extends Controller
         }
 
         return redirect()->route('admin.pengajuan.show', $id)
-            ->with('success', 'Status pengajuan berhasil diperbarui.');
+            ->with('success', 'Data pengajuan dan tautan desa berhasil diperbarui.');
     }
 }
