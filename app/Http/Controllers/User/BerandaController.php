@@ -33,5 +33,32 @@ class BerandaController extends Controller
 
         return view('user.beranda', compact('domains', 'search', 'faqs'));
     }
+
+    /**
+     * Download template Surat Kuasa (.docx / .doc).
+     */
+    public function downloadTemplateSuratKuasa()
+    {
+        $candidatePaths = [
+            public_path('documents/pengajuan/template_surat_kuasa.docx'),
+            public_path('documents/pengajuan/template-surat-kuasa.docx'),
+            public_path('documents/pengajuan/template_surat_kuasa.doc'),
+            public_path('documents/pengajuan/template-surat-kuasa.doc'),
+            public_path('templates/template-surat-kuasa.docx'),
+        ];
+
+        foreach ($candidatePaths as $path) {
+            if (file_exists($path) && filesize($path) > 0) {
+                $ext = pathinfo($path, PATHINFO_EXTENSION);
+                return response()->download($path, 'template-surat-kuasa.' . $ext, [
+                    'Content-Type' => $ext === 'doc' 
+                        ? 'application/msword' 
+                        : 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+                ]);
+            }
+        }
+
+        abort(404, 'File template tidak ditemukan.');
+    }
 }
 

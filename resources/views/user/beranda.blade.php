@@ -332,7 +332,7 @@
                 <!-- Row 2, Col 1: Syarat 2 -->
                 <div class="req-item-block">
                     <div class="req-label-text">2. Surat Kuasa</div>
-                    <a href="{{ asset('documents/pengajuan/template-surat-kuasa.pdf') }}" download="template-surat-kuasa.pdf" class="btn btn-download-template" id="btn-download-template">
+                    <a href="{{ route('user.download.template-surat-kuasa') }}" class="btn btn-download-template" id="btn-download-template">
                         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
                             <polyline points="7 10 12 15 17 10"></polyline>
@@ -437,13 +437,99 @@
                 </div>
 
                 <div class="format-note">
-                    Format file yang diperbolehkan: <strong>PDF</strong> (Ukuran minimal <strong>1 MB</strong> per berkas)
+                    Format file yang diperbolehkan: <strong>PDF</strong> (Ukuran maksimal <strong>1 MB</strong> per berkas)
                 </div>
             </form>
         </div>
 
         <div class="modal-footer">
             <button class="btn btn-primary" id="btn-submit-form">SUBMIT</button>
+        </div>
+    </div>
+</div>
+
+<!-- ================================================== -->
+<!-- MODAL FORM UPLOAD ULANG REVISI                     -->
+<!-- ================================================== -->
+<div class="modal-backdrop" id="modal-form-revisi">
+    <div class="modal-card modal-card-large">
+        <div class="modal-header">
+            <div class="modal-title-group">
+                <div class="modal-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                        <polyline points="14 2 14 8 20 8"></polyline>
+                        <line x1="12" y1="18" x2="12" y2="12"></line>
+                        <line x1="9" y1="15" x2="15" y2="15"></line>
+                    </svg>
+                </div>
+                <h2>Pengajuan SIDeKa-NG Domain .desa.id</h2>
+            </div>
+            <button class="modal-close-btn" data-close-modal>&times;</button>
+        </div>
+
+        <div class="modal-body">
+            <div class="alert-box">
+                <span>Silakan unggah kembali dokumen yang direvisi berdasarkan catatan admin.</span>
+            </div>
+
+            <form id="form-upload-revisi" onsubmit="return false;" enctype="multipart/form-data" autocomplete="off">
+                @csrf
+                <input type="hidden" id="revisi-pengajuan-id" name="id_pengajuan" value="">
+                <div class="upload-grid">
+                    <div class="upload-field-card">
+                        <label class="upload-label" for="revisi-file-surat-permohonan">1. Surat Permohonan Fasilitasi Domain desa.id</label>
+                        <div class="file-input-wrapper">
+                            <input type="file" id="revisi-file-surat-permohonan" name="surat_permohonan" accept=".pdf" class="file-input file-input-revisi" autocomplete="off">
+                            <div class="file-input-custom">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+                                <span class="file-name-display" id="revisi-display-permohonan">Pilih file atau drag ke sini</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="upload-field-card">
+                        <label class="upload-label" for="revisi-file-sk-kades">2. Surat Keputusan Pengangkatan Kepala Desa</label>
+                        <div class="file-input-wrapper">
+                            <input type="file" id="revisi-file-sk-kades" name="sk_kepala_desa" accept=".pdf" class="file-input file-input-revisi" autocomplete="off">
+                            <div class="file-input-custom">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+                                <span class="file-name-display" id="revisi-display-sk-kades">Pilih file atau drag ke sini</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="upload-field-card">
+                        <label class="upload-label" for="revisi-file-surat-kuasa">3. Surat Kuasa</label>
+                        <div class="file-input-wrapper">
+                            <input type="file" id="revisi-file-surat-kuasa" name="surat_kuasa" accept=".pdf" class="file-input file-input-revisi" autocomplete="off">
+                            <div class="file-input-custom">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+                                <span class="file-name-display" id="revisi-display-surat-kuasa">Pilih file atau drag ke sini</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="upload-field-card">
+                        <label class="upload-label" for="revisi-file-surat-admin">4. Surat Penunjukan Admin Website desa.id</label>
+                        <div class="file-input-wrapper">
+                            <input type="file" id="revisi-file-surat-admin" name="surat_penunjukan_admin" accept=".pdf" class="file-input file-input-revisi" autocomplete="off">
+                            <div class="file-input-custom">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+                                <span class="file-name-display" id="revisi-display-surat-admin">Pilih file atau drag ke sini</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="format-note">
+                    Format file yang diperbolehkan: <strong>PDF</strong> (Ukuran maksimal <strong>1 MB</strong> per berkas)
+                </div>
+            </form>
+        </div>
+
+        <div class="modal-footer">
+            <button class="btn btn-primary" id="btn-submit-revisi">SUBMIT</button>
         </div>
     </div>
 </div>
@@ -641,45 +727,33 @@
                             </button>
                         </div>
 
-                        <div class="doc-file-item" id="doc-item-1">
+                        <div class="doc-file-item" id="revisi-doc-item-1">
                             <div class="doc-file-info">
                                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path></svg>
                                 <span class="doc-label">Surat Permohonan Fasilitasi Domain</span>
                             </div>
-                            <div class="doc-file-right">
-                                <span class="doc-filename">Surat_Permohonan_Pasirhalang.pdf</span>
-                                <button type="button" class="btn-remove-doc" onclick="removeDocItem('doc-item-1')">&times;</button>
-                            </div>
+                            <span class="doc-filename" id="revisi-doc-file-1">Surat_Permohonan_Pasirhalang.pdf</span>
                         </div>
-                        <div class="doc-file-item" id="doc-item-2">
+                        <div class="doc-file-item" id="revisi-doc-item-2">
                             <div class="doc-file-info">
                                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path></svg>
                                 <span class="doc-label">Surat Kuasa</span>
                             </div>
-                            <div class="doc-file-right">
-                                <span class="doc-filename">Surat_Kuasa_Pasirhalang.pdf</span>
-                                <button type="button" class="btn-remove-doc" onclick="removeDocItem('doc-item-2')">&times;</button>
-                            </div>
+                            <span class="doc-filename" id="revisi-doc-file-2">Surat_Kuasa_Pasirhalang.pdf</span>
                         </div>
-                        <div class="doc-file-item" id="doc-item-3">
+                        <div class="doc-file-item" id="revisi-doc-item-3">
                             <div class="doc-file-info">
                                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path></svg>
                                 <span class="doc-label">SK Pengangkatan Kepala Desa</span>
                             </div>
-                            <div class="doc-file-right">
-                                <span class="doc-filename">SK_Kades_Pasirhalang.pdf</span>
-                                <button type="button" class="btn-remove-doc" onclick="removeDocItem('doc-item-3')">&times;</button>
-                            </div>
+                            <span class="doc-filename" id="revisi-doc-file-3">SK_Kades_Pasirhalang.pdf</span>
                         </div>
-                        <div class="doc-file-item" id="doc-item-4">
+                        <div class="doc-file-item" id="revisi-doc-item-4">
                             <div class="doc-file-info">
                                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path></svg>
                                 <span class="doc-label">Surat Penunjukan Admin Website</span>
                             </div>
-                            <div class="doc-file-right">
-                                <span class="doc-filename">Surat_Penunjukan_Admin_Pasirhalang.pdf</span>
-                                <button type="button" class="btn-remove-doc" onclick="removeDocItem('doc-item-4')">&times;</button>
-                            </div>
+                            <span class="doc-filename" id="revisi-doc-file-4">Surat_Penunjukan_Admin_Pasirhalang.pdf</span>
                         </div>
                     </div>
                 </div>

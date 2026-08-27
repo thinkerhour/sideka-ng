@@ -1,19 +1,4 @@
-/**
- * SIDeKa-NG User Wireframe UI Interactions
- * Pure Frontend Interaction (No Backend / API calls)
- */
-
-// Helper to remove document item on Revisi status popup simulation
-function removeDocItem(elementId) {
-    const item = document.getElementById(elementId);
-    if (item) {
-        item.style.opacity = '0.4';
-        item.style.textDecoration = 'line-through';
-        const btn = item.querySelector('.btn-remove-doc');
-        if (btn) btn.textContent = '✓';
-    }
-}
-
+// Helper functions
 document.addEventListener('DOMContentLoaded', () => {
     // Elements - Modals & Buttons
     const btnAjukan = document.getElementById('btn-ajukan-sideka');
@@ -22,17 +7,31 @@ document.addEventListener('DOMContentLoaded', () => {
     const linkCekStatusAjukan = document.getElementById('link-cek-status-ajukan');
     const btnNextToForm = document.getElementById('btn-next-to-form');
     const btnSubmitForm = document.getElementById('btn-submit-form');
+    const btnSubmitRevisi = document.getElementById('btn-submit-revisi');
     const btnOkKonfirmasi = document.getElementById('btn-ok-konfirmasi');
     const btnTriggerReupload = document.getElementById('btn-trigger-reupload');
 
     // Modals
     const modalPersyaratan = document.getElementById('modal-persyaratan');
     const modalForm = document.getElementById('modal-form');
+    const modalFormRevisi = document.getElementById('modal-form-revisi');
     const modalKonfirmasi = document.getElementById('modal-konfirmasi');
 
     const popupDiproses = document.getElementById('popup-status-diproses');
     const popupRevisi = document.getElementById('popup-status-revisi');
     const popupBerhasil = document.getElementById('popup-status-berhasil');
+
+    // Active Revisi Data tracker
+    let currentRevisiData = {
+        id_pengajuan: null,
+        nama_desa: 'Pasirhalang',
+        dokumens: [
+            { jenis_dokumen: 'surat_permohonan', nama_file: 'Surat_Permohonan_Pasirhalang.pdf' },
+            { jenis_dokumen: 'surat_kuasa', nama_file: 'Surat_Kuasa_Pasirhalang.pdf' },
+            { jenis_dokumen: 'sk_kepala_desa', nama_file: 'SK_Kades_Pasirhalang.pdf' },
+            { jenis_dokumen: 'surat_penunjukan_admin', nama_file: 'Surat_Penunjukan_Admin_Pasirhalang.pdf' }
+        ]
+    };
 
     // Demo hint buttons
     const btnMockWangunsari = document.getElementById('btn-mock-wangunsari');
@@ -43,6 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const allModals = [
         modalPersyaratan, 
         modalForm, 
+        modalFormRevisi,
         modalKonfirmasi, 
         popupDiproses, 
         popupRevisi, 
@@ -65,7 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.style.overflow = '';
     }
 
-    // Helper to reset upload form and its UI displays
+    // Helper to reset initial upload form and its UI displays
     function resetUploadForm() {
         const formUpload = document.getElementById('form-upload-berkas');
         if (formUpload) {
@@ -80,6 +80,64 @@ document.addEventListener('DOMContentLoaded', () => {
             display.style.color = '';
             display.style.fontWeight = '';
         });
+    }
+
+    // Helper to reset & populate revisi upload form
+    function resetRevisiForm() {
+        const formUploadRevisi = document.getElementById('form-upload-revisi');
+        if (formUploadRevisi) {
+            formUploadRevisi.reset();
+        }
+        ['revisi-file-surat-permohonan', 'revisi-file-sk-kades', 'revisi-file-surat-kuasa', 'revisi-file-surat-admin'].forEach(id => {
+            const el = document.getElementById(id);
+            if (el) el.value = '';
+        });
+
+        const docMap = {};
+        if (currentRevisiData && currentRevisiData.dokumens && Array.isArray(currentRevisiData.dokumens)) {
+            currentRevisiData.dokumens.forEach(d => {
+                docMap[d.jenis_dokumen] = d.nama_file;
+            });
+        }
+
+        const village = currentRevisiData?.nama_desa || 'Pasirhalang';
+        const fPermohonan = docMap['surat_permohonan'] || 'Surat_Permohonan_' + village + '.pdf';
+        const fSk = docMap['sk_kepala_desa'] || 'SK_Kades_' + village + '.pdf';
+        const fKuasa = docMap['surat_kuasa'] || 'Surat_Kuasa_' + village + '.pdf';
+        const fAdmin = docMap['surat_penunjukan_admin'] || 'Surat_Penunjukan_Admin_' + village + '.pdf';
+
+        const dPermohonan = document.getElementById('revisi-display-permohonan');
+        const dSk = document.getElementById('revisi-display-sk-kades');
+        const dKuasa = document.getElementById('revisi-display-surat-kuasa');
+        const dAdmin = document.getElementById('revisi-display-surat-admin');
+
+        if (dPermohonan) {
+            dPermohonan.textContent = fPermohonan;
+            dPermohonan.dataset.original = fPermohonan;
+            dPermohonan.style.color = '#334155';
+            dPermohonan.style.fontWeight = '600';
+        }
+        if (dSk) {
+            dSk.textContent = fSk;
+            dSk.dataset.original = fSk;
+            dSk.style.color = '#334155';
+            dSk.style.fontWeight = '600';
+        }
+        if (dKuasa) {
+            dKuasa.textContent = fKuasa;
+            dKuasa.dataset.original = fKuasa;
+            dKuasa.style.color = '#334155';
+            dKuasa.style.fontWeight = '600';
+        }
+        if (dAdmin) {
+            dAdmin.textContent = fAdmin;
+            dAdmin.dataset.original = fAdmin;
+            dAdmin.style.color = '#334155';
+            dAdmin.style.fontWeight = '600';
+        }
+
+        const hiddenId = document.getElementById('revisi-pengajuan-id');
+        if (hiddenId) hiddenId.value = currentRevisiData?.id_pengajuan || '';
     }
 
     // Always ensure upload form is pristine on page load / browser back-forward cache
@@ -114,7 +172,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const inputKuasa = document.getElementById('file-surat-kuasa');
             const inputAdmin = document.getElementById('file-surat-admin');
 
-            // 1. Validasi Frontend: Semua 4 dokumen harus dipilih, berformat PDF, dan berukuran minimal 1 MB
+            // 1. Validasi Frontend: Semua 4 dokumen harus dipilih, berformat PDF, dan berukuran maksimal 1 MB
             const docInputs = [
                 { id: 'file-surat-permohonan', label: 'Surat Permohonan', input: inputPermohonan },
                 { id: 'file-sk-kades', label: 'SK Pengangkatan Kepala Desa', input: inputSkKades },
@@ -122,7 +180,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 { id: 'file-surat-admin', label: 'Surat Penunjukan Admin', input: inputAdmin }
             ];
 
-            const minSizeBytes = 1024 * 1024; // 1 MB (1024 KB)
+            const maxSizeBytes = 1024 * 1024; // 1 MB (1024 KB)
 
             for (const doc of docInputs) {
                 if (!doc.input || !doc.input.files || doc.input.files.length === 0) {
@@ -138,8 +196,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     return;
                 }
 
-                if (file.size < minSizeBytes) {
-                    alert(`Ukuran berkas ${doc.label} minimal 1 MB.`);
+                if (file.size > maxSizeBytes) {
+                    alert(`Ukuran berkas ${doc.label} maksimal 1 MB.`);
                     return;
                 }
             }
@@ -177,10 +235,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
 
                 if (response.ok && data && data.success) {
-                    // Reset form & UI
                     resetUploadForm();
-
-                    // Buka Modal Konfirmasi Berhasil hanya jika backend sukses
                     openModal(modalKonfirmasi);
                 } else {
                     const errorMsg = (data && data.message) ? data.message : 'Data belum lengkap di upload! Cek kembali.';
@@ -196,20 +251,114 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 4. Click "OK" in Modal Konfirmasi -> Close all & Reset form
+    // 4. Click "SUBMIT" in Modal Form Revisi -> Validasi & Kirim Dokumen yang Diunggah Ulang
+    if (btnSubmitRevisi) {
+        btnSubmitRevisi.addEventListener('click', async (e) => {
+            e.preventDefault();
+
+            const inputPermohonan = document.getElementById('revisi-file-surat-permohonan');
+            const inputSkKades = document.getElementById('revisi-file-sk-kades');
+            const inputKuasa = document.getElementById('revisi-file-surat-kuasa');
+            const inputAdmin = document.getElementById('revisi-file-surat-admin');
+
+            const revisiDocInputs = [
+                { id: 'revisi-file-surat-permohonan', label: 'Surat Permohonan', input: inputPermohonan, key: 'surat_permohonan' },
+                { id: 'revisi-file-sk-kades', label: 'SK Pengangkatan Kepala Desa', input: inputSkKades, key: 'sk_kepala_desa' },
+                { id: 'revisi-file-surat-kuasa', label: 'Surat Kuasa', input: inputKuasa, key: 'surat_kuasa' },
+                { id: 'revisi-file-surat-admin', label: 'Surat Penunjukan Admin', input: inputAdmin, key: 'surat_penunjukan_admin' }
+            ];
+
+            const maxSizeBytes = 1024 * 1024; // 1 MB (1024 KB)
+            let hasSelectedFile = false;
+            const formData = new FormData();
+
+            for (const doc of revisiDocInputs) {
+                if (doc.input && doc.input.files && doc.input.files.length > 0) {
+                    const file = doc.input.files[0];
+                    const fileName = file.name.toLowerCase();
+
+                    if (!fileName.endsWith('.pdf')) {
+                        alert(`Format berkas ${doc.label} harus berupa file PDF.`);
+                        return;
+                    }
+
+                    if (file.size > maxSizeBytes) {
+                        alert(`Ukuran berkas ${doc.label} maksimal 1 MB.`);
+                        return;
+                    }
+
+                    formData.append(doc.key, file);
+                    hasSelectedFile = true;
+                }
+            }
+
+            if (!hasSelectedFile) {
+                alert('Silakan pilih minimal 1 berkas dokumen yang ingin diunggah ulang.');
+                return;
+            }
+
+            const hiddenId = document.getElementById('revisi-pengajuan-id')?.value;
+            if (hiddenId) {
+                formData.append('id_pengajuan', hiddenId);
+            }
+
+            const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') 
+                || document.querySelector('input[name="_token"]')?.value;
+
+            const originalText = btnSubmitRevisi.textContent;
+            btnSubmitRevisi.disabled = true;
+            btnSubmitRevisi.textContent = 'MENGIRIM...';
+
+            try {
+                const response = await fetch('/pengajuan/revisi', {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'X-CSRF-TOKEN': csrfToken || '',
+                        'Accept': 'application/json',
+                    },
+                });
+
+                let data = null;
+                try {
+                    data = await response.json();
+                } catch (parseErr) {
+                    data = null;
+                }
+
+                if (response.ok && data && data.success) {
+                    resetRevisiForm();
+                    openModal(modalKonfirmasi);
+                } else {
+                    const errorMsg = (data && data.message) ? data.message : 'Terjadi kesalahan saat mengunggah dokumen revisi.';
+                    alert(errorMsg);
+                }
+            } catch (err) {
+                console.error('Revisi submit error:', err);
+                alert('Terjadi kesalahan jaringan atau server saat mengirim dokumen revisi.');
+            } finally {
+                btnSubmitRevisi.disabled = false;
+                btnSubmitRevisi.textContent = originalText;
+            }
+        });
+    }
+
+    // 5. Click "OK" in Modal Konfirmasi -> Close all & Reset form
     if (btnOkKonfirmasi) {
         btnOkKonfirmasi.addEventListener('click', (e) => {
             e.preventDefault();
             resetUploadForm();
+            resetRevisiForm();
             closeAllModals();
         });
     }
 
-    // 5. Trigger Reupload on Revisi popup -> Open Modal Form
+    // 6. Trigger Reupload on Revisi popup -> Open Modal Form Revisi
     if (btnTriggerReupload) {
         btnTriggerReupload.addEventListener('click', (e) => {
             e.preventDefault();
-            openModal(modalForm);
+            resetRevisiForm();
+            openModal(modalFormRevisi);
         });
     }
 
@@ -218,7 +367,23 @@ document.addEventListener('DOMContentLoaded', () => {
         btnMockWangunsari.addEventListener('click', () => openModal(popupDiproses));
     }
     if (btnMockPasirhalang) {
-        btnMockPasirhalang.addEventListener('click', () => openModal(popupRevisi));
+        btnMockPasirhalang.addEventListener('click', () => {
+            currentRevisiData = {
+                id_pengajuan: null,
+                nama_desa: 'Pasirhalang',
+                kecamatan: 'Cisarua',
+                nama_domain: 'pasirhalang.desa.id',
+                tanggal_pengajuan: '10 Januari 2026',
+                keterangan_revisi: 'Stempel pada Surat Kuasa belum terlihat jelas dan SK Pengangkatan Kepala Desa belum melampirkan lembar pengesahan terakhir.',
+                dokumens: [
+                    { jenis_dokumen: 'surat_permohonan', nama_file: 'Surat_Permohonan_Pasirhalang.pdf' },
+                    { jenis_dokumen: 'surat_kuasa', nama_file: 'Surat_Kuasa_Pasirhalang.pdf' },
+                    { jenis_dokumen: 'sk_kepala_desa', nama_file: 'SK_Kades_Pasirhalang.pdf' },
+                    { jenis_dokumen: 'surat_penunjukan_admin', nama_file: 'Surat_Penunjukan_Admin_Pasirhalang.pdf' }
+                ]
+            };
+            openModal(popupRevisi);
+        });
     }
     if (btnMockLembang) {
         btnMockLembang.addEventListener('click', () => openModal(popupBerhasil));
@@ -242,8 +407,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // File Upload Display Handler
-    const fileInputs = document.querySelectorAll('.file-input');
+    // File Upload Display Handler for Initial Form
+    const fileInputs = document.querySelectorAll('#form-upload-berkas .file-input');
     fileInputs.forEach(input => {
         input.addEventListener('change', () => {
             const wrapper = input.closest('.file-input-wrapper');
@@ -257,6 +422,26 @@ document.addEventListener('DOMContentLoaded', () => {
                     display.textContent = 'Pilih file atau drag ke sini';
                     display.style.color = '';
                     display.style.fontWeight = '';
+                }
+            }
+        });
+    });
+
+    // File Upload Display Handler for Revisi Form
+    const fileInputsRevisi = document.querySelectorAll('.file-input-revisi');
+    fileInputsRevisi.forEach(input => {
+        input.addEventListener('change', () => {
+            const wrapper = input.closest('.file-input-wrapper');
+            const display = wrapper ? wrapper.querySelector('.file-name-display') : null;
+            if (display) {
+                if (input.files && input.files.length > 0) {
+                    display.textContent = input.files[0].name + ' (File Baru)';
+                    display.style.color = '#16a34a';
+                    display.style.fontWeight = '700';
+                } else {
+                    display.textContent = display.dataset.original || 'Pilih file atau drag ke sini';
+                    display.style.color = '#334155';
+                    display.style.fontWeight = '600';
                 }
             }
         });
@@ -328,6 +513,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const status = (item.status || '').toLowerCase();
 
             if (status === 'revisi') {
+                currentRevisiData = item;
+
                 // Dynamic population for Modal Revisi
                 const elTitle = document.getElementById('revisi-village-name');
                 const elSub = document.getElementById('revisi-village-sub');
@@ -340,6 +527,27 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (elDom) elDom.textContent = item.nama_domain;
                 if (elDate) elDate.textContent = item.tanggal_pengajuan;
                 if (elNote) elNote.textContent = '"' + (item.keterangan_revisi || 'Mohon melengkapi kembali dokumen persyaratan yang kurang.') + '"';
+
+                const docMap = {};
+                if (item.dokumens && Array.isArray(item.dokumens)) {
+                    item.dokumens.forEach(d => {
+                        docMap[d.jenis_dokumen] = d.nama_file;
+                    });
+                }
+                const village = item.nama_desa || 'Desa';
+                const fPermohonan = docMap['surat_permohonan'] || 'Surat_Permohonan_' + village + '.pdf';
+                const fKuasa = docMap['surat_kuasa'] || 'Surat_Kuasa_' + village + '.pdf';
+                const fSk = docMap['sk_kepala_desa'] || 'SK_Kades_' + village + '.pdf';
+                const fAdmin = docMap['surat_penunjukan_admin'] || 'Surat_Penunjukan_Admin_' + village + '.pdf';
+
+                const docFile1 = document.getElementById('revisi-doc-file-1');
+                const docFile2 = document.getElementById('revisi-doc-file-2');
+                const docFile3 = document.getElementById('revisi-doc-file-3');
+                const docFile4 = document.getElementById('revisi-doc-file-4');
+                if (docFile1) docFile1.textContent = fPermohonan;
+                if (docFile2) docFile2.textContent = fKuasa;
+                if (docFile3) docFile3.textContent = fSk;
+                if (docFile4) docFile4.textContent = fAdmin;
 
                 openModal(popupRevisi);
 
