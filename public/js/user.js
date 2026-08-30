@@ -645,25 +645,34 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ================================================
-    // HERO SCROLL FADE-OUT / DISAPPEAR ANIMATION
+    // SCROLL ANIMATIONS: HERO & DOMAIN TERDAFTAR
     // ================================================
     const heroContent = document.querySelector('.hero-content');
     const heroIllustration = document.querySelector('.hero-illustration');
     const heroSection = document.querySelector('.hero-section');
 
-    if (heroSection && (heroContent || heroIllustration)) {
-        let isScrollTicking = false;
+    const domainSection = document.getElementById('domain-terdaftar');
+    const domainContainer = domainSection ? domainSection.querySelector('.container') : null;
 
-        function updateHeroScrollAnimation() {
-            const scrollY = window.scrollY || window.pageYOffset;
+    const faqSection = document.getElementById('faq');
+    const faqContainer = faqSection ? faqSection.querySelector('.container') : null;
+
+    const cekStatusSection = document.getElementById('cek-status');
+    const cekStatusContainer = cekStatusSection ? cekStatusSection.querySelector('.container') : null;
+
+    let isScrollTicking = false;
+
+    function handleScrollAnimations() {
+        const scrollY = window.scrollY || window.pageYOffset;
+        const windowHeight = window.innerHeight || document.documentElement.clientHeight;
+
+        // 1. Hero Section Fade-Out on Scroll Down
+        if (heroSection && (heroContent || heroIllustration)) {
             const heroHeight = heroSection.offsetHeight || 600;
-            // Transition range as user scrolls through the hero section
             const fadeThreshold = Math.min(heroHeight * 0.7, 450);
             const progress = Math.min(Math.max(scrollY / fadeThreshold, 0), 1);
 
-            // Opacity: 1 at top -> 0 when scrolled past threshold
             const opacity = Math.max(1 - progress * 1.25, 0);
-            // Translate: smoothly drifts out as it fades
             const translateYContent = progress * -50;
             const translateYIllustration = progress * -30;
             const translateXIllustration = progress * 60;
@@ -679,18 +688,93 @@ document.addEventListener('DOMContentLoaded', () => {
                 heroIllustration.style.transform = `translate(${translateXIllustration}px, ${translateYIllustration}px)`;
                 heroIllustration.style.pointerEvents = opacity <= 0.05 ? 'none' : 'auto';
             }
-
-            isScrollTicking = false;
         }
 
-        window.addEventListener('scroll', () => {
-            if (!isScrollTicking) {
-                window.requestAnimationFrame(updateHeroScrollAnimation);
-                isScrollTicking = true;
-            }
-        }, { passive: true });
+        // 2. Domain Terdaftar Reveal & Disappear on Scroll
+        if (domainSection && domainContainer) {
+            const rect = domainSection.getBoundingClientRect();
+            const sectionCenter = rect.top + rect.height / 2;
+            const screenCenter = windowHeight / 2;
+            const offsetFromCenter = sectionCenter - screenCenter;
 
-        // Initial check on load in case page is refreshed while scrolled down
-        updateHeroScrollAnimation();
+            // Visible range: within 65% of screen height from center
+            const visibleRadius = Math.max(windowHeight * 0.65, 400);
+            const rawProgress = 1 - Math.abs(offsetFromCenter) / visibleRadius;
+            const clampedProgress = Math.min(Math.max(rawProgress, 0), 1);
+
+            // Smooth cubic easing (smoothstep curve)
+            const eased = clampedProgress * clampedProgress * (3 - 2 * clampedProgress);
+
+            // Drift direction: +45px when coming from bottom, -45px when leaving to top
+            const driftY = offsetFromCenter > 0 
+                ? (1 - eased) * 45 
+                : (1 - eased) * -45;
+
+            domainContainer.style.opacity = eased;
+            domainContainer.style.transform = `translateY(${driftY}px)`;
+            domainContainer.style.pointerEvents = eased <= 0.05 ? 'none' : 'auto';
+        }
+
+        // 3. FAQ Section Reveal & Disappear on Scroll
+        if (faqSection && faqContainer) {
+            const rect = faqSection.getBoundingClientRect();
+            const sectionCenter = rect.top + rect.height / 2;
+            const screenCenter = windowHeight / 2;
+            const offsetFromCenter = sectionCenter - screenCenter;
+
+            // Visible range: within 65% of screen height from center
+            const visibleRadius = Math.max(windowHeight * 0.65, 400);
+            const rawProgress = 1 - Math.abs(offsetFromCenter) / visibleRadius;
+            const clampedProgress = Math.min(Math.max(rawProgress, 0), 1);
+
+            // Smooth cubic easing (smoothstep curve)
+            const eased = clampedProgress * clampedProgress * (3 - 2 * clampedProgress);
+
+            // Drift direction: +45px when coming from bottom, -45px when leaving to top
+            const driftY = offsetFromCenter > 0 
+                ? (1 - eased) * 45 
+                : (1 - eased) * -45;
+
+            faqContainer.style.opacity = eased;
+            faqContainer.style.transform = `translateY(${driftY}px)`;
+            faqContainer.style.pointerEvents = eased <= 0.05 ? 'none' : 'auto';
+        }
+
+        // 4. Cek Status Section Reveal & Disappear on Scroll
+        if (cekStatusSection && cekStatusContainer) {
+            const rect = cekStatusSection.getBoundingClientRect();
+            const sectionCenter = rect.top + rect.height / 2;
+            const screenCenter = windowHeight / 2;
+            const offsetFromCenter = sectionCenter - screenCenter;
+
+            // Visible range: within 65% of screen height from center
+            const visibleRadius = Math.max(windowHeight * 0.65, 400);
+            const rawProgress = 1 - Math.abs(offsetFromCenter) / visibleRadius;
+            const clampedProgress = Math.min(Math.max(rawProgress, 0), 1);
+
+            // Smooth cubic easing (smoothstep curve)
+            const eased = clampedProgress * clampedProgress * (3 - 2 * clampedProgress);
+
+            // Drift direction: +45px when coming from bottom, -45px when leaving to top
+            const driftY = offsetFromCenter > 0 
+                ? (1 - eased) * 45 
+                : (1 - eased) * -45;
+
+            cekStatusContainer.style.opacity = eased;
+            cekStatusContainer.style.transform = `translateY(${driftY}px)`;
+            cekStatusContainer.style.pointerEvents = eased <= 0.05 ? 'none' : 'auto';
+        }
+
+        isScrollTicking = false;
     }
+
+    window.addEventListener('scroll', () => {
+        if (!isScrollTicking) {
+            window.requestAnimationFrame(handleScrollAnimations);
+            isScrollTicking = true;
+        }
+    }, { passive: true });
+
+    // Initial check on load
+    handleScrollAnimations();
 });

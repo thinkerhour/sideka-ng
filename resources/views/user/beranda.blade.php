@@ -71,7 +71,7 @@
             </div>
 
             <form method="GET" action="{{ url('/#domain-terdaftar') }}" class="search-bar-wireframe" id="form-search-domain">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#000130" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#004ea8" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
                     <circle cx="11" cy="11" r="8"></circle>
                     <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
                 </svg>
@@ -190,7 +190,7 @@
                     </p>
 
                     <form class="cek-status-search-box" id="form-cek-status" onsubmit="return false;">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#000130" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" class="search-icon-navy">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#004ea8" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" class="search-icon-navy">
                             <circle cx="11" cy="11" r="8"></circle>
                             <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
                         </svg>
