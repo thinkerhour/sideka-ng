@@ -1,6 +1,4 @@
-@extends('layouts.app')
-
-@section('content')
+<?php $__env->startSection('content'); ?>
 <div class="page-wrapper">
     <!-- HERO BACKGROUND OVERLAY -->
     <div class="hero-background"></div>
@@ -10,8 +8,8 @@
     <div class="container">
         <div class="navbar-pill">
             <div class="brand">
-                <a href="{{ url('/') }}" class="brand-link">
-                    <img src="{{ asset('assets/images/logo_diskominfotik.png') }}" alt="Logo Diskominfotik" class="brand-logo-img">
+                <a href="<?php echo e(url('/')); ?>" class="brand-link">
+                    <img src="<?php echo e(asset('assets/images/logo_diskominfotik.png')); ?>" alt="Logo Diskominfotik" class="brand-logo-img">
                     <div class="brand-text">
                         <span class="brand-title">DISKOMINFOTIK</span>
                         <span class="brand-subtitle">KABUPATEN BANDUNG BARAT</span>
@@ -25,7 +23,7 @@
                 <a href="#cek-status" class="nav-item">Cek Status</a>
                 <a href="#faq" class="nav-item nav-pill-faq">
                     <span>FAQ</span>
-                    <img src="{{ asset('assets/icons/question.svg') }}" alt="FAQ" class="faq-icon-img" width="18" height="18">
+                    <img src="<?php echo e(asset('assets/icons/question.svg')); ?>" alt="FAQ" class="faq-icon-img" width="18" height="18">
                 </a>
             </nav>
         </div>
@@ -53,7 +51,7 @@
                 </div>
             </div>
             <div class="hero-illustration">
-                <img src="{{ asset('assets/images/logo_beranda.png') }}" alt="Ilustrasi Pengajuan SIDEKA-NG" class="hero-illustration-img">
+                <img src="<?php echo e(asset('assets/images/logo_beranda.png')); ?>" alt="Ilustrasi Pengajuan SIDEKA-NG" class="hero-illustration-img">
             </div>
         </div>
     </main>
@@ -70,12 +68,12 @@
                 </p>
             </div>
 
-            <form method="GET" action="{{ url('/#domain-terdaftar') }}" class="search-bar-wireframe" id="form-search-domain">
+            <form method="GET" action="<?php echo e(url('/#domain-terdaftar')); ?>" class="search-bar-wireframe" id="form-search-domain">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#000130" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
                     <circle cx="11" cy="11" r="8"></circle>
                     <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
                 </svg>
-                <input type="text" name="search" id="input-search-domain" value="{{ $search ?? '' }}" placeholder="Cari domain atau nama desa..." class="search-input-wireframe" autocomplete="off">
+                <input type="text" name="search" id="input-search-domain" value="<?php echo e($search ?? ''); ?>" placeholder="Cari domain atau nama desa..." class="search-input-wireframe" autocomplete="off">
             </form>
 
             <div class="table-responsive">
@@ -89,37 +87,37 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @forelse ($domains as $index => $domain)
+                        <?php $__empty_1 = true; $__currentLoopData = $domains; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $index => $domain): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
                         <tr>
-                            <td class="text-center">{{ ($domains->firstItem() ? $domains->firstItem() + $index : $index + 1) }}.</td>
-                            <td>{{ $domain->desa ? $domain->desa->nama_desa : '-' }}</td>
-                            <td>{{ $domain->desa ? $domain->desa->kecamatan : '-' }}</td>
-                            <td class="domain-cell">{{ $domain->nama_domain }}</td>
+                            <td class="text-center"><?php echo e(($domains->firstItem() ? $domains->firstItem() + $index : $index + 1)); ?>.</td>
+                            <td><?php echo e($domain->desa ? $domain->desa->nama_desa : '-'); ?></td>
+                            <td><?php echo e($domain->desa ? $domain->desa->kecamatan : '-'); ?></td>
+                            <td class="domain-cell"><?php echo e($domain->nama_domain); ?></td>
                         </tr>
-                        @empty
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
                         <tr>
                             <td colspan="4" class="text-center" style="padding: 24px; color: #64748b;">
                                 Belum ada domain terdaftar.
                             </td>
                         </tr>
-                        @endforelse
+                        <?php endif; ?>
                     </tbody>
                 </table>
             </div>
 
-            @if ($domains->hasPages())
+            <?php if($domains->hasPages()): ?>
             <div class="table-footer-action">
-                @if ($domains->hasMorePages())
-                <a href="{{ $domains->nextPageUrl() }}#domain-terdaftar" class="btn-selanjutnya-img" aria-label="Selanjutnya">
-                    <img src="{{ asset('assets/images/button_selanjutnya.png') }}" alt="Selanjutnya" class="img-btn-selanjutnya">
+                <?php if($domains->hasMorePages()): ?>
+                <a href="<?php echo e($domains->nextPageUrl()); ?>#domain-terdaftar" class="btn-selanjutnya-img" aria-label="Selanjutnya">
+                    <img src="<?php echo e(asset('assets/images/button_selanjutnya.png')); ?>" alt="Selanjutnya" class="img-btn-selanjutnya">
                 </a>
-                @else
+                <?php else: ?>
                 <span class="btn-selanjutnya-img disabled">
-                    <img src="{{ asset('assets/images/button_selanjutnya.png') }}" alt="Selanjutnya" class="img-btn-selanjutnya" style="opacity: 0.45;">
+                    <img src="<?php echo e(asset('assets/images/button_selanjutnya.png')); ?>" alt="Selanjutnya" class="img-btn-selanjutnya" style="opacity: 0.45;">
                 </span>
-                @endif
+                <?php endif; ?>
             </div>
-            @endif
+            <?php endif; ?>
         </div>
     </section>
 
@@ -148,25 +146,25 @@
 
                 <!-- FAQ Accordion List -->
                 <div class="faq-accordion-list" id="faq-accordion-list">
-                    @forelse ($faqs as $index => $faq)
-                    <div class="faq-accordion-item" data-faq-id="{{ $faq->id_faq }}">
+                    <?php $__empty_1 = true; $__currentLoopData = $faqs; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $index => $faq): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
+                    <div class="faq-accordion-item" data-faq-id="<?php echo e($faq->id_faq); ?>">
                         <button type="button" class="faq-accordion-header" aria-expanded="false">
-                            <span class="faq-accordion-question">{{ $faq->pertanyaan }}</span>
+                            <span class="faq-accordion-question"><?php echo e($faq->pertanyaan); ?></span>
                             <svg class="faq-accordion-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
                                 <polyline points="6 9 12 15 18 9"></polyline>
                             </svg>
                         </button>
                         <div class="faq-accordion-body">
                             <div class="faq-accordion-content">
-                                <p class="faq-accordion-text">{{ $faq->jawaban }}</p>
+                                <p class="faq-accordion-text"><?php echo e($faq->jawaban); ?></p>
                             </div>
                         </div>
                     </div>
-                    @empty
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
                     <div class="faq-empty-state">
                         <p>Belum ada pertanyaan FAQ yang tersedia saat ini.</p>
                     </div>
-                    @endforelse
+                    <?php endif; ?>
                 </div>
             </div>
         </div>
@@ -180,7 +178,7 @@
         <div class="container">
             <div class="cek-status-grid">
                 <div class="cek-status-illustration">
-                        <img src="{{ asset('assets/images/logo_cekstatus.png') }}" alt="Ilustrasi Cek Status" class="img-cek-status-logo">
+                        <img src="<?php echo e(asset('assets/images/logo_cekstatus.png')); ?>" alt="Ilustrasi Cek Status" class="img-cek-status-logo">
                 </div>
 
                 <div class="cek-status-content">
@@ -270,7 +268,7 @@
                 </div>
 
                 <div class="footer-col footer-col-logo">
-                    <img src="{{ asset('assets/images/logo_diskominfotik.png') }}" alt="Logo Diskominfotik" class="footer-logo-img">
+                    <img src="<?php echo e(asset('assets/images/logo_diskominfotik.png')); ?>" alt="Logo Diskominfotik" class="footer-logo-img">
                 </div>
             </div>
 
@@ -315,7 +313,7 @@
             <div class="section-subtitle-persyaratan">
                 <h3>
                     Berkas dan Syarat yang wajib disiapkan 
-                    <img src="{{ asset('assets/icons/syarat_pengajuan.svg') }}" width="18" height="18" alt="info" class="icon-syarat-img">
+                    <img src="<?php echo e(asset('assets/icons/syarat_pengajuan.svg')); ?>" width="18" height="18" alt="info" class="icon-syarat-img">
                 </h3>
             </div>
 
@@ -323,7 +321,7 @@
                 <!-- Row 1, Col 1: Syarat 1 -->
                 <div class="req-item-block">
                     <div class="req-label-text">1. Surat Permohonan Fasilitasi Domain desa.id</div>
-                    <a href="{{ asset('documents/pengajuan/contoh-surat-permohonan.pdf') }}" download="contoh-surat-permohonan.pdf" class="btn btn-download-template" id="btn-download-permohonan">
+                    <a href="<?php echo e(asset('documents/pengajuan/contoh-surat-permohonan.pdf')); ?>" download="contoh-surat-permohonan.pdf" class="btn btn-download-template" id="btn-download-permohonan">
                         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
                             <polyline points="7 10 12 15 17 10"></polyline>
@@ -341,7 +339,7 @@
                 <!-- Row 2, Col 1: Syarat 2 -->
                 <div class="req-item-block">
                     <div class="req-label-text">2. Surat Kuasa</div>
-                    <a href="{{ route('user.download.template-surat-kuasa') }}" class="btn btn-download-template" id="btn-download-template">
+                    <a href="<?php echo e(route('user.download.template-surat-kuasa')); ?>" class="btn btn-download-template" id="btn-download-template">
                         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
                             <polyline points="7 10 12 15 17 10"></polyline>
@@ -354,7 +352,7 @@
                 <!-- Row 2, Col 2: Syarat 4 -->
                 <div class="req-item-block">
                     <div class="req-label-text">4. Surat Penunjukan Admin Website desa.id</div>
-                    <a href="{{ asset('documents/pengajuan/contoh-surat-penunjukan-admin.pdf') }}" download="contoh-surat-penunjukan-admin.pdf" class="btn btn-download-template" id="btn-download-admin">
+                    <a href="<?php echo e(asset('documents/pengajuan/contoh-surat-penunjukan-admin.pdf')); ?>" download="contoh-surat-penunjukan-admin.pdf" class="btn btn-download-template" id="btn-download-admin">
                         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
                             <polyline points="7 10 12 15 17 10"></polyline>
@@ -403,7 +401,7 @@
             </div>
 
             <form id="form-upload-berkas" onsubmit="return false;" enctype="multipart/form-data" autocomplete="off">
-                @csrf
+                <?php echo csrf_field(); ?>
                 <div class="upload-grid">
                     <div class="upload-field-card">
                         <label class="upload-label" for="file-surat-permohonan">1. Surat Permohonan Fasilitasi Domain desa.id</label>
@@ -493,7 +491,7 @@
             </div>
 
             <form id="form-upload-revisi" onsubmit="return false;" enctype="multipart/form-data" autocomplete="off">
-                @csrf
+                <?php echo csrf_field(); ?>
                 <input type="hidden" id="revisi-pengajuan-id" name="id_pengajuan" value="">
                 <div class="upload-grid">
                     <div class="upload-field-card">
@@ -915,4 +913,6 @@
         </div>
     </div>
 </div>
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layouts.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH C:\Users\User\sideka-ng\resources\views/user/beranda.blade.php ENDPATH**/ ?>

@@ -643,4 +643,54 @@ document.addEventListener('DOMContentLoaded', () => {
             }, 250);
         });
     }
+
+    // ================================================
+    // HERO SCROLL FADE-OUT / DISAPPEAR ANIMATION
+    // ================================================
+    const heroContent = document.querySelector('.hero-content');
+    const heroIllustration = document.querySelector('.hero-illustration');
+    const heroSection = document.querySelector('.hero-section');
+
+    if (heroSection && (heroContent || heroIllustration)) {
+        let isScrollTicking = false;
+
+        function updateHeroScrollAnimation() {
+            const scrollY = window.scrollY || window.pageYOffset;
+            const heroHeight = heroSection.offsetHeight || 600;
+            // Transition range as user scrolls through the hero section
+            const fadeThreshold = Math.min(heroHeight * 0.7, 450);
+            const progress = Math.min(Math.max(scrollY / fadeThreshold, 0), 1);
+
+            // Opacity: 1 at top -> 0 when scrolled past threshold
+            const opacity = Math.max(1 - progress * 1.25, 0);
+            // Translate: smoothly drifts out as it fades
+            const translateYContent = progress * -50;
+            const translateYIllustration = progress * -30;
+            const translateXIllustration = progress * 60;
+
+            if (heroContent) {
+                heroContent.style.opacity = opacity;
+                heroContent.style.transform = `translateY(${translateYContent}px)`;
+                heroContent.style.pointerEvents = opacity <= 0.05 ? 'none' : 'auto';
+            }
+
+            if (heroIllustration) {
+                heroIllustration.style.opacity = opacity;
+                heroIllustration.style.transform = `translate(${translateXIllustration}px, ${translateYIllustration}px)`;
+                heroIllustration.style.pointerEvents = opacity <= 0.05 ? 'none' : 'auto';
+            }
+
+            isScrollTicking = false;
+        }
+
+        window.addEventListener('scroll', () => {
+            if (!isScrollTicking) {
+                window.requestAnimationFrame(updateHeroScrollAnimation);
+                isScrollTicking = true;
+            }
+        }, { passive: true });
+
+        // Initial check on load in case page is refreshed while scrolled down
+        updateHeroScrollAnimation();
+    }
 });
