@@ -77,8 +77,8 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         document.querySelectorAll('#form-upload-berkas .file-name-display').forEach(display => {
             display.textContent = 'Pilih file atau drag ke sini';
-            display.style.color = '';
-            display.style.fontWeight = '';
+            display.style.color = '#ffffff';
+            display.style.fontWeight = '600';
         });
     }
 
@@ -96,45 +96,38 @@ document.addEventListener('DOMContentLoaded', () => {
         const docMap = {};
         if (currentRevisiData && currentRevisiData.dokumens && Array.isArray(currentRevisiData.dokumens)) {
             currentRevisiData.dokumens.forEach(d => {
-                docMap[d.jenis_dokumen] = d.nama_file;
+                if (d && d.jenis_dokumen && d.nama_file) {
+                    docMap[d.jenis_dokumen] = d.nama_file;
+                }
             });
         }
 
         const village = currentRevisiData?.nama_desa || 'Pasirhalang';
-        const fPermohonan = docMap['surat_permohonan'] || 'Surat_Permohonan_' + village + '.pdf';
-        const fSk = docMap['sk_kepala_desa'] || 'SK_Kades_' + village + '.pdf';
-        const fKuasa = docMap['surat_kuasa'] || 'Surat_Kuasa_' + village + '.pdf';
-        const fAdmin = docMap['surat_penunjukan_admin'] || 'Surat_Penunjukan_Admin_' + village + '.pdf';
+        const fPermohonan = (docMap['surat_permohonan'] && docMap['surat_permohonan'].trim()) || ('Surat_Permohonan_' + village + '.pdf');
+        const fSk = (docMap['sk_kepala_desa'] && docMap['sk_kepala_desa'].trim()) || ('SK_Kades_' + village + '.pdf');
+        const fKuasa = (docMap['surat_kuasa'] && docMap['surat_kuasa'].trim()) || ('Surat_Kuasa_' + village + '.pdf');
+        const fAdmin = (docMap['surat_penunjukan_admin'] && docMap['surat_penunjukan_admin'].trim()) || ('Surat_Penunjukan_Admin_' + village + '.pdf');
 
         const dPermohonan = document.getElementById('revisi-display-permohonan');
         const dSk = document.getElementById('revisi-display-sk-kades');
         const dKuasa = document.getElementById('revisi-display-surat-kuasa');
         const dAdmin = document.getElementById('revisi-display-surat-admin');
 
-        if (dPermohonan) {
-            dPermohonan.textContent = fPermohonan;
-            dPermohonan.dataset.original = fPermohonan;
-            dPermohonan.style.color = '#334155';
-            dPermohonan.style.fontWeight = '600';
-        }
-        if (dSk) {
-            dSk.textContent = fSk;
-            dSk.dataset.original = fSk;
-            dSk.style.color = '#334155';
-            dSk.style.fontWeight = '600';
-        }
-        if (dKuasa) {
-            dKuasa.textContent = fKuasa;
-            dKuasa.dataset.original = fKuasa;
-            dKuasa.style.color = '#334155';
-            dKuasa.style.fontWeight = '600';
-        }
-        if (dAdmin) {
-            dAdmin.textContent = fAdmin;
-            dAdmin.dataset.original = fAdmin;
-            dAdmin.style.color = '#334155';
-            dAdmin.style.fontWeight = '600';
-        }
+        const docItems = [
+            { el: dPermohonan, name: fPermohonan },
+            { el: dSk, name: fSk },
+            { el: dKuasa, name: fKuasa },
+            { el: dAdmin, name: fAdmin }
+        ];
+
+        docItems.forEach(item => {
+            if (item.el) {
+                item.el.textContent = item.name;
+                item.el.dataset.original = item.name;
+                item.el.style.color = '#ffffff'; // Warna putih untuk teks awal
+                item.el.style.fontWeight = '600';
+            }
+        });
 
         const hiddenId = document.getElementById('revisi-pengajuan-id');
         if (hiddenId) hiddenId.value = currentRevisiData?.id_pengajuan || '';
@@ -416,12 +409,12 @@ document.addEventListener('DOMContentLoaded', () => {
             if (display) {
                 if (input.files && input.files.length > 0) {
                     display.textContent = input.files[0].name;
-                    display.style.color = '#1e293b';
-                    display.style.fontWeight = '600';
+                    display.style.color = '#93c5fd'; // Warna biru saat sudah diunggah
+                    display.style.fontWeight = '700';
                 } else {
                     display.textContent = 'Pilih file atau drag ke sini';
-                    display.style.color = '';
-                    display.style.fontWeight = '';
+                    display.style.color = '#ffffff';
+                    display.style.fontWeight = '600';
                 }
             }
         });
@@ -436,11 +429,11 @@ document.addEventListener('DOMContentLoaded', () => {
             if (display) {
                 if (input.files && input.files.length > 0) {
                     display.textContent = input.files[0].name + ' (File Baru)';
-                    display.style.color = '#16a34a';
+                    display.style.color = '#93c5fd'; // Warna biru saat sudah diunggah
                     display.style.fontWeight = '700';
                 } else {
                     display.textContent = display.dataset.original || 'Pilih file atau drag ke sini';
-                    display.style.color = '#334155';
+                    display.style.color = '#ffffff'; // Warna putih untuk teks awal
                     display.style.fontWeight = '600';
                 }
             }
@@ -596,6 +589,14 @@ document.addEventListener('DOMContentLoaded', () => {
             const query = inputSearchDesa.value.trim();
             performCekStatusSearch(query);
         });
+
+        const searchIconCekStatus = formCekStatus.querySelector('.search-icon-navy');
+        if (searchIconCekStatus) {
+            searchIconCekStatus.addEventListener('click', () => {
+                const query = inputSearchDesa.value.trim();
+                performCekStatusSearch(query);
+            });
+        }
     }
 
     // Domain Terdaftar Real-Time Search Logic
