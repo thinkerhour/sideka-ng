@@ -58,7 +58,7 @@
                                 <td><strong><?php echo e($domain->desa->nama_desa ?? '-'); ?></strong></td>
                                 <td><?php echo e($domain->desa->kecamatan ?? '-'); ?></td>
                                 <td>
-                                    <a href="https://<?php echo e($domain->nama_domain); ?>" target="_blank" style="color: #2563eb; font-weight: 600; text-decoration: none; font-style: italic;">
+                                    <a href="https://<?php echo e($domain->nama_domain); ?>" target="_blank" style="color: #0284c7; font-weight: 600; text-decoration: none; font-style: italic;">
                                         https://<?php echo e($domain->nama_domain); ?>
 
                                     </a>

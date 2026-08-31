@@ -11,7 +11,7 @@
     <!-- Summary Metrics -->
     <div class="stats-grid" style="margin-bottom: 28px;">
         <div class="stat-card">
-            <div class="stat-icon-wrapper stat-icon-purple">📋</div>
+            <div class="stat-icon-wrapper stat-icon-sky">📋</div>
             <div class="stat-info-group">
                 <span class="stat-label">Total Permohonan</span>
                 <span class="stat-value">{{ number_format($totalPengajuan) }}</span>
@@ -113,7 +113,7 @@
 
             <div style="padding: 16px; background: #f8fafc; border-radius: 12px; border: 1px solid #e2e8f0;">
                 <div style="font-size: 12.5px; color: #64748b; font-weight: 600;">Total Desa Terdata</div>
-                <div style="font-size: 22px; font-weight: 800; color: #4338ca; margin-top: 4px;">
+                <div style="font-size: 22px; font-weight: 800; color: #0284c7; margin-top: 4px;">
                     {{ number_format($totalDesa) }} Desa
                 </div>
                 <div style="font-size: 12px; color: #94a3b8; margin-top: 2px;">Kabupaten Bandung Barat</div>
@@ -134,7 +134,9 @@
                 datasets: [{
                     label: 'Jumlah Pengajuan',
                     data: [{{ $pengajuanDiproses }}, {{ $pengajuanRevisi }}, {{ $domainBerhasil }}],
-                    backgroundColor: ['#3b82f6', '#f59e0b', '#10b981'],
+                    backgroundColor: ['#8ECAE6', '#f59e0b', '#10b981'],
+                    borderColor: ['#0284c7', '#d97706', '#059669'],
+                    borderWidth: 1.5,
                     borderRadius: 10
                 }]
             },
@@ -182,7 +184,8 @@
                 datasets: [{
                     label: 'Jumlah Desa Terdaftar',
                     data: {!! json_encode($domainYearData) !!},
-                    backgroundColor: '#6366f1',
+                    backgroundColor: '#0284c7',
+                    hoverBackgroundColor: '#8ECAE6',
                     borderRadius: 8,
                     maxBarThickness: 60
                 }]

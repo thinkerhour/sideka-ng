@@ -65,7 +65,7 @@
                                 <td><?php echo e($desa->no_telp_admin); ?></td>
                                 <td>
                                     <?php if($desa->website): ?>
-                                        <a href="<?php echo e($desa->website); ?>" target="_blank" style="color: #2563eb; text-decoration: none; font-size: 13px;">
+                                        <a href="<?php echo e($desa->website); ?>" target="_blank" style="color: #0284c7; text-decoration: none; font-size: 13px; font-weight: 500;">
                                             <?php echo e($desa->website); ?>
 
                                         </a>

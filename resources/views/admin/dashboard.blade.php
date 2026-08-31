@@ -12,7 +12,7 @@
     <div class="stats-grid">
         <!-- 1. Total Pengajuan -->
         <div class="stat-card">
-            <div class="stat-icon-wrapper stat-icon-purple">
+            <div class="stat-icon-wrapper stat-icon-sky">
                 📋
             </div>
             <div class="stat-info-group">
@@ -72,7 +72,7 @@
         <div class="admin-card" style="margin-bottom: 0;">
             <div class="chart-card-header">
                 <h2 class="chart-card-title">Grafik Status Pengajuan</h2>
-                <a href="{{ route('admin.grafik') }}" style="font-size: 12.5px; color: #2563eb; font-weight: 600; text-decoration: none;">Lihat Detail →</a>
+                <a href="{{ route('admin.grafik') }}" style="font-size: 12.5px; color: #0284c7; font-weight: 600; text-decoration: none;">Lihat Detail →</a>
             </div>
             <div style="height: 260px; position: relative;">
                 <canvas id="statusChart"></canvas>
@@ -83,7 +83,7 @@
         <div class="admin-card" style="margin-bottom: 0;">
             <div class="chart-card-header">
                 <h2 class="chart-card-title">Perbandingan Desa Berdomain desa.id</h2>
-                <a href="{{ route('admin.grafik') }}" style="font-size: 12.5px; color: #2563eb; font-weight: 600; text-decoration: none;">Lihat Detail →</a>
+                <a href="{{ route('admin.grafik') }}" style="font-size: 12.5px; color: #0284c7; font-weight: 600; text-decoration: none;">Lihat Detail →</a>
             </div>
             <div style="height: 260px; position: relative;">
                 <canvas id="domainDesaChart"></canvas>
@@ -158,7 +158,9 @@
                 datasets: [{
                     label: 'Jumlah Pengajuan',
                     data: [{{ $pengajuanDiproses }}, {{ $pengajuanRevisi }}, {{ $domainBerhasil }}],
-                    backgroundColor: ['#3b82f6', '#f59e0b', '#10b981'],
+                    backgroundColor: ['#8ECAE6', '#f59e0b', '#10b981'],
+                    borderColor: ['#0284c7', '#d97706', '#059669'],
+                    borderWidth: 1.5,
                     borderRadius: 8
                 }]
             },
@@ -182,8 +184,9 @@
                 labels: ['Desa Memiliki Domain', 'Desa Belum Memiliki Domain'],
                 datasets: [{
                     data: [{{ $totalDomain }}, {{ max(0, $totalDesa - $totalDomain) }}],
-                    backgroundColor: ['#10b981', '#cbd5e1'],
-                    borderWidth: 0
+                    backgroundColor: ['#0284c7', '#e0f2fe'],
+                    borderColor: ['#0284c7', '#8ECAE6'],
+                    borderWidth: 1
                 }]
             },
             options: {

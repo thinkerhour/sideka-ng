@@ -13,7 +13,7 @@
                 <a href="{{ url('/') }}" class="brand-link">
                     <img src="{{ asset('assets/images/logo_diskominfotik.png') }}" alt="Logo Diskominfotik" class="brand-logo-img">
                     <div class="brand-text">
-                        <span class="brand-title">DISKOMINFOTIK</span>
+                        <span class="brand-title">DISKOMINFOSANTIK</span>
                         <span class="brand-subtitle">KABUPATEN BANDUNG BARAT</span>
                     </div>
                 </a>

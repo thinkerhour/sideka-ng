@@ -5,15 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Admin - SIDeKa-NG</title>
     <!-- Admin CSS -->
-    <link rel="stylesheet" href="{{ asset('css/admin.css') }}?v={{ time() }}">
+    <link rel="stylesheet" href="<?php echo e(asset('css/admin.css')); ?>?v=<?php echo e(time()); ?>">
 </head>
 <body class="login-body">
 
     <div class="login-card">
         <!-- Bagian Kiri: Ilustrasi & Pattern Geometris Biru -->
-        <div class="login-left" style="background-image: url('{{ asset('assets/images/bg_admin.png') }}?v={{ time() }}'); background-size: cover; background-position: center center;">
+        <div class="login-left" style="background-image: url('<?php echo e(asset('assets/images/bg_admin.png')); ?>?v=<?php echo e(time()); ?>'); background-size: cover; background-position: center center;">
             <div class="login-illustration-container">
-                <img src="{{ asset('assets/images/logo_admin.png') }}" alt="Ilustrasi Admin" class="img-admin-illustration">
+                <img src="<?php echo e(asset('assets/images/logo_admin.png')); ?>" alt="Ilustrasi Admin" class="img-admin-illustration">
             </div>
         </div>
 
@@ -21,7 +21,7 @@
         <div class="login-right">
             <div class="login-header-group">
                 <!-- Logo Diskominfotik -->
-                <img src="{{ asset('assets/images/logo_diskominfotik.png') }}" alt="DISKOMINFOTIK KABUPATEN BANDUNG BARAT" class="login-logo-img">
+                <img src="<?php echo e(asset('assets/images/logo_diskominfotik.png')); ?>" alt="DISKOMINFOTIK KABUPATEN BANDUNG BARAT" class="login-logo-img">
 
                 <h1 class="login-title">Selamat Datang,</h1>
                 <p class="login-subtitle">
@@ -30,30 +30,32 @@
             </div>
 
             <!-- Error Alerts -->
-            @if(session('error'))
+            <?php if(session('error')): ?>
                 <div class="login-alert-error">
-                    {{ session('error') }}
-                </div>
-            @endif
+                    <?php echo e(session('error')); ?>
 
-            @if(session('success'))
+                </div>
+            <?php endif; ?>
+
+            <?php if(session('success')): ?>
                 <div class="login-alert-success">
-                    {{ session('success') }}
-                </div>
-            @endif
+                    <?php echo e(session('success')); ?>
 
-            @if($errors->any())
+                </div>
+            <?php endif; ?>
+
+            <?php if($errors->any()): ?>
                 <div class="login-alert-error">
                     <ul style="margin-left: 18px; margin-bottom: 0;">
-                        @foreach($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
+                        <?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            <li><?php echo e($error); ?></li>
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     </ul>
                 </div>
-            @endif
+            <?php endif; ?>
 
-            <form class="login-form" action="{{ route('admin.login.submit') }}" method="POST">
-                @csrf
+            <form class="login-form" action="<?php echo e(route('admin.login.submit')); ?>" method="POST">
+                <?php echo csrf_field(); ?>
 
                 <!-- Field Username -->
                 <div class="form-group-custom">
@@ -66,7 +68,7 @@
                            name="username" 
                            class="form-input-pill" 
                            placeholder="Username..." 
-                           value="{{ old('username') }}" 
+                           value="<?php echo e(old('username')); ?>" 
                            required 
                            autofocus>
                 </div>
@@ -88,7 +90,7 @@
                 <!-- Submit Button -->
                 <div class="login-btn-wrapper">
                     <button type="submit" class="btn-masuk-img" aria-label="Masuk" style="background: transparent; border: none; outline: none; box-shadow: none; padding: 0; cursor: pointer; display: inline-flex;">
-                        <img src="{{ asset('assets/images/button_masuk.png') }}" alt="Masuk" class="img-btn-masuk" style="display: block; height: 34px; width: auto; border: none; outline: none;">
+                        <img src="<?php echo e(asset('assets/images/button_masuk.png')); ?>" alt="Masuk" class="img-btn-masuk" style="display: block; height: 34px; width: auto; border: none; outline: none;">
                     </button>
                 </div>
             </form>
@@ -97,3 +99,4 @@
 
 </body>
 </html>
+<?php /**PATH C:\Users\User\sideka-ng\resources\views/admin/auth/login.blade.php ENDPATH**/ ?>

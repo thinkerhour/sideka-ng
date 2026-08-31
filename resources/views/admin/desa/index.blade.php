@@ -67,7 +67,7 @@
                                 <td>{{ $desa->no_telp_admin }}</td>
                                 <td>
                                     @if($desa->website)
-                                        <a href="{{ $desa->website }}" target="_blank" style="color: #2563eb; text-decoration: none; font-size: 13px;">
+                                        <a href="{{ $desa->website }}" target="_blank" style="color: #0284c7; text-decoration: none; font-size: 13px; font-weight: 500;">
                                             {{ $desa->website }}
                                         </a>
                                     @else

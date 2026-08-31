@@ -31,7 +31,7 @@
 
         <!-- Sidebar Header / Brand -->
         <div class="sidebar-header">
-            <img src="<?php echo e(asset('assets/images/logo_diskominfotik.png')); ?>" alt="Logo Diskominfotik" class="sidebar-logo-img">
+            <img src="<?php echo e(asset('assets/images/logo_beranda.png')); ?>" alt="Logo SIDEKA-NG" class="sidebar-logo-img">
             <div class="sidebar-brand-text">
                 <span class="sidebar-brand-title">Dashboard Admin</span>
                 <span class="sidebar-brand-name">SIDEKA-NG</span>
@@ -151,8 +151,8 @@
                         <div class="header-profile-name" style="font-size: 14px; font-weight: 700; color: #ffffff; line-height: 1.2; white-space: nowrap;"><?php echo e(Auth::user()->name ?? 'Administrator'); ?></div>
                         <div class="header-profile-role" style="font-size: 11.5px; color: #cbd5e1; white-space: nowrap;">Kabupaten Bandung Barat</div>
                     </div>
-                    <div class="header-avatar" style="width: 42px; height: 42px; border-radius: 50%; background: #cbd5e1; display: flex; align-items: center; justify-content: center; color: #475569;">
-                        <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div class="header-avatar" style="width: 42px; height: 42px; border-radius: 50%; background: #17547d; border: 2px solid #8ECAE6; display: flex; align-items: center; justify-content: center; color: #ffffff;">
+                        <svg width="22" height="22" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
                         </svg>
                     </div>
@@ -215,7 +215,7 @@
         </div>
         <div class="modal-admin-footer" style="display: flex; justify-content: flex-end;">
             <?php if($pendingCount > 0): ?>
-                <a href="<?php echo e(route('admin.pengajuan.index', ['status' => 'Diproses'])); ?>" class="btn-action-primary" style="display: inline-flex; align-items: center; justify-content: center; gap: 8px; width: 100%; text-decoration: none; padding: 12px 20px; background: #2563eb; color: #ffffff; border-radius: 8px; font-weight: 700; font-size: 14px;">
+                <a href="<?php echo e(route('admin.pengajuan.index', ['status' => 'Diproses'])); ?>" class="btn-action-primary" style="display: inline-flex; align-items: center; justify-content: center; gap: 8px; width: 100%; text-decoration: none; padding: 12px 20px; background: #0284c7; color: #ffffff; border-radius: 8px; font-weight: 700; font-size: 14px;">
                     Lihat Data Pengajuan &rarr;
                 </a>
             <?php else: ?>
